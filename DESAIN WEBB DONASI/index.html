@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JiwaPeduli - Tanggap Bencana & Donasi Kemanusiaan Indonesia</title>
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+    <script>
+      (function () {
+        var theme = localStorage.getItem("jp_theme");
+        if (theme === "dark") document.documentElement.setAttribute("data-theme", "dark");
+      })();
+    </script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <!-- Urgency Ticker -->
+    <div class="urgency-ticker" style="margin-top: -76px; position: relative; z-index: 1030">
+      <div class="ticker-content" id="tickerContent">
+        <div class="ticker-item"><i class="fas fa-bullhorn text-warning"></i> 🔥 DARURAT: Bantuan Logistik & Dapur Umum Banjir Bandar Lampung Dibutuhkan Segera!</div>
+        <div class="ticker-item"><i class="fas fa-heart text-danger"></i> 💛 15.820+ Donatur & Relawan JiwaPeduli telah bersatu membantu sesama!</div>
+        <div class="ticker-item"><i class="fas fa-truck-medical text-info"></i> 🚑 Aksi Siaga Bencana Nasional bergerak dari Sumatera hingga pelosok Nusantara!</div>
+        <div class="ticker-item"><i class="fas fa-bullhorn text-warning"></i> 🔥 DARURAT: Bantuan Logistik & Dapur Umum Banjir Bandar Lampung Dibutuhkan Segera!</div>
+        <div class="ticker-item"><i class="fas fa-heart text-danger"></i> 💛 15.820+ Donatur & Relawan JiwaPeduli telah bersatu membantu sesama!</div>
+      </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand d-flex align-items-center gap-2" href="index.HTML">
+          <i class="fas fa-hand-holding-heart fa-lg text-danger"></i>
+          <div>
+            <span class="fw-bold fs-4">JIWA</span><span class="brand-highlight fs-4">PEDULI</span>
+            <small class="d-block text-white-50" style="font-size: 0.65rem; letter-spacing: 1px; margin-top: -4px">SATU JIWA SEJUTA HARAPAN</small>
+          </div>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto align-items-lg-center">
+            <li class="nav-item">
+              <a class="nav-link active" href="index.HTML">Beranda</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="bencana.HTML"><span class="badge bg-danger me-1">Darurat</span> Tanggap Bencana</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="donasi.HTML">Salurkan Donasi</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="relawan.HTML">Gabung Relawan</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="riwayat.HTML">Transparansi Dana</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-warning fw-semibold" href="lapor-bencana.HTML"><i class="fas fa-bullhorn me-1"></i> Lapor Bencana</a>
+            </li>
+            <li class="nav-item ms-lg-2">
+              <button class="btn btn-sm theme-toggle-btn rounded-pill px-3 py-1" type="button" title="Ganti Mode Gelap / Terang"><i class="fas fa-moon me-1 theme-icon"></i> <span class="theme-text">Gelap</span></button>
+            </li>
+            <li class="nav-item ms-lg-2">
+              <a class="btn btn-sm btn-outline-light px-3 py-1 rounded-pill" href="loginadmin.HTML"><i class="fas fa-shield-halved me-1"></i> Admin</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <!-- Floating Particles -->
+      <div class="particle particle-1"></div>
+      <div class="particle particle-2"></div>
+      <div class="particle particle-3"></div>
+      <div class="particle particle-4"></div>
+      <div class="particle particle-5"></div>
+
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-6">
+            <div class="hero-badge">
+              <i class="fas fa-users-rays text-warning"></i>
+              <span>Gerakan Sosial & Kemanusiaan Nyata</span>
+            </div>
+            <h1 class="display-4 fw-bold mb-3">
+              <span class="text-gradient">Satu Jiwa Peduli,</span><br />
+              <span class="text-gradient-2">Sejuta Senyum Negeri</span>
+            </h1>
+            <p class="lead mb-4 text-light" style="opacity: 0.95">
+              Platform terpadu untuk merespon bencana alam, membuka donasi transparan, dan menggerakkan relawan langsung ke tengah masyarakat. Dari Bandar Lampung, Sumatera, hingga ke seluruh penjuru Nusantara—karena setiap jiwa berhak
+              mendapatkan pertolongan.
+            </p>
+            <div class="d-flex flex-wrap gap-3 hero-buttons">
+              <a href="donasi.HTML" class="btn-donate px-4 py-3 rounded-pill fw-bold text-decoration-none"> <i class="fas fa-hand-holding-heart me-2"></i>Berdonasi Sekarang </a>
+              <a href="bencana.HTML" class="btn btn-outline-light px-4 py-3 rounded-pill fw-semibold text-decoration-none"> <i class="fas fa-location-dot me-2 text-danger"></i>Pantau Bencana Aktif </a>
+              <a href="lapor-bencana.HTML" class="btn btn-warning px-4 py-3 rounded-pill fw-bold text-dark text-decoration-none"> <i class="fas fa-bullhorn me-2"></i>Lapor Kejadian </a>
+            </div>
+            <div class="hero-stats mt-5">
+              <div class="row">
+                <div class="col-4">
+                  <div class="stat-item">
+                    <h3 class="fw-bold">Rp 6,4M+</h3>
+                    <p>Donasi Disalurkan</p>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="stat-item">
+                    <h3 class="fw-bold">15.820+</h3>
+                    <p>Jiwa Tertolong</p>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="stat-item">
+                    <h3 class="fw-bold">1.450+</h3>
+                    <p>Relawan Siaga</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 d-none d-lg-block">
+            <div class="hero-image-container">
+              <div class="hero-main-image shadow-lg rounded-4 overflow-hidden border border-3 border-light border-opacity-25">
+                <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Aksi Kemanusiaan JiwaPeduli" class="img-fluid" />
+              </div>
+              <div class="floating-card card-1 shadow">
+                <div class="floating-icon bg-danger text-white">
+                  <i class="fas fa-life-ring"></i>
+                </div>
+                <div>
+                  <h6 class="mb-0 fw-bold">Tanggap 24 Jam</h6>
+                  <small class="text-muted">Siaga Evakuasi & Medis</small>
+                </div>
+              </div>
+              <div class="floating-card card-2 shadow">
+                <div class="floating-icon bg-warning text-dark">
+                  <i class="fas fa-truck-ramp-box"></i>
+                </div>
+                <div>
+                  <h6 class="mb-0 fw-bold">Dapur Umum & Logistik</h6>
+                  <small class="text-muted">Distribusi Langsung Warga</small>
+                </div>
+              </div>
+              <div class="floating-card card-3 shadow">
+                <div class="floating-icon bg-success text-white">
+                  <i class="fas fa-certificate"></i>
+                </div>
+                <div>
+                  <h6 class="mb-0 fw-bold">100% Transparan</h6>
+                  <small class="text-muted">Laporan Real-Time</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Wave Divider -->
+      <div class="wave-divider">
+        <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+          <path class="wave-fill" d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"></path>
+        </svg>
+      </div>
+    </section>
+
+    <!-- SECTION: TANGGAP BENCANA TERKINI -->
+    <section class="py-5 bg-white-section" id="bencana-aktif">
+      <div class="container">
+        <div class="d-flex flex-wrap justify-content-between align-items-end mb-4">
+          <div>
+            <span class="badge-emergency mb-2"><i class="fas fa-satellite-dish"></i> STATUS SIAGA NASIONAL</span>
+            <h2 class="section-title mb-1">Tanggap Darurat <span class="highlight">Bencana Terkini</span></h2>
+            <p class="section-subtitle mb-0">Bantuan mendesak yang membutuhkan uluran tangan Anda saat ini</p>
+          </div>
+          <a href="bencana.HTML" class="btn btn-outline-danger rounded-pill px-4 mt-3 mt-md-0 fw-bold"> Lihat Semua Titik Bencana <i class="fas fa-arrow-right ms-1"></i> </a>
+        </div>
+
+        <div class="row g-4">
+          <!-- Bencana 1: Bandar Lampung -->
+          <div class="col-md-6 col-lg-4">
+            <div class="disaster-card h-100 shadow-sm d-flex flex-column">
+              <div class="disaster-img-wrap">
+                <img src="img/banjir-lampung.jpg" alt="Banjir Bandang Lampung" />
+                <span class="disaster-location-tag"><i class="fas fa-map-pin text-danger me-1"></i> Bandar Lampung & Sekitarnya</span>
+              </div>
+              <div class="card-body p-4 d-flex flex-column flex-grow-1">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <span class="badge bg-danger">Status: Darurat</span>
+                  <small class="text-muted"><i class="fas fa-users me-1"></i> 3.200 Jiwa Mengungsi</small>
+                </div>
+                <h5 class="fw-bold mb-2">Bantuan Banjir Bandang & Dapur Umum Lampung</h5>
+                <p class="text-muted small mb-3">Warga membutuhkan bantuan makanan siap santap, popok bayi, perahu karet, dan air mineral higienis.</p>
+                <div class="mt-auto">
+                  <div class="d-flex justify-content-between small fw-bold mb-1">
+                    <span>Terkumpul: Rp 215.400.000</span>
+                    <span class="text-danger">71%</span>
+                  </div>
+                  <div class="progress mb-3" style="height: 8px">
+                    <div class="progress-bar bg-danger" style="width: 71%"></div>
+                  </div>
+                  <a href="donasi.HTML?program=lampung" class="btn btn-donate w-100 rounded-pill py-2 text-decoration-none text-center"> <i class="fas fa-heart me-1"></i> Bantu Sekarang </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bencana 2: Sumatera Barat -->
+          <div class="col-md-6 col-lg-4">
+            <div class="disaster-card h-100 shadow-sm d-flex flex-column">
+              <div class="disaster-img-wrap">
+                <img src="img/gempa-sumbar.jpg" alt="Posko Darurat Gempa Pasaman" />
+                <span class="disaster-location-tag"><i class="fas fa-map-pin text-danger me-1"></i> Pasaman & Padang, Sumbar</span>
+              </div>
+              <div class="card-body p-4 d-flex flex-column flex-grow-1">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <span class="badge bg-warning text-dark">Status: Pemulihan Cepat</span>
+                  <small class="text-muted"><i class="fas fa-users me-1"></i> 1.850 Keluarga</small>
+                </div>
+                <h5 class="fw-bold mb-2">Posko Medis & Terpal Darurat Gempa</h5>
+                <p class="text-muted small mb-3">Penyediaan tenda darurat keluarga, obat-obatan, serta pendampingan psikososial trauma healing bagi anak-anak.</p>
+                <div class="mt-auto">
+                  <div class="d-flex justify-content-between small fw-bold mb-1">
+                    <span>Terkumpul: Rp 340.200.000</span>
+                    <span class="text-success">85%</span>
+                  </div>
+                  <div class="progress mb-3" style="height: 8px">
+                    <div class="progress-bar bg-success" style="width: 85%"></div>
+                  </div>
+                  <a href="donasi.HTML?program=gempa" class="btn btn-donate w-100 rounded-pill py-2 text-decoration-none text-center"> <i class="fas fa-heart me-1"></i> Bantu Sekarang </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bencana 3: Jawa Barat & Luar Pulau -->
+          <div class="col-md-6 col-lg-4">
+            <div class="disaster-card h-100 shadow-sm d-flex flex-column">
+              <div class="disaster-img-wrap">
+                <img src="img/longsor-sukabumi.jpg" alt="Bencana Tanah Longsor Sukabumi" />
+                <span class="disaster-location-tag"><i class="fas fa-map-pin text-danger me-1"></i> Sukabumi & Wilayah Nasional</span>
+              </div>
+              <div class="card-body p-4 d-flex flex-column flex-grow-1">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <span class="badge bg-info text-dark">Status: Siaga Respon</span>
+                  <small class="text-muted"><i class="fas fa-users me-1"></i> 950 Jiwa</small>
+                </div>
+                <h5 class="fw-bold mb-2">Logistik Siaga Bencana Tanah Longsor</h5>
+                <p class="text-muted small mb-3">Evakuasi daerah rawan retakan lereng dan pembangunan jembatan darurat penghubung desa terisolir.</p>
+                <div class="mt-auto">
+                  <div class="d-flex justify-content-between small fw-bold mb-1">
+                    <span>Terkumpul: Rp 120.000.000</span>
+                    <span class="text-warning">60%</span>
+                  </div>
+                  <div class="progress mb-3" style="height: 8px">
+                    <div class="progress-bar bg-warning" style="width: 60%"></div>
+                  </div>
+                  <a href="donasi.HTML?program=longsor" class="btn btn-donate w-100 rounded-pill py-2 text-decoration-none text-center"> <i class="fas fa-heart me-1"></i> Bantu Sekarang </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: JANGKAUAN BANTUAN DI SELURUH INDONESIA -->
+    <section class="py-5 bg-section">
+      <div class="container">
+        <div class="text-center mb-5">
+          <div class="section-badge"><i class="fas fa-globe-asia text-primary"></i> Solidaritas Sabang Sampai Merauke</div>
+          <h2 class="section-title">JiwaPeduli <span class="highlight">Untuk Seluruh Indonesia</span></h2>
+          <p class="section-subtitle">Fokus kami bergerak cepat di mana pun musibah terjadi, merangkul semua saudara tanpa batasan wilayah</p>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-md-4 col-sm-6">
+            <div class="region-badge-card">
+              <h5 class="fw-bold text-dark"><i class="fas fa-map-location-dot text-danger me-2"></i> Sumatera</h5>
+              <p class="small text-muted mb-2">Pos Siaga: Lampung, Padang, Aceh, Medan</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="badge bg-light text-dark border">58 Aksi Lapangan</span>
+                <span class="text-success fw-bold small"><i class="fas fa-check-circle"></i> Tim Siaga Aktif</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-6">
+            <div class="region-badge-card">
+              <h5 class="fw-bold text-dark"><i class="fas fa-map-location-dot text-danger me-2"></i> Jawa</h5>
+              <p class="small text-muted mb-2">Pos Siaga: Jabar, Jateng, Jatim, Banten</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="badge bg-light text-dark border">42 Aksi Lapangan</span>
+                <span class="text-success fw-bold small"><i class="fas fa-check-circle"></i> Tim Siaga Aktif</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-6">
+            <div class="region-badge-card">
+              <h5 class="fw-bold text-dark"><i class="fas fa-map-location-dot text-danger me-2"></i> Kalimantan</h5>
+              <p class="small text-muted mb-2">Pos Siaga: Pontianak, Banjarmasin, Samarinda</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="badge bg-light text-dark border">26 Aksi Lapangan</span>
+                <span class="text-success fw-bold small"><i class="fas fa-check-circle"></i> Tim Siaga Aktif</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-6">
+            <div class="region-badge-card">
+              <h5 class="fw-bold text-dark"><i class="fas fa-map-location-dot text-danger me-2"></i> Sulawesi</h5>
+              <p class="small text-muted mb-2">Pos Siaga: Palu, Makassar, Manado</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="badge bg-light text-dark border">31 Aksi Lapangan</span>
+                <span class="text-success fw-bold small"><i class="fas fa-check-circle"></i> Tim Siaga Aktif</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-6">
+            <div class="region-badge-card">
+              <h5 class="fw-bold text-dark"><i class="fas fa-map-location-dot text-danger me-2"></i> Bali & Nusa Tenggara</h5>
+              <p class="small text-muted mb-2">Pos Siaga: Mataram, Flores, Kupang</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="badge bg-light text-dark border">19 Aksi Lapangan</span>
+                <span class="text-success fw-bold small"><i class="fas fa-check-circle"></i> Tim Siaga Aktif</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-6">
+            <div class="region-badge-card">
+              <h5 class="fw-bold text-dark"><i class="fas fa-map-location-dot text-danger me-2"></i> Maluku & Papua</h5>
+              <p class="small text-muted mb-2">Pos Siaga: Ambon, Jayapura, Sorong</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="badge bg-light text-dark border">15 Aksi Lapangan</span>
+                <span class="text-success fw-bold small"><i class="fas fa-check-circle"></i> Tim Siaga Aktif</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: GERAKAN RELAWAN TURUN KE MASYARAKAT -->
+    <section class="py-5 bg-white-section" id="relawan">
+      <div class="container">
+        <div class="volunteer-feature-box shadow">
+          <div class="row align-items-center">
+            <div class="col-lg-8">
+              <span class="badge bg-warning text-dark px-3 py-2 rounded-pill fw-bold mb-3"> <i class="fas fa-hands-holding-child me-1"></i> Aksi Nyata Di Lapangan </span>
+              <h2 class="display-6 fw-bold mb-3">Ingin Terjun Langsung Membantu Korban Bencana?</h2>
+              <p class="lead mb-4 text-white-50">
+                JiwaPeduli membuka kesempatan bagi mahasiswa, pemuda, tenaga medis, dan masyarakat umum untuk bergabung menjadi Relawan Siaga Bencana. Kami mengadakan pelatihan keselamatan, dapur umum, dan distribusi langsung ke tenda-tenda
+                warga terdampak.
+              </p>
+              <div class="d-flex flex-wrap gap-3">
+                <a href="relawan.HTML" class="btn btn-warning px-4 py-3 rounded-pill fw-bold text-dark text-decoration-none"> <i class="fas fa-user-plus me-2"></i>Daftar Relawan Lapangan </a>
+                <a href="jadwal.HTML" class="btn btn-outline-light px-4 py-3 rounded-pill fw-semibold text-decoration-none"> <i class="fas fa-calendar-check me-2"></i>Lihat Jadwal Aksi Sosial </a>
+              </div>
+            </div>
+            <div class="col-lg-4 d-none d-lg-block text-center">
+              <div class="p-3 bg-white bg-opacity-10 rounded-4 border border-light border-opacity-25">
+                <i class="fas fa-people-group fa-4x text-warning mb-3"></i>
+                <h4 class="fw-bold text-white mb-1">1.450+ Relawan</h4>
+                <p class="text-white-50 small mb-0">Tergabung dalam 38 Korwil Provinsi Siaga Tanggap Darurat</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATISTIK DAMPAK -->
+    <section class="py-5 stats-section" id="transparansiSection">
+      <div class="container">
+        <div class="text-center mb-5">
+          <div class="hero-badge mx-auto mb-3"><i class="fas fa-chart-pie text-warning"></i> <span>Audit Publik & Akuntabilitas 100%</span></div>
+          <h2 class="display-5 fw-bold text-white mb-3">Transparansi <span class="text-gold">Dampak Sosial</span></h2>
+          <p class="lead text-white max-w-700 mx-auto" style="opacity: 0.9; max-width: 720px">
+            Setiap rupiah yang Anda percayakan dipertanggungjawabkan secara terbuka, terukur, dan disalurkan tepat sasaran langsung ke tenda-tenda korban bencana.
+          </p>
+        </div>
+
+        <!-- 4 Kartu Metrik Utama -->
+        <div class="row g-4 text-center justify-content-center mb-5">
+          <div class="col-lg-3 col-md-6 col-6">
+            <div class="stat-card h-100">
+              <div class="stat-icon">
+                <i class="fas fa-truck-droplet"></i>
+              </div>
+              <h3 class="counter" data-target="184">184</h3>
+              <p>Truk Bantuan Logistik Terkirim</p>
+              <small class="text-white-50 mt-2 d-block" style="font-size: 0.75rem"><i class="fas fa-check text-success me-1"></i>Sumatera & Jawa</small>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 col-6">
+            <div class="stat-card h-100">
+              <div class="stat-icon">
+                <i class="fas fa-tents"></i>
+              </div>
+              <h3 class="counter" data-target="320">320</h3>
+              <p>Tenda & Hunian Darurat</p>
+              <small class="text-white-50 mt-2 d-block" style="font-size: 0.75rem"><i class="fas fa-check text-success me-1"></i>Tahan Cuaca & Badai</small>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 col-6">
+            <div class="stat-card h-100">
+              <div class="stat-icon">
+                <i class="fas fa-stethoscope"></i>
+              </div>
+              <h3 class="counter" data-target="14500">14500</h3>
+              <p>Warga Mendapat Layanan Medis</p>
+              <small class="text-white-50 mt-2 d-block" style="font-size: 0.75rem"><i class="fas fa-check text-success me-1"></i>Lansia, Balita & Ibu Hamil</small>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 col-6">
+            <div class="stat-card h-100">
+              <div class="stat-icon">
+                <i class="fas fa-kitchen-set"></i>
+              </div>
+              <h3 class="counter" data-target="65000">65000</h3>
+              <p>Porsi Makanan Dapur Umum</p>
+              <small class="text-white-50 mt-2 d-block" style="font-size: 0.75rem"><i class="fas fa-check text-success me-1"></i>Higienis & Bergizi 24 Jam</small>
+            </div>
+          </div>
+        </div>
+
+        <!-- Box Visual Transparansi Alokasi Penyaluran (Memperpadat & Menyeimbangkan Area Tengah) -->
+        <div class="row justify-content-center">
+          <div class="col-lg-10">
+            <div class="p-4 rounded-4" style="background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.16)">
+              <div class="row align-items-center g-3">
+                <div class="col-md-5">
+                  <h5 class="text-white fw-bold mb-1"><i class="fas fa-scale-balanced text-warning me-2"></i>Komitmen Alokasi Dana</h5>
+                  <p class="text-white-50 small mb-0">Dipantau langsung oleh tim auditor independen dan dipublikasikan real-time.</p>
+                </div>
+                <div class="col-md-7">
+                  <div class="d-flex justify-content-between small text-white mb-2 fw-semibold">
+                    <span><i class="fas fa-circle text-danger me-1" style="font-size: 10px"></i>80% Logistik & Dapur</span>
+                    <span><i class="fas fa-circle text-success me-1" style="font-size: 10px"></i>12% Medis & Sanitasi</span>
+                    <span><i class="fas fa-circle text-warning me-1" style="font-size: 10px"></i>8% Operasional</span>
+                  </div>
+                  <div class="progress" style="height: 12px; background: rgba(255, 255, 255, 0.15); border-radius: 20px">
+                    <div class="progress-bar bg-danger" style="width: 80%"></div>
+                    <div class="progress-bar bg-success" style="width: 12%"></div>
+                    <div class="progress-bar bg-warning" style="width: 8%"></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Tombol Aksi di Bawah Alokasi -->
+              <div class="d-flex flex-wrap align-items-center justify-content-center gap-3 pt-3 mt-3 border-top border-secondary border-opacity-25">
+                <a href="riwayat.HTML" class="btn btn-warning px-4 py-2 rounded-pill fw-bold text-dark text-decoration-none shadow-sm"> <i class="fas fa-file-invoice-dollar me-2"></i>Cek Audit Dana Publik </a>
+                <a href="https://wa.me/6282382262838?text=Halo%20JiwaPeduli%20Saya%20Ingin%20Bertanya%20Tentang%20Penyaluran%20Donasi" target="_blank" class="btn btn-outline-light px-4 py-2 rounded-pill fw-semibold text-decoration-none">
+                  <i class="fab fa-whatsapp text-success me-2"></i>Konsultasi via WhatsApp (0823-8226-2838)
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LIVE DONASI & FEED REALTIME -->
+    <section class="py-5 bg-white-section">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-5 mb-4 mb-lg-0">
+            <div class="section-badge"><span class="live-dot"></span> Live Transparansi</div>
+            <h2 class="section-title fw-bold mb-3">
+              Aliran Kebaikan <br class="d-none d-sm-inline" />
+              <span class="highlight text-nowrap">Real-Time</span>
+            </h2>
+            <p class="text-muted mb-4">Masyarakat dari Sabang sampai Merauke terus bergerak mengulurkan tangan. Setiap donasi yang masuk tercatat otomatis.</p>
+            <div class="d-flex gap-2">
+              <a href="donasi.HTML" class="btn-donate px-4 py-2 rounded-pill text-decoration-none"> <i class="fas fa-donate me-1"></i> Ikut Berdonasi </a>
+              <a href="riwayat.HTML" class="btn btn-outline-secondary px-4 py-2 rounded-pill text-decoration-none"> <i class="fas fa-file-invoice me-1"></i> Audit Lengkap </a>
+            </div>
+          </div>
+          <div class="col-lg-7">
+            <div class="donation-feed" id="donationFeed">
+              <!-- Terisi otomatis oleh script.js -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA & COUNTDOWN -->
+    <section class="py-5 cta-section text-white">
+      <div class="container text-center">
+        <h2 class="display-5 fw-bold mb-3">Waktu Sangat Berharga Bagi Pengungsi,<br />Mari <span class="text-gold">Bantu Mereka Hari Ini</span></h2>
+        <p class="lead mb-2" style="opacity: 0.85">Aksi penanganan darurat periode ini berjalan dalam:</p>
+
+        <div class="countdown-box" id="countdown">
+          <div class="countdown-item">
+            <span class="number" id="days">00</span>
+            <span class="label">Hari</span>
+          </div>
+          <div class="countdown-item">
+            <span class="number" id="hours">00</span>
+            <span class="label">Jam</span>
+          </div>
+          <div class="countdown-item">
+            <span class="number" id="minutes">00</span>
+            <span class="label">Menit</span>
+          </div>
+          <div class="countdown-item">
+            <span class="number" id="seconds">00</span>
+            <span class="label">Detik</span>
+          </div>
+        </div>
+
+        <p class="mb-4" style="opacity: 0.75">Bantuan kecil Anda menyelamatkan harapan hidup satu keluarga.</p>
+
+        <a href="donasi.HTML" class="btn-cta text-decoration-none px-5 py-3 rounded-pill fw-bold"> <i class="fas fa-heart me-2"></i>Salurkan Donasi Kemanusiaan </a>
+      </div>
+    </section>
+
+    <!-- KOMITMEN SUSTAINABLE DEVELOPMENT GOALS (SDGs) -->
+    <section class="py-5 sdg-section" id="sdgSection">
+      <div class="container">
+        <div class="text-center mb-5">
+          <div class="section-badge"><i class="fas fa-globe-asia text-primary"></i> Komitmen Pembangunan Berkelanjutan (SDGs)</div>
+          <h2 class="section-title fw-bold">
+            Kontribusi Nyata JiwaPeduli untuk <br class="d-none d-sm-inline" />
+            <span class="highlight">Agenda SDGs 2030</span>
+          </h2>
+          <p class="section-subtitle">
+            Aksi tanggap darurat, dapur umum, dan pemulihan pengungsi yang dijalankan JiwaPeduli secara langsung mendukung
+            <strong>6 Tujuan Pembangunan Berkelanjutan (SDGs) PBB</strong> demi mewujudkan Indonesia yang tangguh bencana.
+          </p>
+        </div>
+
+        <div class="row g-4">
+          <!-- SDG 1: Tanpa Kemiskinan -->
+          <div class="col-md-6 col-lg-4">
+            <div class="sdg-card h-100 shadow-sm" style="--sdg-color: #e5243b">
+              <div class="sdg-card-header">
+                <span class="sdg-badge-number"><i class="fas fa-shield-heart me-1"></i> SDG 1</span>
+                <div class="sdg-icon-circle"><i class="fas fa-hand-holding-dollar"></i></div>
+              </div>
+              <div class="sdg-card-body d-flex flex-column h-100">
+                <h5 class="sdg-title">Tanpa Kemiskinan</h5>
+                <span class="sdg-subtitle-en">Goal 1: No Poverty</span>
+                <p class="sdg-desc">Mencegah warga terdampak bencana terperosok ke jurang kemiskinan ekstrem melalui bantuan logistik darurat keluarga, santunan tunai, dan pendampingan pemulihan ekonomi mandiri pasca bencana.</p>
+                <div class="mt-auto">
+                  <div class="sdg-action-pill"><i class="fas fa-check-circle text-danger me-1"></i> Bantuan pangan & modal usaha korban</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SDG 2: Tanpa Kelaparan -->
+          <div class="col-md-6 col-lg-4">
+            <div class="sdg-card h-100 shadow-sm" style="--sdg-color: #dda63a">
+              <div class="sdg-card-header">
+                <span class="sdg-badge-number"><i class="fas fa-utensils me-1"></i> SDG 2</span>
+                <div class="sdg-icon-circle"><i class="fas fa-bowl-rice"></i></div>
+              </div>
+              <div class="sdg-card-body d-flex flex-column h-100">
+                <h5 class="sdg-title">Tanpa Kelaparan</h5>
+                <span class="sdg-subtitle-en">Goal 2: Zero Hunger</span>
+                <p class="sdg-desc">Pendirian Dapur Umum Siaga 24 Jam di zona pengungsian darurat guna menyalurkan makanan hangat siap santap, air minum bersih steril, serta asupan nutrisi dan susu untuk balita.</p>
+                <div class="mt-auto">
+                  <div class="sdg-action-pill"><i class="fas fa-check-circle text-warning me-1"></i> 5.000+ porsi makan bergizi per hari</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SDG 3: Kehidupan Sehat dan Sejahtera -->
+          <div class="col-md-6 col-lg-4">
+            <div class="sdg-card h-100 shadow-sm" style="--sdg-color: #4c9f38">
+              <div class="sdg-card-header">
+                <span class="sdg-badge-number"><i class="fas fa-stethoscope me-1"></i> SDG 3</span>
+                <div class="sdg-icon-circle"><i class="fas fa-heart-pulse"></i></div>
+              </div>
+              <div class="sdg-card-body d-flex flex-column h-100">
+                <h5 class="sdg-title">Kehidupan Sehat & Sejahtera</h5>
+                <span class="sdg-subtitle-en">Goal 3: Good Health & Well-being</span>
+                <p class="sdg-desc">Penyediaan posko kesehatan darurat, obat-obatan primer, pelayanan luka evakuasi, fasilitas sanitasi higienis, serta pendampingan psikososial (*trauma healing*) bagi anak-anak dan lansia.</p>
+                <div class="mt-auto">
+                  <div class="sdg-action-pill"><i class="fas fa-check-circle text-success me-1"></i> Tim medis darurat & trauma healing</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SDG 11: Kota & Komunitas yang Berkelanjutan -->
+          <div class="col-md-6 col-lg-4">
+            <div class="sdg-card h-100 shadow-sm" style="--sdg-color: #fd9d24">
+              <div class="sdg-card-header">
+                <span class="sdg-badge-number"><i class="fas fa-tents me-1"></i> SDG 11</span>
+                <div class="sdg-icon-circle"><i class="fas fa-city"></i></div>
+              </div>
+              <div class="sdg-card-body d-flex flex-column h-100">
+                <h5 class="sdg-title">Kota & Komunitas Berkelanjutan</h5>
+                <span class="sdg-subtitle-en">Goal 11: Sustainable Cities & Communities</span>
+                <p class="sdg-desc">Meningkatkan kesiapsiagaan warga menghadapi risiko bencana, pembangunan jembatan darurat penghubung desa terisolir, dan distribusi tenda pengungsian keluarga tahan cuaca.</p>
+                <div class="mt-auto">
+                  <div class="sdg-action-pill"><i class="fas fa-check-circle text-warning me-1"></i> Akses desa terisolir & hunian darurat</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SDG 13: Penanganan Perubahan Iklim -->
+          <div class="col-md-6 col-lg-4">
+            <div class="sdg-card h-100 shadow-sm" style="--sdg-color: #3f7e44">
+              <div class="sdg-card-header">
+                <span class="sdg-badge-number"><i class="fas fa-temperature-arrow-up me-1"></i> SDG 13</span>
+                <div class="sdg-icon-circle"><i class="fas fa-cloud-bolt"></i></div>
+              </div>
+              <div class="sdg-card-body d-flex flex-column h-100">
+                <h5 class="sdg-title">Penanganan Perubahan Iklim</h5>
+                <span class="sdg-subtitle-en">Goal 13: Climate Action</span>
+                <p class="sdg-desc">Respon cepat atas frekuensi cuaca ekstrem dan bencana hidrometeorologi (banjir bandang, retakan lereng tanah longsor) melalui kanal digital lapor darurat dan edukasi mitigasi dini.</p>
+                <div class="mt-auto">
+                  <div class="sdg-action-pill"><i class="fas fa-check-circle text-success me-1"></i> Sistem lapor cepat & mitigasi bencana</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SDG 17: Kemitraan untuk Mencapai Tujuan -->
+          <div class="col-md-6 col-lg-4">
+            <div class="sdg-card h-100 shadow-sm" style="--sdg-color: #19486a">
+              <div class="sdg-card-header">
+                <span class="sdg-badge-number"><i class="fas fa-handshake me-1"></i> SDG 17</span>
+                <div class="sdg-icon-circle"><i class="fas fa-handshake-angle"></i></div>
+              </div>
+              <div class="sdg-card-body d-flex flex-column h-100">
+                <h5 class="sdg-title">Kemitraan untuk Mencapai Tujuan</h5>
+                <span class="sdg-subtitle-en">Goal 17: Partnerships for the Goals</span>
+                <p class="sdg-desc">Membangun gotong royong terpercaya antara para donatur, relawan lapangan, lembaga sosial, dan aparatur posko bencana dengan transparansi pencatatan dana publik yang terbuka.</p>
+                <div class="mt-auto">
+                  <div class="sdg-action-pill"><i class="fas fa-check-circle text-info me-1"></i> 100% Audit terbuka & kolaborasi relawan</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Banner Komitmen Tambahan di Bagian Bawah SDG -->
+        <div class="sdg-banner mt-5 p-4 rounded-4 d-flex flex-column flex-md-row align-items-center justify-content-between gap-3">
+          <div class="d-flex align-items-center gap-3">
+            <div class="sdg-globe-icon">
+              <i class="fas fa-earth-asia fa-2x"></i>
+            </div>
+            <div>
+              <h6 class="fw-bold mb-1 text-white">Komitmen Bersama Menuju Indonesia Tangguh Bencana 2030</h6>
+              <p class="small mb-0 text-white-50">Setiap rupiah donasi dan keringat relawan JiwaPeduli adalah investasi nyata bagi kemanusiaan dan pencapaian Tujuan Pembangunan Berkelanjutan dunia.</p>
+            </div>
+          </div>
+          <a href="riwayat.HTML" class="btn btn-sm btn-outline-light rounded-pill px-4 py-2 text-nowrap fw-semibold"> <i class="fas fa-file-invoice me-1"></i> Pantau Transparansi Dana </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer py-5">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-4 mb-4">
+            <div class="footer-brand d-flex align-items-center gap-2 mb-3">
+              <i class="fas fa-hand-holding-heart fa-2x text-danger"></i>
+              <span class="fs-4 fw-bold">JIWA<span class="brand-highlight">PEDULI</span></span>
+            </div>
+            <p class="footer-desc">Platform donasi tanggap darurat dan aksi sosial langsung ke masyarakat di seluruh pelosok Indonesia. Menghubungkan orang baik dengan mereka yang sedang diuji bencana.</p>
+            <div class="social-links mt-3">
+              <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+              <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+              <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+              <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+              <a href="#" class="social-link"><i class="fab fa-tiktok"></i></a>
+            </div>
+          </div>
+
+          <div class="col-lg-2 col-md-4 mb-4">
+            <h5>Navigasi</h5>
+            <ul class="list-unstyled">
+              <li><a href="index.HTML">Beranda</a></li>
+              <li><a href="bencana.HTML">Pusat Bencana</a></li>
+              <li><a href="donasi.HTML">Form Donasi</a></li>
+              <li><a href="relawan.HTML">Gabung Relawan</a></li>
+              <li><a href="jadwal.HTML">Agenda Lapangan</a></li>
+              <li><a href="riwayat.HTML">Laporan Dana</a></li>
+              <li>
+                <a href="#sdgSection"><i class="fas fa-globe-asia text-warning me-1"></i> Komitmen SDGs</a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-4 mb-4">
+            <h5>Program Prioritas</h5>
+            <ul class="list-unstyled">
+              <li><a href="bencana.HTML">Siaga Banjir Bandar Lampung</a></li>
+              <li><a href="bencana.HTML">Tanggap Darurat Gempa Bumi</a></li>
+              <li><a href="donasi.HTML">Dapur Umum & Sembako</a></li>
+              <li><a href="donasi.HTML">Posko Kesehatan & Medis</a></li>
+              <li><a href="donasi.HTML">Pendidikan Anak Pengungsi</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-4 mb-4">
+            <h5>Posko & Layanan</h5>
+            <ul class="list-unstyled footer-contact">
+              <li>
+                <i class="fas fa-map-marker-alt"></i>
+                <span>Bandar Lampung, Lampung, Indonesia</span>
+              </li>
+              <li>
+                <i class="fas fa-phone"></i>
+                <span>(0721) 7890-123 / 0823-8226-2838</span>
+              </li>
+              <li>
+                <i class="fas fa-envelope"></i>
+                <span>posko@jiwapeduli.id</span>
+              </li>
+              <li>
+                <i class="fas fa-shield-heart"></i>
+                <span>Layanan Siaga Bencana: 24 Jam Non-stop</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom pt-4 mt-4 border-top border-secondary">
+          <div class="row align-items-center">
+            <div class="col-md-6">
+              <p class="mb-0">&copy; 2026 JiwaPeduli Indonesia. Mengabdi Untuk Kemanusiaan.</p>
+            </div>
+            <div class="col-md-6 text-md-end">
+              <a href="riwayat.HTML" class="me-3 text-white-50">Transparansi Publik</a>
+              <a href="loginadmin.HTML" class="text-white-50">Portal Admin</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Floating Action: Lapor Bencana Cepat -->
+    <a href="lapor-bencana.HTML" class="floating-action-btn" title="Laporkan Bencana">
+      <i class="fas fa-bullhorn"></i>
+      <span>Lapor Bencana</span>
+    </a>
+
+    <!-- Floating WhatsApp -->
+    <a href="https://wa.me/6282382262838?text=Halo%20JiwaPeduli%20Saya%20Ingin%20Membantu%20Korban%20Bencana" class="whatsapp-float" target="_blank" title="Call Center Siaga WhatsApp">
+      <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Back to Top -->
+    <a href="#" class="back-to-top" id="backToTop" title="Kembali ke atas">
+      <i class="fas fa-chevron-up"></i>
+    </a>
+
+    <!-- Bootstrap 5 JS & Script -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Admin - Indonesia Peduli</title>
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+      /* Custom Styles for Login Page */
+      :root {
+        --primary-blue: #ff4742;
+        --secondary-blue: #ff6b3d;
+        --accent-teal: #20c997;
+        --light-teal: #d1f7e5;
+        --dark-blue: #052c65;
+      }
+
+      body {
+        font-family: "Poppins", "Nunito", sans-serif;
+        background: linear-gradient(135deg, #0b1528 0%, #16243d 50%, #7f1d1d 100%);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        padding: 20px;
+      }
+
+      .login-container {
+        background-color: white;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+        max-width: 1000px;
+        width: 100%;
+        margin: 0 auto;
+      }
+
+      .login-left {
+        background: linear-gradient(135deg, #991b1b 0%, #dc2626 40%, #ea580c 100%);
+        color: white;
+        padding: 60px 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .login-right {
+        padding: 60px 40px;
+      }
+
+      .login-logo {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 30px;
+        color: white;
+        display: flex;
+        align-items: center;
+      }
+
+      .login-left h2 {
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+        color: white;
+      }
+
+      .login-left p {
+        opacity: 0.9;
+        margin-bottom: 30px;
+        line-height: 1.6;
+      }
+
+      .feature-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .feature-list li {
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+      }
+
+      .feature-list i {
+        margin-right: 15px;
+        font-size: 1.2rem;
+        color: var(--light-teal);
+      }
+
+      .login-form {
+        max-width: 400px;
+        margin: 0 auto;
+      }
+
+      .login-form h2 {
+        color: var(--dark-blue);
+        margin-bottom: 10px;
+      }
+
+      .login-form p {
+        color: #666;
+        margin-bottom: 30px;
+      }
+
+      .form-group {
+        margin-bottom: 25px;
+      }
+
+      .form-label {
+        font-weight: 600;
+        color: var(--dark-blue);
+        margin-bottom: 8px;
+      }
+
+      .input-with-icon {
+        position: relative;
+      }
+
+      .input-with-icon i {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--primary-blue);
+      }
+
+      .input-with-icon input {
+        padding-left: 45px;
+        border: 2px solid #e0e0e0;
+        border-radius: 10px;
+        height: 50px;
+        width: 100%;
+        transition: all 0.3s;
+      }
+
+      .input-with-icon input:focus {
+        border-color: var(--primary-blue);
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+        outline: none;
+      }
+
+      .btn-login-submit {
+        background: linear-gradient(135deg, #991b1b 0%, #dc2626 40%, #ea580c 100%);
+        color: white;
+        border: none;
+        border-radius: 10px;
+        height: 50px;
+        font-weight: 600;
+        width: 100%;
+        transition: all 0.3s;
+        font-size: 1rem;
+        cursor: pointer;
+      }
+
+      .btn-login-submit:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(13, 110, 253, 0.3);
+      }
+
+      .btn-login-submit:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      .remember-forgot {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+      }
+
+      .form-check-input:checked {
+        background-color: var(--primary-blue);
+        border-color: var(--primary-blue);
+      }
+
+      .forgot-password {
+        color: var(--primary-blue);
+        text-decoration: none;
+        font-weight: 500;
+      }
+
+      .forgot-password:hover {
+        color: #052c65;
+        text-decoration: underline;
+      }
+
+      .login-footer {
+        text-align: center;
+        margin-top: 30px;
+        color: #666;
+      }
+
+      .login-footer a {
+        color: var(--primary-blue);
+        font-weight: 500;
+      }
+
+      .login-footer a:hover {
+        color: #052c65;
+        text-decoration: underline;
+      }
+
+      .alert {
+        animation: slideDown 0.3s ease-out;
+      }
+
+      @keyframes slideDown {
+        from {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .shake {
+        animation: shake 0.5s;
+      }
+
+      @keyframes shake {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        10%,
+        30%,
+        50%,
+        70%,
+        90% {
+          transform: translateX(-5px);
+        }
+        20%,
+        40%,
+        60%,
+        80% {
+          transform: translateX(5px);
+        }
+      }
+
+      .floating {
+        animation: floating 3s ease-in-out infinite;
+      }
+
+      @keyframes floating {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .login-left {
+          padding: 40px 20px;
+        }
+
+        .login-right {
+          padding: 40px 20px;
+        }
+
+        .login-logo {
+          font-size: 2rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="login-container">
+      <div class="row g-0">
+        <div class="col-lg-6">
+          <div class="login-left">
+            <div class="login-logo">
+              <i class="fas fa-heart me-2"></i>
+              JIWA PEDULI
+            </div>
+            <h2>Panel Administrasi JiwaPeduli</h2>
+            <p>Kelola donasi, kegiatan, dan laporan untuk membantu masyarakat Indonesia dengan lebih efektif dan transparan.</p>
+
+            <ul class="feature-list">
+              <li>
+                <i class="fas fa-chart-line"></i>
+                <span>Pantau statistik donasi real-time</span>
+              </li>
+              <li>
+                <i class="fas fa-users"></i>
+                <span>Kelola data donatur dan relawan</span>
+              </li>
+              <li>
+                <i class="fas fa-calendar-alt"></i>
+                <span>Jadwalkan kegiatan sosial</span>
+              </li>
+              <li>
+                <i class="fas fa-file-invoice-dollar"></i>
+                <span>Generate laporan keuangan</span>
+              </li>
+              <li>
+                <i class="fas fa-shield-alt"></i>
+                <span>Sistem keamanan terenkripsi</span>
+              </li>
+            </ul>
+
+            <div class="mt-4">
+              <p><i class="fas fa-info-circle me-2"></i>Gunakan kredensial admin untuk mengakses dashboard</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="login-right">
+            <div class="login-form">
+              <h2>Admin Login</h2>
+              <p>Masukkan username dan password untuk mengakses dashboard admin</p>
+
+              <form id="adminLoginForm">
+                <div class="form-group">
+                  <label class="form-label">Username</label>
+                  <div class="input-with-icon">
+                    <i class="fas fa-user"></i>
+                    <input type="text" class="form-control" placeholder="Masukkan username" id="username" required autocomplete="username" />
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="d-flex justify-content-between">
+                    <label class="form-label">Password</label>
+                    <a href="#" class="forgot-password">Lupa password?</a>
+                  </div>
+                  <div class="input-with-icon">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" class="form-control" placeholder="Masukkan password" id="password" required autocomplete="current-password" />
+                  </div>
+                </div>
+
+                <div class="remember-forgot">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="rememberMe" />
+                    <label class="form-check-label" for="rememberMe"> Ingat saya </label>
+                  </div>
+                </div>
+
+                <button type="submit" class="btn-login-submit" id="loginButton"><i class="fas fa-sign-in-alt me-2"></i>Login ke Dashboard</button>
+              </form>
+
+              <div class="login-footer">
+                <p>Kembali ke <a href="index.HTML">halaman utama</a></p>
+                <p class="mt-3"><small>© 2026 JiwaPeduli Admin Panel</small></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      // VALIDASI LOGIN ADMIN - BISA DIGUNAKAN
+      document.addEventListener("DOMContentLoaded", function () {
+        const loginForm = document.getElementById("adminLoginForm");
+        const loginButton = document.getElementById("loginButton");
+
+        // Kredensial admin yang benar
+        const ADMIN_USERNAME = "jidan";
+        const ADMIN_PASSWORD = "ganteng";
+
+        // Cek jika sudah login sebelumnya
+        if (localStorage.getItem("adminLoggedIn") === "true") {
+          window.location.href = "dashboard.html";
+          return;
+        }
+
+        // Handle form submission
+        loginForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const username = document.getElementById("username").value.trim();
+          const password = document.getElementById("password").value.trim();
+          const rememberMe = document.getElementById("rememberMe").checked;
+
+          // Reset error state
+          document.getElementById("username").classList.remove("is-invalid", "shake");
+          document.getElementById("password").classList.remove("is-invalid", "shake");
+
+          // Hapus alert sebelumnya
+          const existingAlert = document.querySelector(".alert");
+          if (existingAlert) {
+            existingAlert.remove();
+          }
+
+          // Validasi input
+          if (!username || !password) {
+            showError("Harap isi semua field!");
+            if (!username) {
+              document.getElementById("username").classList.add("is-invalid", "shake");
+            }
+            if (!password) {
+              document.getElementById("password").classList.add("is-invalid", "shake");
+            }
+            return;
+          }
+
+          // Validasi kredensial
+          if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+            // Login berhasil
+            loginSuccess(username, rememberMe);
+          } else {
+            // Login gagal
+            loginFailed();
+          }
+        });
+
+        // Fungsi untuk login berhasil
+        function loginSuccess(username, rememberMe) {
+          // Tampilkan loading state
+          const originalText = loginButton.innerHTML;
+          loginButton.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Memproses login...';
+          loginButton.disabled = true;
+
+          // Simpan data login
+          localStorage.setItem("adminLoggedIn", "true");
+          localStorage.setItem("adminUsername", username);
+          localStorage.setItem("loginTime", new Date().toISOString());
+
+          if (rememberMe) {
+            localStorage.setItem("rememberMe", "true");
+          } else {
+            localStorage.removeItem("rememberMe");
+          }
+
+          // Tampilkan pesan sukses
+          showSuccess("Login berhasil! Mengarahkan ke dashboard...");
+
+          // Redirect ke dashboard setelah 1.5 detik
+          setTimeout(() => {
+            window.location.href = "dashboard.html";
+          }, 1500);
+        }
+
+        // Fungsi untuk login gagal
+        function loginFailed() {
+          // Tambahkan efek shake pada input
+          document.getElementById("username").classList.add("is-invalid", "shake");
+          document.getElementById("password").classList.add("is-invalid", "shake");
+
+          // Tampilkan pesan error
+          showError("Username atau password salah!<br><small>Username: <strong>jidan</strong>, Password: <strong>ganteng</strong></small>");
+
+          // Reset efek shake setelah animasi selesai
+          setTimeout(() => {
+            document.getElementById("username").classList.remove("shake");
+            document.getElementById("password").classList.remove("shake");
+          }, 500);
+
+          // Kosongkan password field
+          document.getElementById("password").value = "";
+          document.getElementById("password").focus();
+        }
+
+        // Fungsi untuk menampilkan error message
+        function showError(message) {
+          const errorHTML = `
+                    <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        <strong>Error!</strong> ${message}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                `;
+
+          // Tambahkan alert ke dalam form
+          loginForm.insertAdjacentHTML("beforeend", errorHTML);
+
+          // Auto remove setelah 5 detik
+          setTimeout(() => {
+            const alert = document.querySelector(".alert-danger");
+            if (alert) {
+              alert.remove();
+            }
+          }, 5000);
+        }
+
+        // Fungsi untuk menampilkan success message
+        function showSuccess(message) {
+          const successHTML = `
+                    <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+                        <i class="fas fa-check-circle me-2"></i>
+                        <strong>Sukses!</strong> ${message}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                `;
+
+          // Tambahkan alert ke dalam form
+          loginForm.insertAdjacentHTML("beforeend", successHTML);
+        }
+
+        // Auto-fill untuk testing (bisa dihapus di production)
+        function autoFillForTesting() {
+          document.getElementById("username").value = ADMIN_USERNAME;
+          document.getElementById("password").value = ADMIN_PASSWORD;
+
+          // Tampilkan pesan info
+          const infoHTML = `
+                    <div class="alert alert-info alert-dismissible fade show mt-3" role="alert">
+                        <i class="fas fa-lightbulb me-2"></i>
+                        <strong>Info Testing:</strong> Kredensial sudah diisi otomatis untuk testing.
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                `;
+
+          loginForm.insertAdjacentHTML("beforeend", infoHTML);
+        }
+
+        // Untuk testing saja, auto fill kredensial
+        // Hapus atau comment line berikut di production:
+        autoFillForTesting();
+
+        // Handle "Lupa password?"
+        document.querySelector(".forgot-password").addEventListener("click", function (e) {
+          e.preventDefault();
+          alert("Untuk reset password, silakan hubungi Super Admin di: admin@indonesiapeduli.org");
+        });
+
+        // Handle input change (remove error state)
+        document.getElementById("username").addEventListener("input", function () {
+          this.classList.remove("is-invalid");
+        });
+
+        document.getElementById("password").addEventListener("input", function () {
+          this.classList.remove("is-invalid");
+        });
+
+        // Handle Enter key untuk login
+        document.addEventListener("keypress", function (e) {
+          if (e.key === "Enter" && document.activeElement.tagName !== "BUTTON") {
+            loginForm.dispatchEvent(new Event("submit"));
+          }
+        });
+
+        // Easter egg untuk username khusus
+        document.getElementById("username").addEventListener("blur", function () {
+          const username = this.value.toLowerCase();
+          if (username === "admin" || username === "administrator") {
+            showError("Gunakan username: <strong>jidan</strong>");
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

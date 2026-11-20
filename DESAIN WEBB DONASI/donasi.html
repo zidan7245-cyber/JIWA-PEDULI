@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Donasi - Indonesia Peduli</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+    <script>
+      (function () {
+        var theme = localStorage.getItem('jp_theme');
+        if (theme === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+      })();
+    </script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand d-flex align-items-center gap-2" href="index.HTML">
+          <i class="fas fa-hand-holding-heart fa-lg text-danger"></i>
+          <div>
+            <span class="fw-bold fs-4">JIWA</span><span class="brand-highlight fs-4">PEDULI</span>
+            <small class="d-block text-white-50" style="font-size: 0.65rem; letter-spacing: 1px; margin-top: -4px;">SATU JIWA SEJUTA HARAPAN</small>
+          </div>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto align-items-lg-center">
+            <li class="nav-item">
+              <a class="nav-link" href="index.HTML">Beranda</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="bencana.HTML">Tanggap Bencana</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="donasi.HTML">Salurkan Donasi</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="relawan.HTML">Gabung Relawan</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="riwayat.HTML">Transparansi Dana</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-warning fw-semibold" href="lapor-bencana.HTML"><i class="fas fa-bullhorn me-1"></i> Lapor Bencana</a>
+            </li>
+            <li class="nav-item ms-lg-2">
+              <button class="btn btn-sm theme-toggle-btn rounded-pill px-3 py-1" type="button" title="Ganti Mode Gelap / Terang">
+                <i class="fas fa-moon me-1 theme-icon"></i> <span class="theme-text">Gelap</span>
+              </button>
+            </li>
+            <li class="nav-item ms-lg-2">
+              <a class="btn btn-sm btn-outline-light px-3 py-1 rounded-pill" href="loginadmin.HTML"><i class="fas fa-shield-halved me-1"></i> Admin</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Header -->
+    <div class="donasi-header">
+      <div class="container text-center">
+        <h1 class="display-5 fw-bold">Form Donasi Online</h1>
+        <p class="lead" style="opacity:0.85">Salurkan kebaikan Anda untuk Indonesia yang lebih baik</p>
+      </div>
+    </div>
+
+    <div class="container py-4">
+      <div class="donasi-container">
+        <!-- Trust Badges -->
+        <div class="trust-badges-form">
+          <div class="trust-badge-sm">
+            <i class="fas fa-lock"></i> SSL Secure
+          </div>
+          <div class="trust-badge-sm">
+            <i class="fas fa-shield-alt"></i> Terverifikasi
+          </div>
+          <div class="trust-badge-sm">
+            <i class="fas fa-check-circle"></i> Data Aman
+          </div>
+        </div>
+
+        <form id="donasiForm">
+          <!-- Program Donasi -->
+          <div class="mb-4">
+            <label class="form-label"><i class="fas fa-hand-holding-heart me-2 text-danger"></i>Program Donasi</label>
+            <select class="form-select" id="programSelect" required>
+              <option value="">Pilih program donasi</option>
+              <option value="Tanggap Bencana Banjir Lampung" data-img="img/banjir-lampung.jpg" data-desc="Bantuan makanan siap santap, perahu karet & dapur umum">Bantuan Banjir Bandar Lampung</option>
+              <option value="Dapur Umum Gempa Sumbar" data-img="img/gempa-sumbar.jpg" data-desc="Tenda darurat, alas tidur, dan posko medis warga Pasaman">Dapur Umum Gempa Sumbar</option>
+              <option value="Logistik Darurat Jawa Barat" data-img="img/longsor-sukabumi.jpg" data-desc="Jembatan darurat & sembako desa terisolir Sukabumi">Logistik Darurat Jawa Barat</option>
+              <option value="Tanggap Erupsi Gunung Api NTT" data-img="img/erupsi-ntt.jpg?v=2" data-desc="Masker N95, tabung oksigen & air mineral steril">Tanggap Erupsi Gunung Api NTT</option>
+              <option value="Indonesia Sehat & Medis" data-img="img/indonesia-medis.jpg?v=2" data-desc="Layanan kesehatan gratis untuk pengungsi lansia & balita">Indonesia Sehat & Medis</option>
+              <option value="Pendidikan Anak Pengungsian" data-img="img/pendidikan-anak.jpg?v=2" data-desc="Sekolah darurat, buku tulis & trauma healing anak">Pendidikan Anak Pengungsian</option>
+              <option value="Pembangunan Sumur Bor & Sanitasi Bersih" data-img="img/sumur-bor-sanitasi.jpg" data-desc="Pipa paralon, tandon air 1.000L & MCK darurat keluarga">Pembangunan Sumur Bor & Sanitasi Bersih</option>
+              <option value="Donasi Umum Kemanusiaan" data-img="img/gempa-sumbar.jpg" data-desc="Disalurkan ke posko darurat paling mendesak">Donasi Umum Kemanusiaan</option>
+            </select>
+          </div>
+
+          <!-- Program Preview -->
+          <div class="program-preview" id="programPreview">
+            <img id="previewImg" src="" alt="Program" />
+            <div>
+              <h6 class="mb-1 fw-bold" id="previewTitle"></h6>
+              <p class="mb-0 text-muted small" id="previewDesc"></p>
+            </div>
+          </div>
+
+          <!-- Nama Lengkap -->
+          <div class="mb-4">
+            <label class="form-label"><i class="fas fa-user me-2 text-danger"></i>Nama Lengkap</label>
+            <input type="text" class="form-control" id="namaInput" placeholder="Masukkan nama lengkap Anda" required />
+          </div>
+
+          <!-- Donasi Anonim Toggle -->
+          <div class="anonim-toggle mb-4">
+            <div class="form-check form-switch mb-0">
+              <input class="form-check-input" type="checkbox" id="anonimToggle" />
+            </div>
+            <div>
+              <strong>Donasi sebagai Anonim</strong>
+              <div class="text-muted small">Nama Anda tidak akan ditampilkan secara publik</div>
+            </div>
+          </div>
+
+          <!-- Email -->
+          <div class="mb-4">
+            <label class="form-label"><i class="fas fa-envelope me-2 text-danger"></i>Email</label>
+            <input type="email" class="form-control" placeholder="nama@email.com" required />
+          </div>
+
+          <!-- Nomor Telepon -->
+          <div class="mb-4">
+            <label class="form-label"><i class="fas fa-phone me-2 text-danger"></i>Nomor Telepon</label>
+            <input type="tel" class="form-control" placeholder="08xxxxxxxxxx" required />
+          </div>
+
+          <!-- Nominal Donasi -->
+          <div class="mb-4">
+            <label class="form-label"><i class="fas fa-money-bill-wave me-2 text-danger"></i>Nominal Donasi</label>
+            <div class="nominal-options">
+              <div class="nominal-btn" data-value="50000"><span class="rp">Rp</span> 50.000</div>
+              <div class="nominal-btn active" data-value="100000"><span class="rp">Rp</span> 100.000</div>
+              <div class="nominal-btn" data-value="250000"><span class="rp">Rp</span> 250.000</div>
+              <div class="nominal-btn" data-value="500000"><span class="rp">Rp</span> 500.000</div>
+              <div class="nominal-btn" data-value="1000000"><span class="rp">Rp</span> 1.000.000</div>
+              <div class="nominal-btn" data-value="2500000"><span class="rp">Rp</span> 2.500.000</div>
+            </div>
+            <div class="input-group">
+              <span class="input-group-text fw-bold" style="background: #fff1f0; color: #ff4742; border-color: var(--gray-200);">Rp</span>
+              <input type="number" class="form-control" id="nominalInput" placeholder="Atau masukkan nominal lainnya" min="10000" value="100000" required />
+            </div>
+            <small class="text-muted">Minimum donasi Rp 10.000</small>
+          </div>
+
+          <!-- Metode Pembayaran -->
+          <div class="mb-4">
+            <label class="form-label"><i class="fas fa-credit-card me-2 text-danger"></i>Metode Pembayaran</label>
+
+            <div class="payment-method active" data-method="bank">
+              <div class="d-flex align-items-center">
+                <div class="payment-icon">
+                  <i class="fas fa-university"></i>
+                </div>
+                <div class="flex-grow-1">
+                  <h6 class="mb-1 fw-bold">Transfer Bank</h6>
+                  <p class="mb-0 text-muted small">BCA, Mandiri, BRI, BNI</p>
+                </div>
+                <i class="fas fa-check-circle text-danger" style="display:none"></i>
+              </div>
+            </div>
+
+            <div class="payment-method" data-method="qris">
+              <div class="d-flex align-items-center">
+                <div class="payment-icon">
+                  <i class="fas fa-qrcode"></i>
+                </div>
+                <div class="flex-grow-1">
+                  <h6 class="mb-1 fw-bold">QRIS</h6>
+                  <p class="mb-0 text-muted small">Bayar dengan QR Code</p>
+                </div>
+                <i class="fas fa-check-circle text-danger" style="display:none"></i>
+              </div>
+            </div>
+
+            <div class="payment-method" data-method="cc">
+              <div class="d-flex align-items-center">
+                <div class="payment-icon">
+                  <i class="fas fa-credit-card"></i>
+                </div>
+                <div class="flex-grow-1">
+                  <h6 class="mb-1 fw-bold">Kartu Kredit/Debit</h6>
+                  <p class="mb-0 text-muted small">Visa, Mastercard, JCB</p>
+                </div>
+                <i class="fas fa-check-circle text-danger" style="display:none"></i>
+              </div>
+            </div>
+
+            <div class="payment-method" data-method="ewallet">
+              <div class="d-flex align-items-center">
+                <div class="payment-icon">
+                  <i class="fas fa-mobile-alt"></i>
+                </div>
+                <div class="flex-grow-1">
+                  <h6 class="mb-1 fw-bold">E-Wallet</h6>
+                  <p class="mb-0 text-muted small">GoPay, OVO, DANA, LinkAja</p>
+                </div>
+                <i class="fas fa-check-circle text-danger" style="display:none"></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pesan -->
+          <div class="mb-4">
+            <label class="form-label"><i class="fas fa-comment me-2 text-danger"></i>Pesan / Doa (Opsional)</label>
+            <textarea class="form-control" rows="3" placeholder="Tulis pesan atau doa untuk penerima donasi"></textarea>
+          </div>
+
+          <!-- Syarat -->
+          <div class="form-check mb-4">
+            <input class="form-check-input" type="checkbox" id="termsCheck" required />
+            <label class="form-check-label" for="termsCheck">
+              Saya setuju dengan <a href="#" class="text-danger fw-bold">syarat dan ketentuan</a> yang berlaku
+            </label>
+          </div>
+
+          <button type="submit" class="btn-submit">
+            <i class="fas fa-paper-plane"></i>
+            Kirim Donasi
+          </button>
+        </form>
+
+        <!-- Security Info -->
+        <div class="text-center mt-4">
+          <small class="text-muted"><i class="fas fa-lock me-1"></i> Transaksi Anda dilindungi enkripsi SSL 256-bit</small>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer py-5">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-4 mb-4">
+            <div class="footer-brand">
+              <i class="fas fa-heart"></i>
+              <span>INDONESIA<span class="brand-highlight">PEDULI</span></span>
+            </div>
+            <p class="footer-desc">Platform donasi online terpercaya untuk membantu masyarakat Indonesia yang membutuhkan. Bersama kita bangun negeri yang lebih baik.</p>
+            <div class="social-links">
+              <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+              <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+              <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+              <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+              <a href="#" class="social-link"><i class="fab fa-tiktok"></i></a>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-4 mb-4">
+            <h5>Menu</h5>
+            <ul class="list-unstyled">
+              <li><a href="index.html">Home</a></li>
+              <li><a href="donasi.html">Donasi</a></li>
+              <li><a href="jadwal.html">Kegiatan</a></li>
+              <li><a href="riwayat.html">Riwayat</a></li>
+              <li><a href="loginadmin.HTML">Admin</a></li>
+            </ul>
+          </div>
+          <div class="col-lg-3 col-md-4 mb-4">
+            <h5>Program</h5>
+            <ul class="list-unstyled">
+              <li><a href="#">Indonesia Cerdas</a></li>
+              <li><a href="#">Indonesia Sehat</a></li>
+              <li><a href="#">Rumah Indonesia</a></li>
+              <li><a href="#">Bantuan Bencana</a></li>
+              <li><a href="#">Donasi Umum</a></li>
+            </ul>
+          </div>
+          <div class="col-lg-3 col-md-4 mb-4">
+            <h5>Kontak</h5>
+            <ul class="list-unstyled footer-contact">
+              <li><i class="fas fa-map-marker-alt"></i><span>Jakarta, Indonesia</span></li>
+              <li><i class="fas fa-phone"></i><span>(021) 1234-5678</span></li>
+              <li><i class="fas fa-envelope"></i><span>info@indonesiapeduli.org</span></li>
+              <li><i class="fas fa-clock"></i><span>Senin-Jumat, 08:00-17:00</span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <div class="row align-items-center">
+            <div class="col-md-6"><p>&copy; 2024 Indonesia Peduli. Semua hak dilindungi.</p></div>
+            <div class="col-md-6 text-md-end">
+              <a href="#" class="me-3">Kebijakan Privasi</a>
+              <a href="#">Syarat & Ketentuan</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/6282382262838?text=Halo%20JiwaPeduli%20Saya%20Ingin%20Konsultasi%20Donasi" class="whatsapp-float" target="_blank" title="Chat via WhatsApp">
+      <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Nominal buttons
+        const nominalButtons = document.querySelectorAll(".nominal-btn");
+        const nominalInput = document.getElementById("nominalInput");
+
+        nominalButtons.forEach((button) => {
+          button.addEventListener("click", function () {
+            nominalButtons.forEach((btn) => btn.classList.remove("active"));
+            this.classList.add("active");
+            nominalInput.value = this.dataset.value;
+          });
+        });
+
+        // Payment methods
+        const paymentMethods = document.querySelectorAll(".payment-method");
+        paymentMethods.forEach((method) => {
+          method.addEventListener("click", function () {
+            paymentMethods.forEach((m) => {
+              m.classList.remove("active");
+              m.querySelector(".fa-check-circle").style.display = "none";
+            });
+            this.classList.add("active");
+            this.querySelector(".fa-check-circle").style.display = "block";
+          });
+        });
+        // Show check on initially active
+        document.querySelector(".payment-method.active .fa-check-circle").style.display = "block";
+
+        // Program preview & URL Query Handler
+        const programSelect = document.getElementById("programSelect");
+        const programPreview = document.getElementById("programPreview");
+        const previewImg = document.getElementById("previewImg");
+        const previewTitle = document.getElementById("previewTitle");
+        const previewDesc = document.getElementById("previewDesc");
+
+        function updateProgramPreview() {
+          const selected = programSelect.options[programSelect.selectedIndex];
+          if (!selected) return;
+          const img = selected.dataset.img;
+          const desc = selected.dataset.desc;
+
+          if (programSelect.value) {
+            previewTitle.textContent = selected.text;
+            previewDesc.textContent = desc || "";
+            if (img) {
+              previewImg.onerror = function() {
+                this.onerror = null;
+                this.src = 'img/banjir-lampung.jpg';
+              };
+              previewImg.src = img;
+              previewImg.style.display = "block";
+            } else {
+              previewImg.style.display = "none";
+            }
+            programPreview.classList.add("show");
+          } else {
+            programPreview.classList.remove("show");
+          }
+        }
+
+        programSelect.addEventListener("change", updateProgramPreview);
+
+        // Cek URL params jika diarahkan dari halaman Bencana / Beranda
+        const urlParams = new URLSearchParams(window.location.search);
+        const queryProgram = urlParams.get('program');
+        if (queryProgram) {
+          for (let i = 0; i < programSelect.options.length; i++) {
+            if (programSelect.options[i].text.toLowerCase().includes(queryProgram.toLowerCase()) || 
+                programSelect.options[i].value.toLowerCase().includes(queryProgram.toLowerCase())) {
+              programSelect.selectedIndex = i;
+              updateProgramPreview();
+              break;
+            }
+          }
+        }
+
+        // Anonim toggle
+        const anonimToggle = document.getElementById("anonimToggle");
+        const namaInput = document.getElementById("namaInput");
+        anonimToggle.addEventListener("change", function () {
+          if (this.checked) {
+            namaInput.value = "Hamba Allah";
+            namaInput.readOnly = true;
+            namaInput.style.background = "#f1f5f9";
+          } else {
+            namaInput.value = "";
+            namaInput.readOnly = false;
+            namaInput.style.background = "";
+          }
+        });
+
+        // Form submission & Real-time Persistence
+        const donasiForm = document.getElementById("donasiForm");
+        donasiForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const donationCode = `#JP-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`;
+          const amountNum = parseInt(nominalInput.value) || 50000;
+          const nominalFormatted = amountNum.toLocaleString("id-ID");
+          const selectedProgram = programSelect.options[programSelect.selectedIndex]?.text || "Donasi Kemanusiaan";
+          const donorName = namaInput.value.trim() || "Hamba Allah";
+
+          // Simpan ke LocalStorage jp_donations
+          const existingDonations = JSON.parse(localStorage.getItem('jp_donations')) || [];
+          existingDonations.unshift({
+            id: donationCode,
+            name: donorName,
+            program: selectedProgram,
+            amount: amountNum,
+            date: 'Baru saja',
+            status: 'Berhasil'
+          });
+          localStorage.setItem('jp_donations', JSON.stringify(existingDonations));
+
+          const modalHTML = `
+            <div class="modal fade modal-success" id="confirmationModal" tabindex="-1">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title"><i class="fas fa-check-circle me-2"></i>Donasi Berhasil Disalurkan!</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                  </div>
+                  <div class="modal-body text-center py-4">
+                    <div class="success-icon text-success mb-3">
+                      <i class="fas fa-hand-holding-heart fa-3x"></i>
+                    </div>
+                    <h4 class="fw-bold mb-2">Terima Kasih, ${donorName}!</h4>
+                    <p class="text-muted">Donasi Anda untuk <strong>${selectedProgram}</strong> sebesar <strong class="text-danger">Rp ${nominalFormatted}</strong> telah berhasil dicatat.</p>
+                    <div class="p-3 rounded-3 mb-3 bg-light border">
+                      <small class="text-muted d-block">Nomor Registrasi Donasi Anda</small>
+                      <div class="fw-bold fs-4 text-dark">${donationCode}</div>
+                    </div>
+                    <p class="small text-muted">Setiap rupiah yang Anda salurkan langsung dialokasikan untuk pemenuhan kebutuhan pengungsi di posko lapangan.</p>
+                    <hr>
+                    <p class="small text-muted mb-2">Ajak kerabat untuk ikut peduli:</p>
+                    <div class="share-buttons d-flex justify-content-center gap-2">
+                      <a href="https://wa.me/?text=Saya%20baru%20saja%20berdonasi%20melalui%20JiwaPeduli%20untuk%20${encodeURIComponent(selectedProgram)}.%20Mari%20bersama%20bantu%20sesama!" target="_blank" class="btn btn-outline-success btn-sm rounded-pill px-3" title="WhatsApp"><i class="fab fa-whatsapp me-1"></i> WhatsApp</a>
+                      <a href="https://twitter.com/intent/tweet?text=Mari%20bantu%20saudara%20kita%20melalui%20JiwaPeduli" target="_blank" class="btn btn-outline-primary btn-sm rounded-pill px-3" title="Twitter"><i class="fab fa-x-twitter me-1"></i> Tweet</a>
+                    </div>
+                  </div>
+                  <div class="modal-footer justify-content-center border-0">
+                    <button type="button" class="btn btn-outline-secondary rounded-pill px-4" data-bs-dismiss="modal">Tutup</button>
+                    <a href="riwayat.HTML" class="btn btn-danger rounded-pill px-4"><i class="fas fa-history me-2"></i>Lihat Transparansi Riwayat</a>
+                  </div>
+                </div>
+              </div>
+            </div>`;
+
+          const modalContainer = document.createElement("div");
+          modalContainer.innerHTML = modalHTML;
+          document.body.appendChild(modalContainer);
+
+          const modal = new bootstrap.Modal(document.getElementById("confirmationModal"));
+          modal.show();
+
+          document.getElementById("confirmationModal").addEventListener("hidden.bs.modal", function () {
+            modalContainer.remove();
+            donasiForm.reset();
+            updateProgramPreview();
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
