@@ -70,12 +70,18 @@
   box-sizing: border-box;
 }
 
+html {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
 body {
   font-family: "Poppins", "Nunito", -apple-system, BlinkMacSystemFont, sans-serif;
   color: var(--navy);
   padding-top: 76px;
   background-color: var(--off-white);
   overflow-x: hidden;
+  max-width: 100vw;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -137,20 +143,33 @@ html {
 /* ============================================
    NAVBAR
    ============================================ */
-.navbar {
-  background: rgba(11, 21, 40, 0.94);
+/* Modern Adaptive Navbar (Light by default, Dark when [data-theme="dark"]) */
+.navbar, .editorial-navbar {
+  background: rgba(255, 255, 255, 0.95) !important;
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  box-shadow: 0 4px 25px rgba(11, 21, 40, 0.25);
+  box-shadow: 0 4px 20px rgba(18, 24, 38, 0.05);
   padding: 12px 0;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  border-bottom: 1px solid rgba(255, 71, 66, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-bottom: 1px solid #f1ede6;
 }
 
-.navbar.scrolled {
+.navbar.scrolled, .editorial-navbar.scrolled {
   padding: 8px 0;
-  background: rgba(11, 21, 40, 0.98);
-  box-shadow: 0 8px 30px rgba(11, 21, 40, 0.45);
+  background: rgba(255, 255, 255, 0.98) !important;
+  box-shadow: 0 8px 30px rgba(18, 24, 38, 0.08);
+}
+
+[data-theme="dark"] .navbar,
+[data-theme="dark"] .editorial-navbar {
+  background: rgba(11, 15, 23, 0.96) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6) !important;
+}
+
+[data-theme="dark"] .navbar.scrolled,
+[data-theme="dark"] .editorial-navbar.scrolled {
+  background: rgba(7, 10, 18, 0.98) !important;
 }
 
 .navbar-brand {
@@ -181,38 +200,53 @@ html {
   color: #ff6b3d !important;
 }
 
+/* Clean & Elegant Minimalist Nav Link Styling (No boxy AI-slop) */
 .nav-link {
-  color: rgba(255, 255, 255, 0.85) !important;
-  margin: 0 6px;
+  color: #334155 !important;
+  margin: 0 4px;
   font-weight: 500;
-  font-size: 0.95rem;
-  transition: all 0.3s ease;
+  font-size: 0.93rem;
+  transition: all 0.2s ease;
   position: relative;
-  padding: 8px 16px !important;
-  border-radius: var(--radius-sm);
+  padding: 8px 14px !important;
+  background: transparent !important;
+  border-radius: 0 !important;
 }
 
 .nav-link:hover {
-  color: white !important;
-  background: rgba(255, 71, 66, 0.16);
+  color: #ea580c !important;
+  background: transparent !important;
 }
 
 .nav-link.active {
-  color: white !important;
-  background: rgba(255, 71, 66, 0.25);
+  color: #ea580c !important;
+  font-weight: 700 !important;
+  background: transparent !important;
 }
 
 .nav-link.active::after {
   content: "";
   position: absolute;
   bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 24px;
-  height: 3px;
-  background: var(--coral);
+  left: 14px;
+  right: 14px;
+  height: 2.5px;
+  background: #ea580c;
   border-radius: 2px;
-  box-shadow: 0 0 10px rgba(255, 71, 66, 0.8);
+}
+
+[data-theme="dark"] .nav-link {
+  color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .nav-link:hover,
+[data-theme="dark"] .nav-link.active {
+  color: #f59e0b !important;
+  background: transparent !important;
+}
+
+[data-theme="dark"] .nav-link.active::after {
+  background: #f59e0b;
 }
 
 .btn-login {
@@ -2026,110 +2060,369 @@ html {
 
 @media (max-width: 768px) {
   body {
-    padding-top: 70px;
-  }
-
-  .hero-section h1.display-4 {
-    font-size: 2.2rem;
-  }
-
-  .section-title {
-    font-size: 1.8rem;
-  }
-
-  .btn-donate,
-  .btn-outline-hero {
-    padding: 12px 28px;
+    padding-top: 65px;
     font-size: 0.95rem;
   }
 
-  .program-card,
-  .testimonial-card {
-    margin-bottom: 20px;
+  /* Kurangi section padding agar tidak scrolling panjang kosong di HP */
+  section.py-5,
+  .py-5 {
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
   }
 
-  .countdown-item {
-    padding: 12px 16px;
-    min-width: 65px;
+  .stats-section,
+  .cta-section {
+    padding: 40px 0 !important;
   }
 
-  .countdown-item .number {
-    font-size: 1.5rem;
+  .hero-section {
+    padding: 55px 0 75px !important;
+    text-align: center;
   }
 
+  .hero-section h1.display-4 {
+    font-size: 1.85rem !important;
+    line-height: 1.25;
+  }
+
+  .hero-section .lead {
+    font-size: 0.92rem !important;
+    line-height: 1.5;
+    margin-bottom: 1.25rem !important;
+  }
+
+  .section-title {
+    font-size: 1.5rem !important;
+    line-height: 1.3;
+  }
+
+  .section-subtitle {
+    font-size: 0.88rem !important;
+    margin-bottom: 1.25rem !important;
+  }
+
+  /* Hero buttons rapi & kompak di HP */
+  .hero-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 8px !important;
+    width: 100%;
+  }
+
+  .hero-buttons .btn,
+  .hero-buttons .btn-donate {
+    width: 100%;
+    text-align: center;
+    padding: 11px 20px !important;
+    font-size: 0.92rem !important;
+  }
+
+  /* Hero stats padat di HP */
+  .hero-stats {
+    margin-top: 24px !important;
+    padding-top: 15px !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  .hero-stats .stat-item h3 {
+    font-size: 1.25rem !important;
+    margin-bottom: 2px;
+  }
+
+  .hero-stats .stat-item p {
+    font-size: 0.72rem !important;
+    margin-bottom: 0;
+  }
+
+  /* Page headers */
+  .page-banner,
+  .volunteer-hero-bg,
+  .report-hero,
+  .transparency-hero,
+  .schedule-hero,
+  .donasi-header {
+    padding: 85px 0 35px !important;
+  }
+
+  .page-banner h1,
+  .volunteer-hero-bg h1,
+  .donasi-header h1 {
+    font-size: 1.6rem !important;
+  }
+
+  /* Disaster Card & Peta di HP */
+  #disasterMap {
+    height: 340px !important;
+    border-radius: 14px !important;
+  }
+
+  .disaster-card {
+    border-radius: 16px !important;
+    margin-bottom: 12px;
+  }
+
+  .disaster-img-wrap {
+    height: 160px;
+  }
+
+  .disaster-card .card-body {
+    padding: 14px !important;
+  }
+
+  .disaster-card h5 {
+    font-size: 1.05rem;
+    line-height: 1.3;
+  }
+
+  /* SDG Cards ringkas & tidak bertumpuk berat */
+  .sdg-card {
+    padding: 16px 14px !important;
+    border-radius: 14px !important;
+    margin-bottom: 12px;
+  }
+
+  .sdg-title {
+    font-size: 1.02rem !important;
+  }
+
+  .sdg-desc {
+    font-size: 0.82rem !important;
+    line-height: 1.45;
+    margin-bottom: 10px !important;
+  }
+
+  .sdg-action-pill {
+    font-size: 0.75rem !important;
+    padding: 6px 10px !important;
+  }
+
+  /* Donasi Form container di HP */
   .donasi-container {
-    padding: 24px;
-    margin: 0 10px 30px;
+    padding: 18px 14px !important;
+    margin: 0 0 25px !important;
+    border-radius: 16px;
   }
 
   .nominal-options {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
+  }
+
+  .nominal-btn {
+    padding: 9px 6px !important;
+    font-size: 0.88rem !important;
   }
 
   .trust-badges-form {
-    flex-direction: column;
-    align-items: center;
+    flex-direction: row !important;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
   }
 
+  .trust-badge-sm {
+    font-size: 0.75rem !important;
+    padding: 4px 10px !important;
+  }
+
+  /* Stat cards */
+  .stat-card {
+    padding: 16px 10px !important;
+    border-radius: 16px !important;
+  }
+
+  .stat-card h3 {
+    font-size: 1.55rem !important;
+  }
+
+  .stat-card p {
+    font-size: 0.78rem !important;
+  }
+
+  /* Countdown di HP */
+  .countdown-box {
+    gap: 6px !important;
+  }
+
+  .countdown-item {
+    padding: 8px 12px !important;
+    min-width: 58px !important;
+  }
+
+  .countdown-item .number {
+    font-size: 1.35rem !important;
+  }
+
+  .countdown-item .label {
+    font-size: 0.7rem !important;
+  }
+
+  /* ==============================================================
+     PENATAAN ELEMEN FLOATING DI HP AGAR TIDAK PENUH & MENUMPUK
+     ============================================================== */
+  /* Sembunyikan toggle tema melayang di HP karena sudah ada di navbar */
+  #themeFloatingToggle,
+  .floating-theme-btn {
+    display: none !important;
+  }
+
+  /* WhatsApp di pojok kanan bawah */
   .whatsapp-float {
-    width: 52px;
-    height: 52px;
-    font-size: 1.5rem;
-    bottom: 20px;
-    right: 20px;
+    width: 44px !important;
+    height: 44px !important;
+    font-size: 1.3rem !important;
+    bottom: 16px !important;
+    right: 16px !important;
+    z-index: 1040 !important;
   }
 
+  /* Tombol Lapor Bencana di atas WhatsApp */
+  .floating-action-btn {
+    bottom: 66px !important;
+    right: 16px !important;
+    padding: 8px 14px !important;
+    font-size: 0.78rem !important;
+    border-radius: 30px !important;
+    z-index: 1039 !important;
+    box-shadow: 0 4px 15px rgba(255, 59, 48, 0.4) !important;
+  }
+
+  /* Back to Top rapi di atas lapor bencana */
   .back-to-top {
-    bottom: 82px;
-    right: 22px;
-    width: 40px;
-    height: 40px;
+    bottom: 112px !important;
+    right: 18px !important;
+    width: 36px !important;
+    height: 36px !important;
+    font-size: 0.85rem !important;
+    z-index: 1038 !important;
+  }
+
+  /* Toast notifikasi donasi di mobile pindah ke atas agar tidak menutupi tombol bawah */
+  #liveToastWrapper {
+    top: 68px !important;
+    bottom: auto !important;
+    left: 12px !important;
+    right: 12px !important;
+    max-width: calc(100vw - 24px) !important;
   }
 }
 
 @media (max-width: 576px) {
   .hero-section {
-    padding: 60px 0 100px;
+    padding: 50px 0 70px !important;
   }
 
   .hero-section h1.display-4 {
-    font-size: 1.8rem;
-  }
-
-  .lead {
-    font-size: 0.95rem;
-  }
-
-  .hero-stats .col-md-4 {
-    margin-bottom: 15px;
-  }
-
-  .stat-card h3 {
-    font-size: 2rem;
-  }
-
-  .countdown-box {
-    gap: 8px;
+    font-size: 1.65rem !important;
   }
 
   .footer .col-lg-4,
   .footer .col-lg-2,
   .footer .col-lg-3 {
-    text-align: center;
+    text-align: left;
   }
 
   .social-links {
-    justify-content: center;
-  }
-
-  .footer .newsletter-form {
-    flex-direction: column;
+    justify-content: flex-start;
   }
 }
 
 /* ============================================
-   UTILITY / HELPER CLASSES
+   PANDUAN ALUR DONASI, PILAR BANTUAN & FAQ
+   Desain Simpel, Realistis, dan Responsif
    ============================================ */
+.step-card {
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0 !important;
+  transition: all 0.3s ease;
+}
+
+.step-card:hover {
+  border-color: #ff4742 !important;
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(255, 71, 66, 0.12) !important;
+}
+
+.step-number {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ff4742, #ff6b3d);
+  color: #ffffff;
+  font-size: 1.25rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 16px rgba(255, 71, 66, 0.3);
+}
+
+.pilar-card {
+  transition: all 0.25s ease;
+  border: 1.5px solid #e2e8f0 !important;
+}
+
+.pilar-card:hover {
+  transform: translateY(-3px);
+  border-color: #ff4742 !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08) !important;
+}
+
+.pilar-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Accordion FAQ Styling */
+.accordion-button:not(.collapsed) {
+  background-color: #fff1f0 !important;
+  color: #e02f2a !important;
+  box-shadow: none !important;
+}
+
+.accordion-button:focus {
+  box-shadow: none !important;
+  border-color: rgba(255, 71, 66, 0.3) !important;
+}
+
+/* Dark Mode Overrides for Step, Pilar, FAQ */
+[data-theme="dark"] .step-card {
+  background: #0e1628 !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .pilar-card {
+  background: #0e1628 !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .accordion-item {
+  background-color: #0e1628 !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+[data-theme="dark"] .accordion-button {
+  background-color: #0e1628 !important;
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .accordion-button:not(.collapsed) {
+  background-color: #1a233a !important;
+  color: #ff6b3d !important;
+}
+
+[data-theme="dark"] .accordion-body {
+  background-color: #0b1528 !important;
+  color: #cbd5e1 !important;
+}
 .bg-section {
   background-color: var(--off-white);
 }
@@ -2389,6 +2682,59 @@ html {
   border-color: rgba(255, 71, 66, 0.3);
 }
 
+.region-badge-card .region-name,
+.region-badge-card h5 {
+  color: #0f172a !important;
+  font-size: 1.15rem;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.region-badge-card .region-cities,
+.region-badge-card p {
+  color: #334155 !important;
+  font-weight: 500;
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+/* Dark Mode Spreading for Regional Badge Cards */
+[data-theme="dark"] .region-badge-card {
+  background: #0e1628 !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45) !important;
+}
+
+[data-theme="dark"] .region-badge-card:hover {
+  border-color: #ff4742 !important;
+  box-shadow: 0 15px 35px rgba(255, 71, 66, 0.25) !important;
+  transform: translateY(-5px);
+}
+
+[data-theme="dark"] .region-badge-card .region-name,
+[data-theme="dark"] .region-badge-card h5,
+[data-theme="dark"] .region-badge-card h5.text-dark {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+}
+
+[data-theme="dark"] .region-badge-card .region-cities,
+[data-theme="dark"] .region-badge-card p,
+[data-theme="dark"] .region-badge-card p.text-muted {
+  color: #e2e8f0 !important; /* Terang dan kontras tinggi */
+  font-weight: 500;
+}
+
+[data-theme="dark"] .region-badge-card .badge.bg-light {
+  background-color: #1a294c !important;
+  color: #f1f5f9 !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+}
+
+[data-theme="dark"] .region-badge-card .text-success {
+  color: #34d399 !important;
+}
+
 /* Volunteer Showcase Card */
 .volunteer-feature-box {
   background: linear-gradient(135deg, #991b1b 0%, #be123c 45%, #ff5722 100%) !important;
@@ -2541,35 +2887,71 @@ html {
    ============================================ */
 
 /* Navbar Theme Toggle Button */
+/* ==========================================================================
+   HIGH-VISIBILITY DUAL-THEME SWITCHER BUTTON (NAVBAR & FLOATING)
+   Clearly visible, tactile, and prominent in both Light Mode & Dark Mode
+   ========================================================================== */
+
+/* 1. In Light Mode (Daytime - Clear Slate & Dark Charcoal Text) */
 .theme-toggle-btn {
-  background: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.3) !important;
-  color: #ffffff !important;
-  font-weight: 600;
-  font-size: 0.82rem;
-  letter-spacing: 0.3px;
+  background: #f1f5f9 !important;
+  border: 1.5px solid #cbd5e1 !important;
+  color: #0f172a !important;
+  font-weight: 700 !important;
+  font-size: 0.84rem;
+  letter-spacing: 0.2px;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.25s ease;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 7px;
   user-select: none;
+  padding: 6px 16px !important;
+  border-radius: 50px !important;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
 }
 
-.theme-toggle-btn:hover {
-  background: rgba(255, 255, 255, 0.24);
-  border-color: rgba(255, 255, 255, 0.6) !important;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.15);
-}
-
-.theme-toggle-btn i {
+.theme-toggle-btn i,
+.theme-toggle-btn .theme-icon {
+  color: #475569 !important;
   font-size: 0.95rem;
   transition: transform 0.4s ease;
 }
 
-.theme-toggle-btn:active i {
-  transform: rotate(360deg) scale(1.15);
+.theme-toggle-btn:hover {
+  background: #e2e8f0 !important;
+  border-color: #94a3b8 !important;
+  color: #0f172a !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.12);
+}
+
+.theme-toggle-btn:hover i {
+  color: #ea580c !important;
+  transform: rotate(-20deg);
+}
+
+/* 2. In Dark Mode (Nighttime - Glowing Midnight & Amber Sun) */
+[data-theme="dark"] .theme-toggle-btn {
+  background: #1e293b !important;
+  border: 1.5px solid rgba(245, 158, 11, 0.5) !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] .theme-toggle-btn i,
+[data-theme="dark"] .theme-toggle-btn .theme-icon {
+  color: #f59e0b !important;
+}
+
+[data-theme="dark"] .theme-toggle-btn:hover {
+  background: #334155 !important;
+  border-color: #f59e0b !important;
+  box-shadow: 0 4px 20px rgba(245, 158, 11, 0.25);
+}
+
+[data-theme="dark"] .theme-toggle-btn:hover i {
+  transform: rotate(90deg) scale(1.15);
 }
 
 /* Floating Quick Theme Toggle (Easy 1-touch for mobile & outdoor users) */
@@ -2679,6 +3061,7 @@ body:not([data-theme="dark"]) .form-select:focus {
 [data-theme="dark"] .modal-content,
 [data-theme="dark"] .report-card,
 [data-theme="dark"] .volunteer-card,
+[data-theme="dark"] .region-badge-card,
 [data-theme="dark"] .schedule-card,
 [data-theme="dark"] .urgent-box {
   background: #0e1628 !important;
@@ -3316,7 +3699,1434 @@ label.form-label,
   color: #ffffff !important;
 }
 
+/* High Contrast Donatur Names & Items for Light & Dark mode */
+.don-name,
+.donation-feed-item h6,
+.feed-info h6 {
+  color: #0b1528 !important;
+  font-weight: 800 !important;
+}
+
+[data-theme="dark"] .don-name,
+[data-theme="dark"] .donation-feed-item h6,
+[data-theme="dark"] .feed-info h6 {
+  color: #ffffff !important;
+}
 
 
 
 
+
+
+
+
+
+/* ==========================================================================
+   BESPOKE EDITORIAL DESIGN SYSTEM (Ref: Gainlove Charity & Editorial Design)
+   Replaces generic AI-slop gradients with magazine-grade typography,
+   asymmetric squircle cards, authentic photo silhouettes & warm amber accents.
+   ========================================================================== */
+
+/* Typography & Global Accents */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --editorial-dark: #121826;
+  --editorial-body: #475569;
+  --editorial-amber: #ea580c;
+  --editorial-gold: #f59e0b;
+  --editorial-gold-light: #fef3c7;
+  --editorial-bg: #fcfbf9;
+  --editorial-card: #ffffff;
+  --editorial-border: #f1ede6;
+  --editorial-radius-squircle: 24px;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--editorial-bg);
+  color: var(--editorial-dark);
+}
+
+/* Eyebrows, Headings & Subtitles */
+.editorial-eyebrow {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 2.2px;
+  text-transform: uppercase;
+  color: #d97706;
+  margin-bottom: 12px;
+  position: relative;
+}
+
+.editorial-eyebrow-center {
+  display: block;
+  text-align: center;
+}
+
+.hero-editorial-title {
+  font-family: var(--font-serif);
+  font-size: 3.4rem;
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--editorial-dark);
+  letter-spacing: -0.5px;
+  margin-bottom: 24px;
+}
+
+.section-editorial-title {
+  font-family: var(--font-serif);
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.22;
+  color: var(--editorial-dark);
+  margin-bottom: 14px;
+}
+
+.section-editorial-subtitle {
+  font-family: var(--font-sans);
+  font-size: 1.05rem;
+  color: var(--editorial-body);
+  max-width: 620px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+
+.hero-editorial-desc {
+  font-family: var(--font-sans);
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: var(--editorial-body);
+  margin-bottom: 32px;
+  max-width: 520px;
+}
+
+/* Buttons */
+.btn-editorial-dark {
+  display: inline-flex;
+  align-items: center;
+  background-color: #111827;
+  color: #ffffff !important;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 14px 28px;
+  border-radius: 50px;
+  border: 1px solid #111827;
+  text-decoration: none !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 14px rgba(17, 24, 39, 0.15);
+}
+
+.btn-editorial-dark:hover {
+  background-color: #ea580c;
+  border-color: #ea580c;
+  color: #ffffff !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(234, 88, 12, 0.3);
+}
+
+.btn-editorial-outline {
+  display: inline-flex;
+  align-items: center;
+  background-color: transparent;
+  color: var(--editorial-dark) !important;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 14px 26px;
+  border-radius: 50px;
+  border: 1.5px solid #d1d5db;
+  text-decoration: none !important;
+  transition: all 0.3s ease;
+}
+
+.btn-editorial-outline:hover {
+  background-color: #ffffff;
+  border-color: #111827;
+  color: #111827 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+/* Floating Accent Dots from Reference Image */
+.ref-dot {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.ref-dot-cyan {
+  width: 10px;
+  height: 10px;
+  background-color: #0ea5e9;
+  box-shadow: 0 0 10px rgba(14, 165, 233, 0.5);
+}
+.ref-dot-amber {
+  width: 14px;
+  height: 14px;
+  background-color: #ea580c;
+  box-shadow: 0 0 12px rgba(234, 88, 12, 0.45);
+}
+.ref-dot-gold {
+  width: 18px;
+  height: 18px;
+  background-color: #f59e0b;
+}
+
+/* Hero Section Refinements */
+.hero-editorial-section {
+  position: relative;
+  padding: 60px 0 80px;
+  background: var(--editorial-bg);
+  overflow: hidden;
+}
+
+/* Background Topographic Watermark */
+.hero-editorial-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: radial-gradient(#e2e8f0 1.2px, transparent 1.2px);
+  background-size: 24px 24px;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Asymmetric Squircle Cards: "Make a Difference" / 4 Pilar */
+.make-diff-card {
+  background: #ffffff;
+  border: 1px solid #f1ede6;
+  border-radius: 20px 48px 20px 20px;
+  padding: 36px 26px;
+  text-align: center;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 10px 30px rgba(18, 24, 38, 0.04);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+}
+
+.make-diff-card:hover {
+  transform: translateY(-6px);
+  border-color: #fcd34d;
+  box-shadow: 0 20px 40px rgba(245, 158, 11, 0.12);
+}
+
+.diff-icon-circle {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: #fffbeb;
+  border: 1px solid #fef3c7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 22px;
+  color: #d97706;
+  font-size: 1.55rem;
+  transition: all 0.3s ease;
+}
+
+.make-diff-card:hover .diff-icon-circle {
+  background: #f59e0b;
+  color: #ffffff;
+  transform: scale(1.08);
+}
+
+.make-diff-title {
+  font-family: var(--font-serif);
+  font-size: 1.28rem;
+  font-weight: 700;
+  color: var(--editorial-dark);
+  margin-bottom: 12px;
+}
+
+.make-diff-desc {
+  font-family: var(--font-sans);
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--editorial-body);
+  margin-bottom: 0;
+}
+
+/* Split Story Section: Overlapping Circular Collage */
+.story-collage-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  height: 440px;
+  margin: 0 auto;
+}
+
+.story-dotted-bg {
+  position: absolute;
+  top: 15px;
+  left: 10px;
+  width: 220px;
+  height: 220px;
+  background-image: radial-gradient(#cbd5e1 1.5px, transparent 1.5px);
+  background-size: 16px 16px;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.story-circle-main {
+  position: absolute;
+  top: 40px;
+  left: 50px;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 8px solid #ffffff;
+  box-shadow: 0 20px 45px rgba(18, 24, 38, 0.14);
+  z-index: 2;
+}
+
+.story-circle-main img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.story-circle-main:hover img {
+  transform: scale(1.08);
+}
+
+.story-circle-badge-1 {
+  position: absolute;
+  top: 80px;
+  right: 25px;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 5px solid #ffffff;
+  box-shadow: 0 14px 30px rgba(18, 24, 38, 0.16);
+  z-index: 3;
+}
+
+.story-circle-badge-1 img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.story-circle-badge-2 {
+  position: absolute;
+  bottom: 25px;
+  left: 20px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid #ffffff;
+  box-shadow: 0 10px 25px rgba(18, 24, 38, 0.12);
+  z-index: 3;
+}
+
+.story-circle-badge-2 img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.btn-play-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none !important;
+  color: var(--editorial-dark);
+  font-family: var(--font-sans);
+  transition: all 0.3s ease;
+}
+
+.play-circle {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: #f1f5f9;
+  border: 1.5px solid #0d9488;
+  color: #0d9488;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.btn-play-action:hover .play-circle {
+  background: #0d9488;
+  color: #ffffff;
+  transform: scale(1.1);
+}
+
+/* Featured Campaigns Section (Reference Row 4) */
+.featured-campaign-card {
+  background: #ffffff;
+  border: 1px solid #f1ede6;
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(18, 24, 38, 0.04);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.featured-campaign-card:hover {
+  transform: translateY(-6px);
+  border-color: #fcd34d;
+  box-shadow: 0 20px 45px rgba(245, 158, 11, 0.14);
+}
+
+.campaign-thumb-wrap {
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+  position: relative;
+}
+
+.campaign-thumb-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.featured-campaign-card:hover .campaign-thumb-wrap img {
+  transform: scale(1.06);
+}
+
+.campaign-body {
+  padding: 24px 26px 36px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  position: relative;
+}
+
+.campaign-stats-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.campaign-stat-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.campaign-stat-label {
+  font-size: 0.72rem;
+  color: #94a3b8;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.campaign-stat-val {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--editorial-dark);
+}
+
+.campaign-percentage-center {
+  font-family: var(--font-serif);
+  font-size: 1.65rem;
+  font-weight: 800;
+  color: #111827;
+  line-height: 1;
+}
+
+.campaign-progress-track {
+  width: 100%;
+  height: 6px;
+  background-color: #f1f5f9;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 18px;
+}
+
+.campaign-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #f59e0b 0%, #ea580c 100%);
+  border-radius: 10px;
+}
+
+.campaign-title {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--editorial-dark);
+  margin-bottom: 10px;
+}
+
+.campaign-desc {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--editorial-body);
+  margin-bottom: 20px;
+}
+
+/* The Signature Orange Corner Arrow Button from Reference */
+.campaign-corner-btn {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 48px;
+  height: 48px;
+  background-color: #f59e0b;
+  color: #ffffff !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top-left-radius: 16px;
+  text-decoration: none !important;
+  font-size: 1.05rem;
+  transition: all 0.3s ease;
+}
+
+.featured-campaign-card:hover .campaign-corner-btn {
+  background-color: #ea580c;
+  width: 54px;
+  height: 54px;
+}
+
+/* Volunteer & Posko Map Section (Reference Row 5) */
+.volunteer-map-section {
+  position: relative;
+  padding: 80px 0;
+  background: #ffffff;
+  border-top: 1px solid var(--editorial-border);
+  border-bottom: 1px solid var(--editorial-border);
+}
+
+.stat-editorial-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: #fafaf9;
+  border: 1px solid #f5f5f4;
+  border-radius: 16px;
+  padding: 16px 20px;
+  margin-bottom: 14px;
+  transition: all 0.3s ease;
+}
+
+.stat-editorial-card:hover {
+  background: #ffffff;
+  border-color: #f59e0b;
+  box-shadow: 0 6px 20px rgba(245, 158, 11, 0.08);
+}
+
+.stat-icon-amber {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: #fef3c7;
+  color: #d97706;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+}
+
+.stat-num-serif {
+  font-family: var(--font-serif);
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: var(--editorial-dark);
+  line-height: 1.1;
+}
+
+.stat-label-sans {
+  font-size: 0.82rem;
+  color: var(--editorial-body);
+  font-weight: 500;
+}
+
+/* Stylized Indonesian Map Illustration */
+.indo-map-vector-card {
+  position: relative;
+  background: #fffbeb;
+  border: 1px solid #fef3c7;
+  border-radius: 28px;
+  padding: 30px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(245, 158, 11, 0.05);
+}
+
+.map-pin-pulse {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  background: #ea580c;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  box-shadow: 0 0 10px rgba(234, 88, 12, 0.6);
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.map-pin-pulse:hover {
+  transform: scale(1.4);
+}
+
+.map-pin-pulse::after {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: -6px;
+  right: -6px;
+  bottom: -6px;
+  border-radius: 50%;
+  border: 2px solid #ea580c;
+  animation: mapPulse 2s infinite ease-out;
+}
+
+@keyframes mapPulse {
+  0% { transform: scale(0.6); opacity: 1; }
+  100% { transform: scale(1.8); opacity: 0; }
+}
+
+/* ==========================================================================
+   DARK MODE ADAPTATION (PRESTIGIOUS MIDNIGHT EDITORIAL THEME)
+   High Contrast & Zero Glare in Dark Mode
+   ========================================================================== */
+[data-theme="dark"] {
+  --editorial-dark: #f8fafc;
+  --editorial-body: #94a3b8;
+  --editorial-bg: #0b0f17;
+  --editorial-card: #131926;
+  --editorial-border: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="dark"] body {
+  background-color: #0b0f17 !important;
+  color: #f8fafc !important;
+}
+
+[data-theme="dark"] .hero-editorial-section {
+  background: #0b0f17 !important;
+}
+
+[data-theme="dark"] .hero-editorial-section::before {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1.2px, transparent 1.2px) !important;
+}
+
+[data-theme="dark"] .hero-editorial-title,
+[data-theme="dark"] .section-editorial-title,
+[data-theme="dark"] .make-diff-title,
+[data-theme="dark"] .campaign-title,
+[data-theme="dark"] .stat-num-serif {
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .hero-editorial-desc,
+[data-theme="dark"] .section-editorial-subtitle,
+[data-theme="dark"] .make-diff-desc,
+[data-theme="dark"] .campaign-desc,
+[data-theme="dark"] .stat-label-sans {
+  color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .make-diff-card {
+  background-color: #131926 !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4) !important;
+}
+
+[data-theme="dark"] .diff-icon-circle {
+  background-color: #1e293b !important;
+  border-color: rgba(245, 158, 11, 0.3) !important;
+  color: #f59e0b !important;
+}
+
+[data-theme="dark"] .featured-campaign-card {
+  background-color: #131926 !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+[data-theme="dark"] .campaign-progress-track {
+  background-color: #1e293b !important;
+}
+
+[data-theme="dark"] .campaign-percentage-center,
+[data-theme="dark"] .campaign-stat-val {
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .btn-editorial-dark {
+  background-color: #ea580c !important;
+  border-color: #ea580c !important;
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .btn-editorial-outline {
+  border-color: rgba(255, 255, 255, 0.25) !important;
+  color: #f8fafc !important;
+}
+
+[data-theme="dark"] .btn-editorial-outline:hover {
+  background-color: #1e293b !important;
+  border-color: #ffffff !important;
+}
+
+[data-theme="dark"] .volunteer-map-section {
+  background-color: #0c101a !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+[data-theme="dark"] .stat-editorial-card {
+  background-color: #131926 !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+[data-theme="dark"] .indo-map-vector-card {
+  background-color: #131926 !important;
+  border-color: rgba(245, 158, 11, 0.2) !important;
+}
+
+[data-theme="dark"] .story-circle-main,
+[data-theme="dark"] .story-circle-badge-1,
+[data-theme="dark"] .story-circle-badge-2 {
+  border-color: #131926 !important;
+}
+
+
+
+/* ==========================================================================
+   GLOBAL EDITORIAL POLISH & RESPONSIVENESS ACROSS ALL PAGES
+   ========================================================================== */
+.page-editorial-banner {
+  position: relative;
+  padding: 135px 0 65px !important;
+  background: var(--editorial-bg);
+  border-bottom: 1px solid var(--editorial-border);
+  text-align: center;
+  overflow: hidden;
+}
+
+.page-editorial-banner::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: radial-gradient(#e2e8f0 1.3px, transparent 1.3px);
+  background-size: 22px 22px;
+  opacity: 0.65;
+  pointer-events: none;
+}
+
+[data-theme="dark"] .page-editorial-banner {
+  background: #0b0f17 !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+[data-theme="dark"] .page-editorial-banner::before {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1.3px, transparent 1.3px) !important;
+}
+
+/* Typography across all pages */
+h1, h2, .section-title, .hero-editorial-title, .section-editorial-title {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+body, p, span, a, input, select, textarea, button, .btn {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Modern Squircle Form Controls */
+.form-control, .form-select {
+  border-radius: 12px !important;
+  border: 1.5px solid #e2e8f0 !important;
+  padding: 12px 16px !important;
+  font-size: 0.95rem;
+  transition: all 0.25s ease;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: #f59e0b !important;
+  box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.15) !important;
+}
+
+[data-theme="dark"] .form-control, 
+[data-theme="dark"] .form-select {
+  background-color: #131926 !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .form-control:focus, 
+[data-theme="dark"] .form-select:focus {
+  border-color: #f59e0b !important;
+  box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.25) !important;
+}
+
+/* Modern Card Squircle */
+.card, .donasi-container, .volunteer-feature-box, .report-card, .event-card, .summary-card {
+  border-radius: 20px !important;
+  border: 1px solid var(--editorial-border) !important;
+  box-shadow: 0 8px 25px rgba(18, 24, 38, 0.04) !important;
+  transition: all 0.3s ease;
+}
+
+[data-theme="dark"] .card, 
+[data-theme="dark"] .donasi-container, 
+[data-theme="dark"] .volunteer-feature-box, 
+[data-theme="dark"] .report-card, 
+[data-theme="dark"] .event-card, 
+[data-theme="dark"] .summary-card {
+  background-color: #131926 !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* Modal Squircle Styling */
+.modal-content {
+  border-radius: 24px !important;
+  border: 1px solid var(--editorial-border) !important;
+  box-shadow: 0 25px 60px rgba(18, 24, 38, 0.2) !important;
+  overflow: hidden;
+}
+
+[data-theme="dark"] .modal-content {
+  background-color: #131926 !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: #ffffff !important;
+}
+
+/* Badges */
+.badge {
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.3px;
+}
+
+
+
+/* ==========================================================================
+   MODERN HERO EDITORIAL COMPOSITION (Gainlove Reference Style)
+   Clean, human, high-fashion editorial photo framing with floating badges
+   ========================================================================== */
+.hero-editorial-photo-card {
+  position: relative;
+  width: 100%;
+  max-width: 540px;
+  margin: 0 auto;
+}
+
+.hero-editorial-photo-inner {
+  position: relative;
+  border-radius: 36px 110px 36px 36px;
+  overflow: hidden;
+  box-shadow: 0 25px 60px rgba(18, 24, 38, 0.16);
+  border: 4px solid #ffffff;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+[data-theme="dark"] .hero-editorial-photo-inner {
+  border-color: #1e293b;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+}
+
+.hero-editorial-photo-inner:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 30px 70px rgba(234, 88, 12, 0.18);
+}
+
+.hero-editorial-photo-inner img {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  display: block;
+}
+
+/* Floating Live Radar Badge */
+.hero-live-badge {
+  position: absolute;
+  bottom: -20px;
+  left: 20px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  padding: 14px 22px;
+  border-radius: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 14px 35px rgba(18, 24, 38, 0.12);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  z-index: 10;
+  animation: floatSlow 4s ease-in-out infinite alternate;
+}
+
+[data-theme="dark"] .hero-live-badge {
+  background: rgba(19, 25, 38, 0.95);
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.5);
+}
+
+.hero-live-badge .live-dot-pulse {
+  width: 12px;
+  height: 12px;
+  background-color: #10b981;
+  border-radius: 50%;
+  position: relative;
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.6);
+}
+
+.hero-live-badge .live-dot-pulse::after {
+  content: '';
+  position: absolute;
+  top: -4px; left: -4px; right: -4px; bottom: -4px;
+  border-radius: 50%;
+  border: 2px solid #10b981;
+  animation: mapPulse 2s infinite ease-out;
+}
+
+/* Floating Verification Pill */
+.hero-floating-relawan {
+  position: absolute;
+  top: -16px;
+  right: 15px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  padding: 12px 20px;
+  border-radius: 50px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 10px 30px rgba(18, 24, 38, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 10;
+  animation: floatSlow 4.5s ease-in-out infinite alternate-reverse;
+}
+
+[data-theme="dark"] .hero-floating-relawan {
+  background: rgba(19, 25, 38, 0.95);
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes floatSlow {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-8px); }
+}
+
+
+
+/* ==========================================================================
+   REALTIME GIS RADAR MAP & RICH STORY COLLAGE (INVOFEST 2026 High-Tech Upgrade)
+   ========================================================================== */
+
+/* Leaflet Map in Home Section */
+#homeRealtimeMap {
+  width: 100%;
+  height: 390px;
+  border-radius: 18px;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.indo-map-vector-card {
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 24px;
+  border: 1px solid #f1ede6;
+  box-shadow: 0 16px 40px rgba(18, 24, 38, 0.08);
+  transition: all 0.3s ease;
+}
+
+[data-theme="dark"] .indo-map-vector-card {
+  background: #111827;
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* Pulsing Mini Dot for Radar Badge */
+.live-dot-pulse-mini {
+  width: 8px;
+  height: 8px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  display: inline-block;
+  animation: radarDotBlink 1.4s infinite ease-in-out;
+}
+
+@keyframes radarDotBlink {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.3; transform: scale(0.7); }
+}
+
+/* Custom Leaflet Radar Marker */
+.radar-marker-wrap {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.radar-ping {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(239, 68, 68, 0.35);
+  animation: radarPingPulse 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+  pointer-events: none;
+}
+
+.radar-ping.ping-amber {
+  background: rgba(245, 158, 11, 0.35);
+}
+
+.radar-ping.ping-emerald {
+  background: rgba(16, 185, 129, 0.35);
+}
+
+@keyframes radarPingPulse {
+  75%, 100% {
+    transform: translate(-50%, -50%) scale(2.2);
+    opacity: 0;
+  }
+}
+
+.radar-pin {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #dc2626;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  border: 2px solid #ffffff;
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.5);
+  z-index: 2;
+  transition: transform 0.2s ease;
+}
+
+.radar-pin.pin-amber {
+  background: #ea580c;
+  box-shadow: 0 4px 12px rgba(234, 88, 12, 0.5);
+}
+
+.radar-pin.pin-emerald {
+  background: #16a34a;
+  box-shadow: 0 4px 12px rgba(22, 163, 74, 0.5);
+}
+
+.radar-marker-wrap:hover .radar-pin {
+  transform: scale(1.2);
+}
+
+.radar-tag {
+  background: rgba(15, 23, 42, 0.88);
+  backdrop-filter: blur(4px);
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 8px;
+  margin-top: 3px;
+  white-space: nowrap;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+  border: 1px solid rgba(255,255,255,0.15);
+  letter-spacing: 0.2px;
+}
+
+/* Radar Scan Line effect */
+.radar-scan-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(239, 68, 68, 0.8), transparent);
+  box-shadow: 0 0 12px rgba(239, 68, 68, 0.9);
+  pointer-events: none;
+  z-index: 500;
+  animation: radarScanSweep 6s linear infinite;
+}
+
+@keyframes radarScanSweep {
+  0% { top: 0; opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+
+/* Floating Map Summary Chip */
+.map-floating-summary {
+  position: absolute;
+  bottom: 14px;
+  left: 14px;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(8px);
+  padding: 8px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,0.08);
+  z-index: 500;
+  pointer-events: auto;
+}
+
+[data-theme="dark"] .map-floating-summary {
+  background: rgba(17, 24, 39, 0.92);
+  border-color: rgba(255,255,255,0.12);
+}
+
+.pulse-indicator-emerald {
+  width: 8px;
+  height: 8px;
+  background: #10b981;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.7);
+}
+
+/* Telemetry Stream Ticker */
+.map-telemetry-bar {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+}
+
+[data-theme="dark"] .map-telemetry-bar {
+  background: #1e293b;
+  border-color: rgba(255,255,255,0.08);
+}
+
+[data-theme="dark"] #mapTelemetryText {
+  color: #f1f5f9 !important;
+}
+
+/* Leaflet Popup Styling */
+.leaflet-popup-content-wrapper {
+  border-radius: 14px !important;
+  box-shadow: 0 15px 35px rgba(15, 23, 42, 0.2) !important;
+  padding: 4px !important;
+}
+
+.leaflet-popup-content {
+  margin: 10px 12px !important;
+  line-height: 1.4 !important;
+}
+
+/* ==========================================================================
+   RICH STORY COLLAGE ENHANCEMENT (Row 3 - Eliminates "Kosong" Void)
+   ========================================================================== */
+.story-collage-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  height: 420px;
+  margin: 0 auto;
+}
+
+.story-circle-main {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  width: 270px;
+  height: 270px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 6px solid #ffffff;
+  box-shadow: 0 20px 50px rgba(18, 24, 38, 0.16);
+  z-index: 2;
+  background: #e2e8f0;
+}
+
+[data-theme="dark"] .story-circle-main {
+  border-color: #1e293b;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+.story-circle-main img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.story-circle-main:hover img {
+  transform: scale(1.06);
+}
+
+.story-circle-badge-1 {
+  position: absolute;
+  top: 40px;
+  right: 25px;
+  width: 135px;
+  height: 135px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid #ffffff;
+  box-shadow: 0 14px 35px rgba(18, 24, 38, 0.18);
+  z-index: 3;
+  background: #cbd5e1;
+}
+
+[data-theme="dark"] .story-circle-badge-1 {
+  border-color: #1e293b;
+}
+
+.story-circle-badge-1 img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.story-circle-badge-2 {
+  position: absolute;
+  bottom: 25px;
+  left: 20px;
+  width: 115px;
+  height: 115px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid #ffffff;
+  box-shadow: 0 12px 30px rgba(18, 24, 38, 0.18);
+  z-index: 3;
+  background: #cbd5e1;
+}
+
+[data-theme="dark"] .story-circle-badge-2 {
+  border-color: #1e293b;
+}
+
+.story-circle-badge-2 img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Floating Rich Impact Card in Collage */
+.story-floating-impact-card {
+  position: absolute;
+  bottom: 35px;
+  right: 10px;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(12px);
+  padding: 12px 18px;
+  border-radius: 16px;
+  border: 1px solid rgba(0,0,0,0.06);
+  box-shadow: 0 16px 40px rgba(18, 24, 38, 0.14);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  animation: floatSlow 4s ease-in-out infinite alternate;
+}
+
+[data-theme="dark"] .story-floating-impact-card {
+  background: rgba(19, 25, 38, 0.95);
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.5);
+}
+
+/* Floating Volunteer Pill on Collage Top */
+.story-floating-top-pill {
+  position: absolute;
+  top: 5px;
+  left: 50px;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(10px);
+  padding: 6px 14px;
+  border-radius: 50px;
+  border: 1px solid rgba(0,0,0,0.06);
+  box-shadow: 0 10px 25px rgba(18, 24, 38, 0.1);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+[data-theme="dark"] .story-floating-top-pill {
+  background: rgba(19, 25, 38, 0.95);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #f1f5f9;
+}
+
+
+
+/* ==========================================================================
+   BULLETPROOF HIGH CONTRAST & ZERO-GLARE COLOR ENFORCER (LIGHT & DARK MODES)
+   Fixes invisible titles, unreadable navbars, and ensures crisp readability
+   ========================================================================== */
+
+/* 1. LIGHT MODE RULES (Default - High Contrast Obsidian & Warm Elements) */
+html:not([data-theme="dark"]) .section-editorial-title,
+html:not([data-theme="dark"]) .hero-editorial-title,
+html:not([data-theme="dark"]) .make-diff-title,
+html:not([data-theme="dark"]) .campaign-title,
+html:not([data-theme="dark"]) .brand-text,
+html:not([data-theme="dark"]) h1.hero-editorial-title,
+html:not([data-theme="dark"]) h2.section-editorial-title,
+html:not([data-theme="dark"]) h5.make-diff-title {
+  color: #0f172a !important;
+}
+
+html:not([data-theme="dark"]) .section-editorial-subtitle,
+html:not([data-theme="dark"]) .hero-editorial-desc,
+html:not([data-theme="dark"]) .make-diff-desc,
+html:not([data-theme="dark"]) .campaign-desc {
+  color: #475569 !important;
+}
+
+html:not([data-theme="dark"]) .editorial-navbar,
+html:not([data-theme="dark"]) .navbar {
+  background: rgba(255, 255, 255, 0.96) !important;
+  border-bottom: 1px solid #f1ede6 !important;
+}
+
+html:not([data-theme="dark"]) .editorial-navbar .brand-text {
+  color: #0f172a !important;
+}
+
+html:not([data-theme="dark"]) .editorial-navbar .nav-link {
+  color: #334155 !important;
+}
+
+html:not([data-theme="dark"]) .editorial-navbar .nav-link:hover,
+html:not([data-theme="dark"]) .editorial-navbar .nav-link.active {
+  color: #ea580c !important;
+}
+
+html:not([data-theme="dark"]) .make-diff-card {
+  background-color: #ffffff !important;
+  border: 1px solid #f1ede6 !important;
+  box-shadow: 0 10px 30px rgba(18, 24, 38, 0.04) !important;
+}
+
+html:not([data-theme="dark"]) .diff-icon-circle {
+  background-color: #fffbeb !important;
+  border: 1px solid #fef3c7 !important;
+  color: #d97706 !important;
+}
+
+html:not([data-theme="dark"]) #pilarBantuan,
+html:not([data-theme="dark"]) #bencana-aktif {
+  background-color: #ffffff !important;
+  border-color: #f1ede6 !important;
+}
+
+/* 2. DARK MODE RULES (Crisp Pure White & Neon Accents on Deep Obsidian) */
+[data-theme="dark"] .section-editorial-title,
+[data-theme="dark"] .hero-editorial-title,
+[data-theme="dark"] .make-diff-title,
+[data-theme="dark"] .campaign-title,
+[data-theme="dark"] .brand-text,
+[data-theme="dark"] h1.hero-editorial-title,
+[data-theme="dark"] h2.section-editorial-title,
+[data-theme="dark"] h5.make-diff-title {
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .section-editorial-subtitle,
+[data-theme="dark"] .hero-editorial-desc,
+[data-theme="dark"] .make-diff-desc,
+[data-theme="dark"] .campaign-desc {
+  color: #cbd5e1 !important;
+}
+
+[data-theme="dark"] .editorial-navbar,
+[data-theme="dark"] .navbar {
+  background: rgba(11, 15, 23, 0.96) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+[data-theme="dark"] .editorial-navbar .brand-text {
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .editorial-navbar .nav-link {
+  color: #cbd5e1 !important;
+}
+
+[data-theme="dark"] .editorial-navbar .nav-link:hover,
+[data-theme="dark"] .editorial-navbar .nav-link.active {
+  color: #f59e0b !important;
+}
+
+[data-theme="dark"] .make-diff-card {
+  background-color: #111827 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4) !important;
+}
+
+[data-theme="dark"] .diff-icon-circle {
+  background-color: #1e293b !important;
+  border: 1px solid rgba(245, 158, 11, 0.3) !important;
+  color: #f59e0b !important;
+}
+
+[data-theme="dark"] #pilarBantuan,
+[data-theme="dark"] #bencana-aktif {
+  background-color: #0b0f17 !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+
+
+/* Floating Quick Theme Toggle (Bottom-Left) */
+.floating-theme-btn {
+  position: fixed;
+  bottom: 25px;
+  left: 25px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50% !important;
+  background: #0f172a !important;
+  border: 2px solid #cbd5e1 !important;
+  color: #f59e0b !important;
+  z-index: 1040;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 0 !important;
+}
+
+.floating-theme-btn:hover {
+  transform: scale(1.1) rotate(15deg);
+  background: #1e293b !important;
+  border-color: #ea580c !important;
+  box-shadow: 0 10px 30px rgba(234, 88, 12, 0.4);
+}
+
+[data-theme="dark"] .floating-theme-btn {
+  background: #1e293b !important;
+  border-color: #f59e0b !important;
+  color: #f59e0b !important;
+  box-shadow: 0 8px 25px rgba(245, 158, 11, 0.3);
+}
+
+[data-theme="dark"] .floating-theme-btn:hover {
+  background: #f59e0b !important;
+  color: #0f172a !important;
+  border-color: #ffffff !important;
+}

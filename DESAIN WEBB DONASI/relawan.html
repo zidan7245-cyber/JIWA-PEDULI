@@ -10,8 +10,11 @@
   <!-- Font Awesome 6 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <!-- Google Fonts -->
+    <!-- Google Fonts: Editorial Serif (Playfair Display) & Clean Sans (Plus Jakarta Sans) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,500;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap"
     rel="stylesheet" />
   <script>
     (function () {
@@ -19,7 +22,7 @@
       if (theme === "dark") document.documentElement.setAttribute("data-theme", "dark");
     })();
   </script>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css?v=3.0" />
   <style>
     .volunteer-hero-bg {
       background:
@@ -60,56 +63,86 @@
       background-color: rgba(255, 71, 66, 0.2) !important;
     }
   </style>
+  <!-- AOS Animation Framework -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
 </head>
 
 <body>
   <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
+    <!-- Editorial Navbar -->
+    <!-- Editorial Navbar (Clean & Spacious - No Cramped Phone Number) -->
+  <nav class="navbar navbar-expand-lg editorial-navbar fixed-top">
     <div class="container">
-      <a class="navbar-brand d-flex align-items-center gap-2" href="index.HTML">
-        <i class="fas fa-hand-holding-heart fa-lg text-danger"></i>
+      <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+        <div class="d-flex align-items-center justify-content-center" style="width: 38px; height: 38px; background: #fffbeb; border: 1px solid #fef3c7; border-radius: 10px;">
+          <i class="fas fa-hand-holding-heart text-danger fs-5"></i>
+        </div>
         <div>
-          <span class="fw-bold fs-4">JIWA</span><span class="brand-highlight fs-4">PEDULI</span>
-          <small class="d-block text-white-50" style="font-size: 0.65rem; letter-spacing: 1px; margin-top: -4px">SATU
-            JIWA SEJUTA HARAPAN</small>
+          <span class="brand-text">JIWAPEDULI</span>
+          <small class="d-block brand-tagline">Satu Jiwa Sejuta Harapan</small>
         </div>
       </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+
+      <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
       </button>
+
       <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto align-items-lg-center">
-          <li class="nav-item"><a class="nav-link" href="index.HTML">Beranda</a></li>
-          <li class="nav-item"><a class="nav-link" href="bencana.HTML">Tanggap Bencana</a></li>
-          <li class="nav-item"><a class="nav-link" href="donasi.HTML">Salurkan Donasi</a></li>
-          <li class="nav-item"><a class="nav-link active" href="relawan.HTML">Gabung Relawan</a></li>
-          <li class="nav-item"><a class="nav-link" href="riwayat.HTML">Transparansi Dana</a></li>
+        <ul class="navbar-nav mx-auto align-items-lg-center">
           <li class="nav-item">
-            <a class="nav-link text-warning fw-semibold" href="lapor-bencana.HTML"><i class="fas fa-bullhorn me-1"></i>
-              Lapor Bencana</a>
+            <a class="nav-link " href="index.html">Beranda</a>
           </li>
-          <li class="nav-item ms-lg-2">
-            <button class="btn btn-sm theme-toggle-btn rounded-pill px-3 py-1" type="button"
-              title="Ganti Mode Gelap / Terang"><i class="fas fa-moon me-1 theme-icon"></i> <span
-                class="theme-text">Gelap</span></button>
+          <li class="nav-item">
+            <a class="nav-link " href="bencana.html">Tanggap Bencana</a>
           </li>
-          <li class="nav-item ms-lg-2">
-            <a class="btn btn-sm btn-outline-light px-3 py-1 rounded-pill" href="loginadmin.HTML"><i
-                class="fas fa-shield-halved me-1"></i> Admin</a>
+          <li class="nav-item">
+            <a class="nav-link " href="donasi.html">Salurkan Donasi</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="relawan.html">Gabung Relawan</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="riwayat.html">Transparansi Dana</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="jadwal.html">Agenda Aksi</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="lapor-bencana.html"><i class="fas fa-bullhorn me-1 text-danger"></i> Lapor Bencana</a>
           </li>
         </ul>
+
+        <div class="d-flex align-items-center gap-3 mt-3 mt-lg-0">
+          <!-- Dark / Light Mode Toggle Button -->
+          <button class="btn btn-sm theme-toggle-btn rounded-pill px-3 py-1 border" type="button" title="Ganti Mode Gelap / Terang">
+            <i class="fas fa-moon me-1 theme-icon"></i>
+            <span class="theme-text">Mode Gelap</span>
+          </button>
+
+          <a href="donasi.html" class="btn btn-editorial-dark py-2 px-4 fs-6 rounded-pill">
+            <i class="fas fa-heart text-danger me-1"></i> Donasi Sekarang
+          </a>
+        </div>
       </div>
     </div>
   </nav>
 
   <!-- Header Banner -->
-  <section class="volunteer-hero-bg">
-    <div class="container">
-      <span class="badge bg-warning text-dark px-3 py-2 rounded-pill mb-3 fw-bold"> <i
-          class="fas fa-users-rays me-1"></i> Panggilan Kemanusiaan JiwaPeduli </span>
-      <h1 class="display-5 fw-bold mb-3">Turun Langsung, Bantu Korban di Lapangan</h1>
-      <p class="lead max-w-700 mx-auto opacity-90">Setiap tenaga dan waktu yang Anda sumbangkan adalah lentera harapan
-        bagi saudara kita yang terisolir akibat bencana alam.</p>
+    <!-- Page Editorial Banner -->
+  <section class="page-editorial-banner">
+    <div class="ref-dot ref-dot-amber" style="top: 100px; left: 12%;"></div>
+    <div class="ref-dot ref-dot-gold" style="top: 80px; right: 14%;"></div>
+
+    <div class="container position-relative" style="z-index: 2;">
+      <div class="editorial-eyebrow">
+        <i class="fas fa-users-rays me-1"></i> PANGGILAN KEMANUSIAAN LAPANGAN
+      </div>
+      <h1 class="hero-editorial-title mb-3">
+        Pendaftaran Relawan Siaga Bencana
+      </h1>
+      <p class="hero-editorial-desc mx-auto text-center mb-0">
+        Bergabunglah bersama 1.450+ relawan siaga JiwaPeduli. Pilih penempatan posko di kota terdekat domisili Anda atau siaga untuk panggilan darurat nasional.
+      </p>
     </div>
   </section>
 
@@ -153,8 +186,10 @@
                 <div class="col-md-6">
                   <label class="form-label fw-semibold">Kota / Domisili Saat Ini <span
                       class="text-danger">*</span></label>
-                  <input type="text" id="vCity" class="form-control form-control-lg rounded-3"
-                    placeholder="Contoh: Bandar Lampung" required />
+                  <input type="text" id="vCity" list="cityDataList" class="form-control form-control-lg rounded-3"
+                    placeholder="Pilih / ketik kota Anda (semua kota Sumatera & Nasional)" required />
+                  <div class="form-text small">Tersedia daftar lengkap seluruh kota & kabupaten se-Sumatera dan
+                    nasional.</div>
                 </div>
                 <div class="col-md-6">
                   <label class="form-label fw-semibold">Usia / Profesi</label>
@@ -206,13 +241,44 @@
               </div>
 
               <div class="mb-4">
-                <label class="form-label fw-semibold">Kesiapan Wilayah Penugasan</label>
-                <select id="vScope" class="form-select form-select-lg rounded-3">
-                  <option value="Bandar Lampung & Sekitarnya (Lokal)">Bandar Lampung & Sekitarnya (Lokal)</option>
-                  <option value="Wilayah Sumatera (Lintas Provinsi)">Wilayah Sumatera (Lintas Provinsi)</option>
-                  <option value="Siap Siaga Seluruh Indonesia (Nasional)">Siap Siaga Seluruh Indonesia (Nasional)
-                  </option>
+                <label class="form-label fw-semibold">
+                  <i class="fas fa-building-flag text-danger me-1"></i> Cabang / Wilayah Posko Penugasan <span class="text-danger">*</span>
+                </label>
+                <select id="vScope" class="form-select form-select-lg rounded-3" required>
+                  <option value="" disabled selected>-- Pilih Posko Cabang Terdekat dari Domisili Anda --</option>
+                  
+                  <optgroup label="🏢 Posko Cabang Siaga - Wilayah Sumatera">
+                    <option value="Posko Induk Lampung (Bandar Lampung & Sekitarnya)">Posko Induk Lampung (Bandar Lampung & Sekitarnya)</option>
+                    <option value="Posko Cabang Lampung Selatan & Pesawaran">Posko Cabang Lampung Selatan & Pesawaran</option>
+                    <option value="Posko Cabang Sumatera Barat (Padang & Bukittinggi)">Posko Cabang Sumatera Barat (Padang & Bukittinggi)</option>
+                    <option value="Posko Cabang Sumatera Selatan (Palembang & Ogan Ilir)">Posko Cabang Sumatera Selatan (Palembang & Ogan Ilir)</option>
+                    <option value="Posko Cabang Sumatera Utara (Medan & Deli Serdang)">Posko Cabang Sumatera Utara (Medan & Deli Serdang)</option>
+                    <option value="Posko Cabang Riau (Kota Pekanbaru & Kampar)">Posko Cabang Riau (Kota Pekanbaru & Kampar)</option>
+                    <option value="Posko Cabang Aceh (Banda Aceh & Aceh Besar)">Posko Cabang Aceh (Banda Aceh & Aceh Besar)</option>
+                    <option value="Posko Cabang Jambi (Kota Jambi & Muaro Jambi)">Posko Cabang Jambi (Kota Jambi & Muaro Jambi)</option>
+                    <option value="Posko Cabang Bengkulu (Kota Bengkulu & Seluma)">Posko Cabang Bengkulu (Kota Bengkulu & Seluma)</option>
+                    <option value="Posko Cabang Kepulauan Riau (Batam & Tanjungpinang)">Posko Cabang Kepulauan Riau (Batam & Tanjungpinang)</option>
+                    <option value="Posko Cabang Bangka Belitung (Pangkalpinang)">Posko Cabang Bangka Belitung (Pangkalpinang)</option>
+                  </optgroup>
+
+                  <optgroup label="🏢 Posko Cabang Siaga - Wilayah Jawa">
+                    <option value="Posko Cabang Jawa Barat (Bandung & Cimahi)">Posko Cabang Jawa Barat (Bandung & Cimahi)</option>
+                    <option value="Posko Aju Darurat Gempa & Longsor Sukabumi - Cianjur">Posko Aju Darurat Gempa & Longsor Sukabumi - Cianjur</option>
+                    <option value="Posko Perwakilan Khusus DKI Jakarta & Bodetabek">Posko Perwakilan Khusus DKI Jakarta & Bodetabek</option>
+                    <option value="Posko Cabang Jawa Tengah & DIY (Semarang, Solo & Yogyakarta)">Posko Cabang Jawa Tengah & DIY (Semarang, Solo & Yogyakarta)</option>
+                    <option value="Posko Cabang Jawa Timur (Surabaya & Malang)">Posko Cabang Jawa Timur (Surabaya & Malang)</option>
+                  </optgroup>
+
+                  <optgroup label="🌐 Penugasan Khusus & Mandiri">
+                    <option value="Posko Siaga Tanggap Darurat NTT (Flores Timur)">Posko Siaga Tanggap Darurat NTT (Flores Timur)</option>
+                    <option value="Siaga di Domisili Sendiri (Relawan Mandiri Berbasis RT/RW)">Siaga di Domisili Sendiri (Relawan Mandiri Berbasis RT/RW)</option>
+                    <option value="Tim Reaksi Cepat Nasional (Siap Diterbangkan ke Luar Pulau)">Tim Reaksi Cepat Nasional (Siap Diterbangkan ke Luar Pulau)</option>
+                  </optgroup>
                 </select>
+                <div id="vScopeHint" class="mt-2" style="display: none;"></div>
+                <div class="form-text small text-muted">
+                  <i class="fas fa-bolt text-warning me-1"></i> Posko cabang akan <strong>otomatis berubah</strong> saat Anda mengisi kota domisili di atas, atau Anda tetap bebas memilih cabang yang diinginkan.
+                </div>
               </div>
 
               <div class="mb-4 form-check">
@@ -275,7 +341,11 @@
       </div>
       <p class="text-white-50 max-w-700 mx-auto">Gerakan sosial tanpa pamrih. Bersama menyalakan harapan di tengah duka
         bencana.</p>
-      <p class="small text-white-50 mt-4 mb-0">&copy; 2026 JiwaPeduli Indonesia.</p>
+      <p class="small text-white-50 mt-2 mb-0">
+        <i class="fas fa-phone me-1 text-danger"></i> Hotline Relawan: <a href="tel:082382262838" class="text-white-50 text-decoration-none">0823-8226-2838</a> &nbsp;|&nbsp; 
+        <i class="fab fa-whatsapp me-1 text-success"></i> <a href="https://wa.me/6282382262838?text=Halo%20Admin%20JiwaPeduli,%20saya%20ingin%20info%20koordinasi%20relawan" target="_blank" class="text-white-50 text-decoration-none">WhatsApp Posko</a>
+      </p>
+      <p class="small text-white-50 mt-3 mb-0">&copy; 2026 JiwaPeduli Indonesia.</p>
     </div>
   </footer>
 
@@ -288,14 +358,17 @@
       container.innerHTML = "";
       list.slice(0, 6).forEach((v) => {
         const item = document.createElement("div");
-        item.className = "p-3 mb-2 bg-light rounded-3 d-flex justify-content-between align-items-center border";
+        item.className = "p-3 mb-2 bg-white rounded-3 d-flex justify-content-between align-items-center border shadow-sm";
+        const shortScope = v.scope ? v.scope.split("(")[0].trim() : "Posko Lokal";
         item.innerHTML = `
             <div>
-              <h6 class="mb-0 fw-bold">${v.name}</h6>
-              <small class="text-danger fw-semibold">${v.role}</small>
-              <small class="text-muted d-block" style="font-size:0.75rem;"><i class="fas fa-location-dot me-1"></i>${v.city}</small>
+              <h6 class="mb-0 fw-bold text-dark">${v.name}</h6>
+              <small class="text-danger fw-semibold d-block"><i class="fas fa-user-shield me-1"></i>${v.role}</small>
+              <small class="text-muted" style="font-size:0.76rem;">
+                <i class="fas fa-location-dot me-1 text-danger"></i>${v.city} &bull; <span class="text-secondary fw-semibold">${shortScope}</span>
+              </small>
             </div>
-            <span class="badge bg-light text-success border border-success"><i class="fas fa-check me-1"></i>${v.status || "Aktif"}</span>
+            <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1"><i class="fas fa-circle-check me-1"></i>${v.status || "Aktif"}</span>
           `;
         container.appendChild(item);
       });
@@ -304,31 +377,75 @@
     function submitVolunteer(e) {
       e.preventDefault();
       const name = document.getElementById("vName").value.trim();
+      const phone = document.getElementById("vPhone") ? document.getElementById("vPhone").value.trim() : "";
       const city = document.getElementById("vCity").value.trim();
-      const role = document.querySelector('input[name="vRole"]:checked').value;
+      const roleRadio = document.querySelector('input[name="vRole"]:checked');
+      const role = roleRadio ? roleRadio.value : "Dapur Umum & Logistik";
+      const scopeEl = document.getElementById("vScope");
+      const scope = scopeEl ? scopeEl.value : "Posko Induk Lampung (Bandar Lampung & Sekitarnya)";
 
-      if (!name || !city) return;
+      if (!name || !city || !scope) return;
 
       const list = JSON.parse(localStorage.getItem("jp_volunteers")) || [];
       list.unshift({
         name: name,
+        phone: phone,
         city: city,
         role: role,
-        status: "Baru Mendaftar",
+        scope: scope,
+        status: "Siaga Aktif",
       });
 
       localStorage.setItem("jp_volunteers", JSON.stringify(list));
       renderVolunteers();
 
-      document.getElementById("volunteerForm").reset();
+      // Tampilkan notifikasi sukses interaktif
       const alertEl = document.getElementById("alertSuccess");
-      alertEl.classList.remove("d-none");
-      window.scrollTo({ top: alertEl.offsetTop - 100, behavior: "smooth" });
+      if (alertEl) {
+        alertEl.innerHTML = `
+          <div class="d-flex align-items-start gap-2">
+            <i class="fas fa-circle-check text-success fa-2x mt-1 flex-shrink-0"></i>
+            <div>
+              <h6 class="fw-bold mb-1">Pendaftaran Berhasil Diterima!</h6>
+              <p class="mb-2 small">Terima kasih <strong>${name}</strong>, Anda resmi terdaftar sebagai Relawan Siaga di <strong>${scope}</strong> untuk divisi <strong>${role}</strong>.</p>
+              <a href="https://wa.me/6282382262838?text=Halo%20Admin%20JiwaPeduli,%20saya%20sudah%20mendaftar%20relawan%20atas%20nama%20${encodeURIComponent(name)}%20di%20cabang%20${encodeURIComponent(scope)}" target="_blank" class="btn btn-sm btn-success rounded-pill px-3 py-1 fw-bold text-decoration-none">
+                <i class="fab fa-whatsapp me-1"></i> Konfirmasi ke WA Koordinator Cabang
+              </a>
+            </div>
+          </div>
+        `;
+        alertEl.classList.remove("d-none");
+        window.scrollTo({ top: alertEl.offsetTop - 100, behavior: "smooth" });
+      }
+
+      document.getElementById("volunteerForm").reset();
     }
 
-    document.addEventListener("DOMContentLoaded", renderVolunteers);
+    document.addEventListener("DOMContentLoaded", function () {
+      renderVolunteers();
+
+      // Cek URL params jika diarahkan dari posko bencana (misal: relawan.html?loc=Lampung / Jabar / Sumbar)
+      const urlParams = new URLSearchParams(window.location.search);
+      const queryLoc = urlParams.get("loc");
+      if (queryLoc) {
+        const scopeSelect = document.getElementById("vScope");
+        if (scopeSelect) {
+          for (let i = 0; i < scopeSelect.options.length; i++) {
+            if (scopeSelect.options[i].value.toLowerCase().includes(queryLoc.toLowerCase())) {
+              scopeSelect.selectedIndex = i;
+              break;
+            }
+          }
+        }
+      }
+    });
   </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="cities-data.js?v=2.2"></script>
+  <script src="script.js?v=3.0"></script>
+  <!-- AOS Animation Framework JS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>AOS.init({ duration: 750, once: true, offset: 60 });</script>
 </body>
 
 </html>

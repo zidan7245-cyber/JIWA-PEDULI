@@ -1,635 +1,727 @@
 <!DOCTYPE html>
 <html lang="id">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard Admin - JiwaPeduli Tanggap Bencana</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+
+<head>
+  <!-- Google Fonts: Editorial Serif (Playfair Display) & Clean Sans (Plus Jakarta Sans) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,500;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard Admin - JiwaPeduli Tanggap Bencana</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      display: flex;
+      min-height: 100vh;
+      background-color: #f5f7fa;
+      color: #333;
+    }
+
+    /* Sidebar Styles */
+    .sidebar {
+      width: 260px;
+      background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+      color: white;
+      padding: 25px 0;
+      box-shadow: 3px 0 15px rgba(0, 0, 0, 0.15);
+      position: fixed;
+      height: 100vh;
+      overflow-y: auto;
+      z-index: 100;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      padding: 0 25px 25px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      margin-bottom: 25px;
+    }
+
+    .logo i {
+      font-size: 28px;
+      margin-right: 12px;
+      color: #e8491c;
+    }
+
+    .logo h2 {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+
+    .user-info {
+      padding: 0 25px 25px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      margin-bottom: 25px;
+    }
+
+    .user-info h3 {
+      font-size: 18px;
+      margin-bottom: 5px;
+    }
+
+    .user-info p {
+      font-size: 13px;
+      opacity: 0.85;
+      background-color: rgba(232, 73, 28, 0.25);
+      color: #ff8a65;
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      margin-top: 5px;
+      font-weight: 600;
+    }
+
+    .nav-menu {
+      list-style: none;
+      padding: 0 15px;
+    }
+
+    .nav-item {
+      margin-bottom: 6px;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      padding: 12px 18px;
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .nav-link:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+      color: white;
+    }
+
+    .nav-link.active {
+      background-color: #e8491c;
+      color: white;
+      box-shadow: 0 4px 14px rgba(232, 73, 28, 0.4);
+    }
+
+    .nav-link i {
+      margin-right: 12px;
+      font-size: 18px;
+      width: 24px;
+      text-align: center;
+    }
+
+    .badge {
+      background-color: #e8491c;
+      color: white;
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 10px;
+      margin-left: auto;
+      font-weight: 700;
+    }
+
+    /* Main Content Styles */
+    .main-content {
+      flex: 1;
+      margin-left: 260px;
+      padding: 30px;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    .page-title h1 {
+      font-size: 28px;
+      color: #0f172a;
+      margin-bottom: 5px;
+    }
+
+    .page-title p {
+      color: #64748b;
+      font-size: 15px;
+    }
+
+    .date-info {
+      background-color: white;
+      padding: 10px 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      font-weight: 500;
+      color: #475569;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .welcome-section {
+      background: linear-gradient(135deg, #1e293b 0%, #e8491c 100%);
+      color: white;
+      padding: 28px;
+      border-radius: 18px;
+      margin-bottom: 30px;
+      box-shadow: 0 10px 25px rgba(232, 73, 28, 0.2);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .welcome-section h2 {
+      font-size: 24px;
+      margin-bottom: 8px;
+    }
+
+    .welcome-section p {
+      opacity: 0.9;
+      font-size: 15px;
+      max-width: 600px;
+    }
+
+    .stats-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .stat-card {
+      background-color: white;
+      border-radius: 15px;
+      padding: 22px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border: 2px solid transparent;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+      border-color: #e8491c;
+    }
+
+    .stat-card.clicked {
+      border-color: #e8491c;
+      background-color: #fff9f6;
+    }
+
+    .stat-title {
+      font-size: 14px;
+      color: #64748b;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    .stat-value {
+      font-size: 28px;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 12px;
+    }
+
+    .stat-change {
+      display: flex;
+      align-items: center;
+      font-size: 13px;
+      color: #16a34a;
+      gap: 5px;
+      font-weight: 600;
+    }
+
+    .stat-change.urgent {
+      color: #dc3545;
+    }
+
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(15, 23, 42, 0.6);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: blur(4px);
+    }
+
+    .modal-content {
+      background-color: white;
+      width: 92%;
+      max-width: 950px;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+      animation: modalFadeIn 0.3s ease;
+    }
+
+    @keyframes modalFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
       }
 
-      body {
-        display: flex;
-        min-height: 100vh;
-        background-color: #f5f7fa;
-        color: #333;
-      }
-
-      /* Sidebar Styles */
-      .sidebar {
-        width: 260px;
-        background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
-        color: white;
-        padding: 25px 0;
-        box-shadow: 3px 0 15px rgba(0, 0, 0, 0.15);
-        position: fixed;
-        height: 100vh;
-        overflow-y: auto;
-        z-index: 100;
-      }
-
-      .logo {
-        display: flex;
-        align-items: center;
-        padding: 0 25px 25px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        margin-bottom: 25px;
-      }
-
-      .logo i {
-        font-size: 28px;
-        margin-right: 12px;
-        color: #e8491c;
-      }
-
-      .logo h2 {
-        font-size: 20px;
-        font-weight: 800;
-        letter-spacing: 0.5px;
-      }
-
-      .user-info {
-        padding: 0 25px 25px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        margin-bottom: 25px;
-      }
-
-      .user-info h3 {
-        font-size: 18px;
-        margin-bottom: 5px;
-      }
-
-      .user-info p {
-        font-size: 13px;
-        opacity: 0.85;
-        background-color: rgba(232, 73, 28, 0.25);
-        color: #ff8a65;
-        display: inline-block;
-        padding: 3px 10px;
-        border-radius: 20px;
-        margin-top: 5px;
-        font-weight: 600;
-      }
-
-      .nav-menu {
-        list-style: none;
-        padding: 0 15px;
-      }
-
-      .nav-item {
-        margin-bottom: 6px;
-      }
-
-      .nav-link {
-        display: flex;
-        align-items: center;
-        padding: 12px 18px;
-        color: rgba(255, 255, 255, 0.8);
-        text-decoration: none;
-        border-radius: 10px;
-        transition: all 0.3s ease;
-        font-size: 14px;
-        font-weight: 500;
-      }
-
-      .nav-link:hover {
-        background-color: rgba(255, 255, 255, 0.1);
-        color: white;
-      }
-
-      .nav-link.active {
-        background-color: #e8491c;
-        color: white;
-        box-shadow: 0 4px 14px rgba(232, 73, 28, 0.4);
-      }
-
-      .nav-link i {
-        margin-right: 12px;
-        font-size: 18px;
-        width: 24px;
-        text-align: center;
-      }
-
-      .badge {
-        background-color: #e8491c;
-        color: white;
-        font-size: 11px;
-        padding: 3px 8px;
-        border-radius: 10px;
-        margin-left: auto;
-        font-weight: 700;
-      }
-
-      /* Main Content Styles */
-      .main-content {
-        flex: 1;
-        margin-left: 260px;
-        padding: 30px;
-      }
-
-      .header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 30px;
-      }
-
-      .page-title h1 {
-        font-size: 28px;
-        color: #0f172a;
-        margin-bottom: 5px;
-      }
-
-      .page-title p {
-        color: #64748b;
-        font-size: 15px;
-      }
-
-      .date-info {
-        background-color: white;
-        padding: 10px 20px;
-        border-radius: 10px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-        font-weight: 500;
-        color: #475569;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
-
-      .welcome-section {
-        background: linear-gradient(135deg, #1e293b 0%, #e8491c 100%);
-        color: white;
-        padding: 28px;
-        border-radius: 18px;
-        margin-bottom: 30px;
-        box-shadow: 0 10px 25px rgba(232, 73, 28, 0.2);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-
-      .welcome-section h2 {
-        font-size: 24px;
-        margin-bottom: 8px;
-      }
-
-      .welcome-section p {
-        opacity: 0.9;
-        font-size: 15px;
-        max-width: 600px;
-      }
-
-      .stats-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-        gap: 20px;
-        margin-bottom: 30px;
-      }
-
-      .stat-card {
-        background-color: white;
-        border-radius: 15px;
-        padding: 22px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-        transition: all 0.3s ease;
-        cursor: pointer;
-        border: 2px solid transparent;
-      }
-
-      .stat-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
-        border-color: #e8491c;
-      }
-
-      .stat-card.clicked {
-        border-color: #e8491c;
-        background-color: #fff9f6;
-      }
-
-      .stat-title {
-        font-size: 14px;
-        color: #64748b;
-        margin-bottom: 10px;
-        font-weight: 600;
-      }
-
-      .stat-value {
-        font-size: 28px;
-        font-weight: 800;
-        color: #0f172a;
-        margin-bottom: 12px;
-      }
-
-      .stat-change {
-        display: flex;
-        align-items: center;
-        font-size: 13px;
-        color: #16a34a;
-        gap: 5px;
-        font-weight: 600;
-      }
-
-      .stat-change.urgent {
-        color: #dc3545;
-      }
-
-      /* Modal Styles */
-      .modal {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(15, 23, 42, 0.6);
-        z-index: 1000;
-        justify-content: center;
-        align-items: center;
-        backdrop-filter: blur(4px);
-      }
-
-      .modal-content {
-        background-color: white;
-        width: 92%;
-        max-width: 950px;
-        border-radius: 18px;
-        overflow: hidden;
-        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
-        animation: modalFadeIn 0.3s ease;
-      }
-
-      @keyframes modalFadeIn {
-        from {
-          opacity: 0;
-          transform: translateY(-20px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      .modal-header {
-        background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-        color: white;
-        padding: 20px 25px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-
-      .modal-header.danger-header {
-        background: linear-gradient(135deg, #dc3545 0%, #b02a37 100%);
-      }
-
-      .modal-header h3 {
-        font-size: 20px;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-      }
-
-      .close-btn {
-        background: none;
-        border: none;
-        color: white;
-        font-size: 26px;
-        cursor: pointer;
-        line-height: 1;
-        opacity: 0.85;
-      }
-
-      .close-btn:hover {
+      to {
         opacity: 1;
+        transform: translateY(0);
       }
+    }
 
-      .modal-body {
-        padding: 25px;
-        max-height: 70vh;
-        overflow-y: auto;
-      }
+    .modal-header {
+      background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+      color: white;
+      padding: 20px 25px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-      .data-table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 15px;
-      }
+    .modal-header.danger-header {
+      background: linear-gradient(135deg, #dc3545 0%, #b02a37 100%);
+    }
 
-      .data-table th {
-        background-color: #f8fafc;
-        color: #475569;
-        font-weight: 700;
-        text-align: left;
-        padding: 12px 16px;
-        border-bottom: 2px solid #e2e8f0;
-        font-size: 13px;
-      }
+    .modal-header h3 {
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
 
-      .data-table td {
-        padding: 14px 16px;
-        border-bottom: 1px solid #f1f5f9;
-        font-size: 14px;
-      }
+    .close-btn {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 26px;
+      cursor: pointer;
+      line-height: 1;
+      opacity: 0.85;
+    }
 
-      .status-badge {
-        display: inline-block;
-        padding: 4px 10px;
-        border-radius: 20px;
-        font-size: 12px;
-        font-weight: 600;
-      }
+    .close-btn:hover {
+      opacity: 1;
+    }
 
-      .status-active {
-        background-color: #dcfce7;
-        color: #15803d;
-      }
+    .modal-body {
+      padding: 25px;
+      max-height: 70vh;
+      overflow-y: auto;
+    }
 
-      .status-pending {
-        background-color: #fef3c7;
-        color: #b45309;
-      }
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
 
-      .status-danger {
-        background-color: #fee2e2;
-        color: #b91c1c;
-      }
+    .data-table th {
+      background-color: #f8fafc;
+      color: #475569;
+      font-weight: 700;
+      text-align: left;
+      padding: 12px 16px;
+      border-bottom: 2px solid #e2e8f0;
+      font-size: 13px;
+    }
 
-      .btn-action-sm {
-        padding: 5px 12px;
-        border-radius: 6px;
-        border: none;
-        font-size: 12px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.2s;
-      }
+    .data-table td {
+      padding: 14px 16px;
+      border-bottom: 1px solid #f1f5f9;
+      font-size: 14px;
+    }
 
-      .btn-verify {
-        background-color: #10b981;
-        color: white;
-      }
+    .status-badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+    }
 
-      .btn-verify:hover {
-        background-color: #059669;
-      }
-    </style>
-  </head>
-  <body>
-    <!-- Sidebar -->
-    <div class="sidebar">
-      <div class="logo">
-        <i class="fas fa-hand-holding-heart"></i>
-        <h2>JIWAPEDULI</h2>
-      </div>
+    .status-active {
+      background-color: #dcfce7;
+      color: #15803d;
+    }
 
-      <div class="user-info">
-        <h3>Jidan Superadmin</h3>
-        <p><i class="fas fa-shield-halved me-1"></i> Super Admin</p>
-      </div>
+    .status-pending {
+      background-color: #fef3c7;
+      color: #b45309;
+    }
 
-      <ul class="nav-menu">
-        <li class="nav-item">
-          <a href="#" class="nav-link active">
-            <i class="fas fa-home"></i>
-            <span>Dashboard</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="#" class="nav-link" id="reports-link">
-            <i class="fas fa-bullhorn text-warning"></i>
-            <span>Laporan Bencana</span>
-            <span class="badge" id="reports-badge">3</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="#" class="nav-link" id="donation-link">
-            <i class="fas fa-hand-holding-dollar"></i>
-            <span>Data Donasi Masuk</span>
-            <span class="badge" id="donation-badge">0</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="jadwal.HTML" class="nav-link">
-            <i class="fas fa-calendar-days"></i>
-            <span>Jadwal Aksi Posko</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="riwayat.HTML" class="nav-link">
-            <i class="fas fa-file-invoice-dollar"></i>
-            <span>Transparansi Dana</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="#" class="nav-link" id="users-link">
-            <i class="fas fa-users-gear"></i>
-            <span>Data Relawan</span>
-            <span class="badge" id="users-badge" style="background: #475569">1.450</span>
-          </a>
-        </li>
-        <li class="nav-item" style="margin-top: 20px">
-          <a href="index.HTML" class="nav-link" style="background: rgba(255, 255, 255, 0.08)">
-            <i class="fas fa-arrow-left"></i>
-            <span>Lihat Website Utama</span>
-          </a>
-        </li>
-      </ul>
+    .status-danger {
+      background-color: #fee2e2;
+      color: #b91c1c;
+    }
+
+    .btn-action-sm {
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: none;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-verify {
+      background-color: #10b981;
+      color: white;
+    }
+
+    .btn-verify:hover {
+      background-color: #059669;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="logo">
+      <i class="fas fa-hand-holding-heart"></i>
+      <h2>JIWAPEDULI</h2>
     </div>
 
-    <!-- Main Content -->
-    <div class="main-content">
-      <div class="header">
-        <div class="page-title">
-          <h1>Pusat Komando & Administrasi Bencana</h1>
-          <p>Selamat bertugas, Jidan Superadmin</p>
-        </div>
-        <div class="date-info">
-          <i class="far fa-calendar-alt text-danger"></i>
-          <span id="current-date"></span>
-        </div>
-      </div>
+    <div class="user-info">
+      <h3>Jidan Superadmin</h3>
+      <p><i class="fas fa-shield-halved me-1"></i> Super Admin</p>
+    </div>
 
-      <div class="welcome-section">
-        <div>
-          <h2>Halo, Jidan! 🚀</h2>
-          <p>Radar sistem JiwaPeduli aktif memantau laporan bencana warga, pergerakan logistik posko, dan transparansi donasi masyarakat Indonesia.</p>
-        </div>
-        <a href="lapor-bencana.HTML" target="_blank" style="background: white; color: #e8491c; padding: 10px 20px; border-radius: 30px; font-weight: 700; text-decoration: none; font-size: 14px; white-space: nowrap">
-          <i class="fas fa-plus me-1"></i> Form Laporan Warga
+    <ul class="nav-menu">
+      <li class="nav-item">
+        <a href="#" class="nav-link active">
+          <i class="fas fa-home"></i>
+          <span>Dashboard</span>
         </a>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link" id="reports-link">
+          <i class="fas fa-bullhorn text-warning"></i>
+          <span>Laporan Bencana</span>
+          <span class="badge" id="reports-badge">3</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link" id="donation-link">
+          <i class="fas fa-hand-holding-dollar"></i>
+          <span>Data Donasi Masuk</span>
+          <span class="badge" id="donation-badge">0</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="jadwal.html" class="nav-link">
+          <i class="fas fa-calendar-days"></i>
+          <span>Jadwal Aksi Posko</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="riwayat.html" class="nav-link">
+          <i class="fas fa-file-invoice-dollar"></i>
+          <span>Transparansi Dana</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link" id="users-link">
+          <i class="fas fa-users-gear"></i>
+          <span>Data Relawan</span>
+          <span class="badge" id="users-badge" style="background: #475569">1.450</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link" id="posko-link">
+          <i class="fas fa-campground"></i>
+          <span>Monitoring Posko Cabang</span>
+          <span class="badge" style="background: #ea580c">5 Posko</span>
+        </a>
+      </li>
+      <li class="nav-item" style="margin-top: 20px">
+        <a href="index.html" class="nav-link" style="background: rgba(255, 255, 255, 0.08)">
+          <i class="fas fa-arrow-left"></i>
+          <span>Lihat Website Utama</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="header">
+      <div class="page-title">
+        <h1>Pusat Komando & Administrasi Bencana</h1>
+        <p>Selamat bertugas, Jidan Superadmin</p>
       </div>
-
-      <div class="stats-container">
-        <!-- Card 1: Laporan Bencana -->
-        <div class="stat-card" id="reports-card">
-          <div class="stat-title">Laporan Bencana Warga</div>
-          <div class="stat-value text-danger" id="stat-reports-count">0</div>
-          <div class="stat-change urgent">
-            <i class="fas fa-tower-broadcast"></i>
-            <span>Klik untuk verifikasi cepat posko</span>
-          </div>
-        </div>
-
-        <!-- Card 2: Total Donasi -->
-        <div class="stat-card" id="donation-card">
-          <div class="stat-title">Total Donasi Terhimpun</div>
-          <div class="stat-value" id="stat-donation-amount">Rp 0</div>
-          <div class="stat-change">
-            <i class="fas fa-arrow-up"></i>
-            <span id="stat-donation-count">0 Transaksi Sukses</span>
-          </div>
-        </div>
-
-        <!-- Card 3: Relawan Siaga -->
-        <div class="stat-card" id="users-card">
-          <div class="stat-title">Relawan Terdaftar</div>
-          <div class="stat-value">1.450+</div>
-          <div class="stat-change">
-            <i class="fas fa-shield-heart"></i>
-            <span>Siaga Evakuasi & Medis</span>
-          </div>
-        </div>
-
-        <!-- Card 4: Posko Aktif -->
-        <div class="stat-card">
-          <div class="stat-title">Titik Posko Darurat Aktif</div>
-          <div class="stat-value" style="color: #ea580c">5 Posko</div>
-          <div class="stat-change" style="color: #ea580c">
-            <i class="fas fa-location-dot"></i>
-            <span>Lampung, Sumbar, Sukabumi</span>
-          </div>
-        </div>
+      <div class="date-info">
+        <i class="far fa-calendar-alt text-danger"></i>
+        <span id="current-date"></span>
       </div>
     </div>
 
-    <!-- Modal 1: Data Laporan Bencana Warga -->
-    <div class="modal" id="reports-modal">
-      <div class="modal-content">
-        <div class="modal-header danger-header">
-          <h3><i class="fas fa-bullhorn"></i> Laporan Masuk dari Warga & Lapangan</h3>
-          <button class="close-btn" id="close-reports">&times;</button>
+    <div class="welcome-section">
+      <div>
+        <h2>Halo, Jidan! 🚀</h2>
+        <p>Radar sistem JiwaPeduli aktif memantau laporan bencana warga, pergerakan logistik posko, dan transparansi
+          donasi masyarakat Indonesia.</p>
+      </div>
+      <a href="lapor-bencana.html" target="_blank"
+        style="background: white; color: #e8491c; padding: 10px 20px; border-radius: 30px; font-weight: 700; text-decoration: none; font-size: 14px; white-space: nowrap">
+        <i class="fas fa-plus me-1"></i> Form Laporan Warga
+      </a>
+    </div>
+
+    <div class="stats-container">
+      <!-- Card 1: Laporan Bencana -->
+      <div class="stat-card" id="reports-card" onclick="openReportsModal()" style="cursor: pointer;">
+        <div class="stat-title">Laporan Bencana Warga</div>
+        <div class="stat-value text-danger" id="stat-reports-count">0</div>
+        <div class="stat-change urgent">
+          <i class="fas fa-tower-broadcast"></i>
+          <span>Klik untuk verifikasi laporan &rarr;</span>
         </div>
-        <div class="modal-body">
-          <p style="color: #64748b; font-size: 14px">Data laporan real-time yang dikirimkan warga via formulir darurat:</p>
+      </div>
+
+      <!-- Card 2: Total Donasi -->
+      <div class="stat-card" id="donation-card" onclick="openDonationModal()" style="cursor: pointer;">
+        <div class="stat-title">Total Donasi Terhimpun</div>
+        <div class="stat-value" id="stat-donation-amount">Rp 0</div>
+        <div class="stat-change">
+          <i class="fas fa-arrow-up"></i>
+          <span id="stat-donation-count">0 Transaksi Sukses &rarr;</span>
+        </div>
+      </div>
+
+      <!-- Card 3: Relawan Siaga -->
+      <div class="stat-card" id="users-card" onclick="openUsersModal()" style="cursor: pointer;">
+        <div class="stat-title">Relawan Terdaftar</div>
+        <div class="stat-value">1.450+</div>
+        <div class="stat-change">
+          <i class="fas fa-shield-heart"></i>
+          <span>Siaga Evakuasi & Medis &rarr;</span>
+        </div>
+      </div>
+
+      <!-- Card 4: Posko Aktif (Clickable untuk pengawasan admin) -->
+      <div class="stat-card" id="posko-card" onclick="openPoskoModal()" style="cursor: pointer; border: 2.5px solid #ea580c; background: #fffaf5; box-shadow: 0 6px 20px rgba(234, 88, 12, 0.15);" title="Klik untuk mengawasi dan monitoring seluruh posko cabang bantuan aktif">
+        <div class="stat-title">Titik Posko Darurat Aktif</div>
+        <div class="stat-value" style="color: #ea580c">5 Posko</div>
+        <div class="stat-change" style="color: #ea580c; font-weight:700;">
+          <i class="fas fa-location-dot"></i>
+          <span>Lampung, Sumbar, Sukabumi</span>
+        </div>
+        <div style="margin-top: 10px;">
+          <span style="background: #ea580c; color: #ffffff; font-size: 12px; font-weight: 700; padding: 6px 14px; border-radius: 20px; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 4px 12px rgba(234, 88, 12, 0.35);">
+            <i class="fas fa-eye"></i> Klik Awasi Posko Cabang &rarr;
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 1: Data Laporan Bencana Warga -->
+  <div class="modal" id="reports-modal">
+    <div class="modal-content">
+      <div class="modal-header danger-header">
+        <h3><i class="fas fa-bullhorn"></i> Laporan Masuk dari Warga & Lapangan</h3>
+        <button class="close-btn" id="close-reports">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="color: #64748b; font-size: 14px">Data laporan real-time yang dikirimkan warga via formulir darurat:
+        </p>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>ID Laporan</th>
+              <th>Jenis & Urgensi</th>
+              <th>Lokasi Posko</th>
+              <th>Pelapor & Kontak</th>
+              <th>Status Penanganan</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="reports-table-body">
+            <!-- Diisi otomatis oleh JavaScript -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 2: Data Donasi Masuk -->
+  <div class="modal" id="donation-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3><i class="fas fa-hand-holding-dollar"></i> Data Riwayat Donasi Terkini</h3>
+        <button class="close-btn" id="close-donation">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="color: #64748b; font-size: 14px">Daftar donatur dermawan yang telah menyalurkan bantuan:</p>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>ID Donasi</th>
+              <th>Nama Donatur</th>
+              <th>Program Penyaluran</th>
+              <th>Nominal</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="donation-table-body">
+            <!-- Diisi otomatis oleh JavaScript -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 3: Data Relawan -->
+  <div class="modal" id="users-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3><i class="fas fa-users"></i> Data Relawan JiwaPeduli</h3>
+        <button class="close-btn" id="close-users">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="color: #64748b; font-size: 14px">Relawan terlatih yang siap diterjunkan:</p>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Nama Relawan</th>
+              <th>Keahlian Lapangan</th>
+              <th>Kota Posko</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="users-table-body">
+            <!-- Diisi otomatis oleh JavaScript -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 4: Monitoring & Pengawasan Posko Cabang Bantuan Aktif -->
+  <div class="modal" id="posko-modal">
+    <div class="modal-content" style="max-width: 1050px;">
+      <div class="modal-header" style="background: linear-gradient(135deg, #c2410c 0%, #ea580c 50%, #f97316 100%);">
+        <h3><i class="fas fa-campground me-2"></i>Monitoring Operasional Posko Cabang Bantuan JiwaPeduli</h3>
+        <button class="close-btn" id="close-posko">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 pb-3 border-bottom gap-3" style="background:#fff7ed; padding:16px 20px; border-radius:12px; border:1px solid #ffedd5;">
+          <div>
+            <h5 style="color:#9a3412; font-weight:700; margin-bottom:4px; font-size:16px;">
+              <i class="fas fa-shield-halved text-danger me-2"></i>Pusat Komando & Pengawasan Posko Lapangan
+            </h5>
+            <p style="color:#475569; font-size:13px; margin:0; line-height:1.5;">
+              Pantau kesiapan tim relawan, alokasi dapur umum, distribusi logistik sembako, dan nomor kontak koordinator tiap cabang yang sedang giat melaksanakan tugas penanggulangan bencana.
+            </p>
+          </div>
+          <div class="d-flex gap-2">
+            <a href="bencana.html" target="_blank" class="btn-action btn-detail" style="text-decoration:none; display:inline-flex; align-items:center; gap:6px; background:#0f172a; color:#fff; padding:8px 16px; border-radius:20px; font-size:13px; font-weight:600;">
+              <i class="fas fa-map-location-dot text-danger"></i> Lihat Peta GIS Web
+            </a>
+          </div>
+        </div>
+
+        <div style="overflow-x: auto;">
           <table class="data-table">
             <thead>
               <tr>
-                <th>ID Laporan</th>
-                <th>Jenis & Urgensi</th>
-                <th>Lokasi Posko</th>
-                <th>Pelapor & Kontak</th>
-                <th>Status Penanganan</th>
-                <th>Aksi</th>
+                <th style="min-width:180px;">Posko & Wilayah</th>
+                <th style="min-width:140px;">Status Operasi</th>
+                <th style="min-width:160px;">Koordinator Posko</th>
+                <th style="min-width:240px;">Fokus Aksi Lapangan</th>
+                <th style="min-width:120px;">Personel</th>
+                <th style="min-width:140px;">Logistik Terdistribusi</th>
+                <th style="min-width:120px;">Aksi Cepat</th>
               </tr>
             </thead>
-            <tbody id="reports-table-body">
+            <tbody id="posko-table-body">
               <!-- Diisi otomatis oleh JavaScript -->
             </tbody>
           </table>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- Modal 2: Data Donasi Masuk -->
-    <div class="modal" id="donation-modal">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h3><i class="fas fa-hand-holding-dollar"></i> Data Riwayat Donasi Terkini</h3>
-          <button class="close-btn" id="close-donation">&times;</button>
-        </div>
-        <div class="modal-body">
-          <p style="color: #64748b; font-size: 14px">Daftar donatur dermawan yang telah menyalurkan bantuan:</p>
-          <table class="data-table">
-            <thead>
-              <tr>
-                <th>ID Donasi</th>
-                <th>Nama Donatur</th>
-                <th>Program Penyaluran</th>
-                <th>Nominal</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody id="donation-table-body">
-              <!-- Diisi otomatis oleh JavaScript -->
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
+  <script>
+    // Global Modal Functions
+    window.openPoskoModal = function() {
+      populatePoskoTable();
+      const m = document.getElementById("posko-modal");
+      if (m) m.style.display = "flex";
+    };
+    window.openReportsModal = function() {
+      populateReportsTable();
+      const m = document.getElementById("reports-modal");
+      if (m) m.style.display = "flex";
+    };
+    window.openDonationModal = function() {
+      populateDonationTable();
+      const m = document.getElementById("donation-modal");
+      if (m) m.style.display = "flex";
+    };
+    window.openUsersModal = function() {
+      populateUsersTable();
+      const m = document.getElementById("users-modal");
+      if (m) m.style.display = "flex";
+    };
 
-    <!-- Modal 3: Data Relawan -->
-    <div class="modal" id="users-modal">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h3><i class="fas fa-users"></i> Data Relawan JiwaPeduli</h3>
-          <button class="close-btn" id="close-users">&times;</button>
-        </div>
-        <div class="modal-body">
-          <p style="color: #64748b; font-size: 14px">Relawan terlatih yang siap diterjunkan:</p>
-          <table class="data-table">
-            <thead>
-              <tr>
-                <th>Nama Relawan</th>
-                <th>Keahlian Lapangan</th>
-                <th>Kota Posko</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody id="users-table-body">
-              <!-- Diisi otomatis oleh JavaScript -->
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
+    // 1. Tanggal Hari Ini
+    const now = new Date();
+    const options = { weekday: "long", day: "numeric", month: "long", year: "numeric" };
+    document.getElementById("current-date").textContent = now.toLocaleDateString("id-ID", options);
 
-    <script>
-      // 1. Tanggal Hari Ini
-      const now = new Date();
-      const options = { weekday: "long", day: "numeric", month: "long", year: "numeric" };
-      document.getElementById("current-date").textContent = now.toLocaleDateString("id-ID", options);
+    // 2. Load Real Data from localStorage
+    function loadDashboardStats() {
+      // Laporan Bencana
+      const reports = JSON.parse(localStorage.getItem("jp_reports")) || [];
+      document.getElementById("stat-reports-count").textContent = reports.length + " Laporan";
+      document.getElementById("reports-badge").textContent = reports.length;
 
-      // 2. Load Real Data from localStorage
-      function loadDashboardStats() {
-        // Laporan Bencana
-        const reports = JSON.parse(localStorage.getItem("jp_reports")) || [];
-        document.getElementById("stat-reports-count").textContent = reports.length + " Laporan";
-        document.getElementById("reports-badge").textContent = reports.length;
+      // Donasi
+      const donations = JSON.parse(localStorage.getItem("jp_donations")) || [];
+      let totalDonation = 0;
+      donations.forEach((d) => (totalDonation += Number(d.amount) || 0));
+      document.getElementById("stat-donation-amount").textContent = "Rp " + totalDonation.toLocaleString("id-ID");
+      document.getElementById("stat-donation-count").textContent = donations.length + " Transaksi Sukses";
+      document.getElementById("donation-badge").textContent = donations.length;
+    }
 
-        // Donasi
-        const donations = JSON.parse(localStorage.getItem("jp_donations")) || [];
-        let totalDonation = 0;
-        donations.forEach((d) => (totalDonation += Number(d.amount) || 0));
-        document.getElementById("stat-donation-amount").textContent = "Rp " + totalDonation.toLocaleString("id-ID");
-        document.getElementById("stat-donation-count").textContent = donations.length + " Transaksi Sukses";
-        document.getElementById("donation-badge").textContent = donations.length;
+    // 3. Populate Laporan Bencana
+    function populateReportsTable() {
+      const tableBody = document.getElementById("reports-table-body");
+      const reports = JSON.parse(localStorage.getItem("jp_reports")) || [];
+      tableBody.innerHTML = "";
+
+      if (reports.length === 0) {
+        tableBody.innerHTML = '<tr><td colspan="6" style="text-align:center; color:#94a3b8; padding:30px;">Belum ada laporan bencana masuk</td></tr>';
+        return;
       }
 
-      // 3. Populate Laporan Bencana
-      function populateReportsTable() {
-        const tableBody = document.getElementById("reports-table-body");
-        const reports = JSON.parse(localStorage.getItem("jp_reports")) || [];
-        tableBody.innerHTML = "";
+      reports.forEach((rep, index) => {
+        let badgeClass = "status-danger";
+        if (rep.urgency && rep.urgency.includes("Siaga")) badgeClass = "status-pending";
+        if (rep.urgency && rep.urgency.includes("Pasca")) badgeClass = "status-active";
 
-        if (reports.length === 0) {
-          tableBody.innerHTML = '<tr><td colspan="6" style="text-align:center; color:#94a3b8; padding:30px;">Belum ada laporan bencana masuk</td></tr>';
-          return;
-        }
-
-        reports.forEach((rep, index) => {
-          let badgeClass = "status-danger";
-          if (rep.urgency && rep.urgency.includes("Siaga")) badgeClass = "status-pending";
-          if (rep.urgency && rep.urgency.includes("Pasca")) badgeClass = "status-active";
-
-          const row = document.createElement("tr");
-          row.innerHTML = `
+        const row = document.createElement("tr");
+        row.innerHTML = `
             <td><strong>${rep.id}</strong><br><small style="color:#64748b;">${rep.date || ""}</small></td>
             <td>
               <strong>${rep.type}</strong><br>
@@ -652,110 +744,270 @@
               </button>
             </td>
           `;
-          tableBody.appendChild(row);
-        });
+        tableBody.appendChild(row);
+      });
+    }
+
+    window.updateReportStatus = function (index) {
+      const reports = JSON.parse(localStorage.getItem("jp_reports")) || [];
+      if (reports[index]) {
+        const statuses = ["Verifikasi Tim", "Tim Menuju Lokasi", "Posko Dibuka", "Selesai Terdistribusi"];
+        const currentIdx = statuses.indexOf(reports[index].status);
+        const nextIdx = (currentIdx + 1) % statuses.length;
+        reports[index].status = statuses[nextIdx];
+        localStorage.setItem("jp_reports", JSON.stringify(reports));
+        populateReportsTable();
+        loadDashboardStats();
       }
+    };
 
-      window.updateReportStatus = function (index) {
-        const reports = JSON.parse(localStorage.getItem("jp_reports")) || [];
-        if (reports[index]) {
-          const statuses = ["Verifikasi Tim", "Tim Menuju Lokasi", "Posko Dibuka", "Selesai Terdistribusi"];
-          const currentIdx = statuses.indexOf(reports[index].status);
-          const nextIdx = (currentIdx + 1) % statuses.length;
-          reports[index].status = statuses[nextIdx];
-          localStorage.setItem("jp_reports", JSON.stringify(reports));
-          populateReportsTable();
-          loadDashboardStats();
-        }
-      };
+    // 4. Populate Donasi
+    function populateDonationTable() {
+      const tableBody = document.getElementById("donation-table-body");
+      const donations = JSON.parse(localStorage.getItem("jp_donations")) || [];
+      tableBody.innerHTML = "";
 
-      // 4. Populate Donasi
-      function populateDonationTable() {
-        const tableBody = document.getElementById("donation-table-body");
-        const donations = JSON.parse(localStorage.getItem("jp_donations")) || [];
-        tableBody.innerHTML = "";
-
-        donations.forEach((d) => {
-          const row = document.createElement("tr");
-          row.innerHTML = `
+      donations.forEach((d) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
             <td><strong>${d.id || "#JP-001"}</strong></td>
             <td><strong>${d.name}</strong></td>
             <td>${d.program}</td>
             <td style="color:#dc3545; font-weight:700;">Rp ${Number(d.amount).toLocaleString("id-ID")}</td>
             <td><span class="status-badge status-active">${d.status || "Berhasil"}</span></td>
           `;
-          tableBody.appendChild(row);
-        });
-      }
+        tableBody.appendChild(row);
+      });
+    }
 
-      // 5. Populate Relawan
-      function populateUsersTable() {
-        const tableBody = document.getElementById("users-table-body");
-        const volunteers = JSON.parse(localStorage.getItem("jp_volunteers")) || [
-          { name: "Aditya Pratama", role: "Relawan Medis & Ambulans", city: "Bandar Lampung", status: "Siaga 1" },
-          { name: "Sarah Amanda", role: "Koordinator Dapur Umum", city: "Palembang", status: "Aktif" },
-          { name: "Rian Hidayat", role: "Tim Evakuasi Perahu Karet", city: "Padang", status: "Bergerak" },
-          { name: "Bambang Sugianto", role: "Distribusi Logistik Sembako", city: "Sukabumi", status: "Aktif" },
-        ];
-        tableBody.innerHTML = "";
+    // 5. Populate Relawan
+    function populateUsersTable() {
+      const tableBody = document.getElementById("users-table-body");
+      const volunteers = JSON.parse(localStorage.getItem("jp_volunteers")) || [
+        { name: "Aditya Pratama", role: "Relawan Medis & Ambulans", city: "Bandar Lampung", status: "Siaga 1" },
+        { name: "Sarah Amanda", role: "Koordinator Dapur Umum", city: "Palembang", status: "Aktif" },
+        { name: "Rian Hidayat", role: "Tim Evakuasi Perahu Karet", city: "Padang", status: "Bergerak" },
+        { name: "Bambang Sugianto", role: "Distribusi Logistik Sembako", city: "Sukabumi", status: "Aktif" },
+      ];
+      tableBody.innerHTML = "";
 
-        volunteers.forEach((v) => {
-          const row = document.createElement("tr");
-          row.innerHTML = `
+      volunteers.forEach((v) => {
+        const row = document.createElement("tr");
+        const shortScope = v.scope ? v.scope.split("(")[0].trim() : "Posko Lokal";
+        row.innerHTML = `
             <td><strong>${v.name}</strong></td>
             <td>${v.role}</td>
-            <td>${v.city}</td>
+            <td>${v.city} <br><small class="text-danger fw-semibold"><i class="fas fa-building-flag me-1"></i>${shortScope}</small></td>
             <td><span class="status-badge status-active">${v.status}</span></td>
           `;
-          tableBody.appendChild(row);
-        });
+        tableBody.appendChild(row);
+      });
+    }
+
+    // 6. Modal Open & Close Event Listeners
+    const reportsModal = document.getElementById("reports-modal");
+    const donationModal = document.getElementById("donation-modal");
+    const usersModal = document.getElementById("users-modal");
+
+    document.getElementById("reports-card").addEventListener("click", () => {
+      populateReportsTable();
+      reportsModal.style.display = "flex";
+    });
+    document.getElementById("reports-link").addEventListener("click", (e) => {
+      e.preventDefault();
+      populateReportsTable();
+      reportsModal.style.display = "flex";
+    });
+
+    document.getElementById("donation-card").addEventListener("click", () => {
+      populateDonationTable();
+      donationModal.style.display = "flex";
+    });
+    document.getElementById("donation-link").addEventListener("click", (e) => {
+      e.preventDefault();
+      populateDonationTable();
+      donationModal.style.display = "flex";
+    });
+
+    document.getElementById("users-card").addEventListener("click", () => {
+      populateUsersTable();
+      usersModal.style.display = "flex";
+    });
+    document.getElementById("users-link").addEventListener("click", (e) => {
+      e.preventDefault();
+      populateUsersTable();
+      usersModal.style.display = "flex";
+    });
+
+    // 5b. Populate Data Posko Cabang Bantuan Aktif
+    const branchPosts = [
+      {
+        id: "PK-LPG-01",
+        name: "Posko Induk Lampung",
+        region: "Kota Bandar Lampung & Lampung Selatan",
+        badgeColor: "#dc3545",
+        status: "Tanggap Darurat (Siaga 1)",
+        coordinator: "Aditya Pratama",
+        phone: "082382262838",
+        phoneDisplay: "0823-8226-2838",
+        focus: "Dapur Umum 24 Jam, Distribusi Air Bersih, Perahu Karet Evakuasi Sungai",
+        personnel: "48 Relawan Aktif",
+        progress: 92,
+        progressColor: "#dc3545",
+        lastUpdate: "15 mnt lalu"
+      },
+      {
+        id: "PK-SMB-02",
+        name: "Posko Cabang Sumatera Barat",
+        region: "Padang, Pasaman Barat & Bukittinggi",
+        badgeColor: "#ea580c",
+        status: "Tanggap Darurat Gempa",
+        coordinator: "Rian Hidayat",
+        phone: "081273849921",
+        phoneDisplay: "0812-7384-9921",
+        focus: "Tenda Pengungsian Terpal, Tenaga Medis P3K, Genset Penerangan Darurat",
+        personnel: "35 Relawan Aktif",
+        progress: 85,
+        progressColor: "#16a34a",
+        lastUpdate: "45 mnt lalu"
+      },
+      {
+        id: "PK-JBR-03",
+        name: "Posko Cabang Jawa Barat",
+        region: "Bandung, Cimahi & Sekitarnya",
+        badgeColor: "#0284c7",
+        status: "Pusat Hub Logistik",
+        coordinator: "Fajar Nugraha",
+        phone: "082119823401",
+        phoneDisplay: "0821-1982-3401",
+        focus: "Gudang Penyangga Logistik Sembako, Pengemasan & Transit Bantuan",
+        personnel: "28 Relawan Aktif",
+        progress: 88,
+        progressColor: "#0284c7",
+        lastUpdate: "1 jam lalu"
+      },
+      {
+        id: "PK-SKB-04",
+        name: "Posko Aju Darurat Sukabumi",
+        region: "Sukabumi & Cianjur (Jawa Barat)",
+        badgeColor: "#eab308",
+        status: "Akses Terputus (Jalur Sulit)",
+        coordinator: "Bambang Sugianto",
+        phone: "085722019482",
+        phoneDisplay: "0857-2201-9482",
+        focus: "Jembatan Darurat, Distribusi Motor Trail, Pembersihan Lumpur Longsor",
+        personnel: "22 Relawan Aktif",
+        progress: 60,
+        progressColor: "#eab308",
+        lastUpdate: "2 jam lalu"
+      },
+      {
+        id: "PK-NTT-05",
+        name: "Posko Siaga Erupsi NTT",
+        region: "Flores Timur, Nusa Tenggara Timur",
+        badgeColor: "#dc3545",
+        status: "Evakuasi Zona Merah",
+        coordinator: "dr. Hendra Wijaya",
+        phone: "081344501823",
+        phoneDisplay: "0813-4450-1823",
+        focus: "Masker N95, Tabung Oksigen Lapangan, Tetes Mata Steril Anak-anak",
+        personnel: "18 Relawan Aktif",
+        progress: 70,
+        progressColor: "#16a34a",
+        lastUpdate: "3 jam lalu"
       }
+    ];
 
-      // 6. Modal Open & Close Event Listeners
-      const reportsModal = document.getElementById("reports-modal");
-      const donationModal = document.getElementById("donation-modal");
-      const usersModal = document.getElementById("users-modal");
+    function populatePoskoTable() {
+      const tableBody = document.getElementById("posko-table-body");
+      if (!tableBody) return;
+      tableBody.innerHTML = "";
 
-      document.getElementById("reports-card").addEventListener("click", () => {
-        populateReportsTable();
-        reportsModal.style.display = "flex";
+      branchPosts.forEach((b) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>
+            <strong style="color:#0f172a; font-size:14px;">${b.name}</strong><br>
+            <small class="text-muted"><i class="fas fa-location-dot text-danger me-1"></i>${b.region}</small><br>
+            <span style="font-size:11px; color:#94a3b8; font-weight:600;">ID: ${b.id}</span>
+          </td>
+          <td>
+            <span class="status-badge" style="background:${b.badgeColor}18; color:${b.badgeColor}; border:1px solid ${b.badgeColor}40; font-size:11px; padding:3px 8px;">
+              <i class="fas fa-circle-dot me-1"></i>${b.status}
+            </span><br>
+            <small style="font-size:11px; color:#64748b;"><i class="far fa-clock me-1"></i>Update ${b.lastUpdate}</small>
+          </td>
+          <td>
+            <strong>${b.coordinator}</strong><br>
+            <a href="tel:${b.phone}" style="font-size:12px; color:#0284c7; text-decoration:none; font-weight:600;">
+              <i class="fas fa-phone me-1"></i>${b.phoneDisplay}
+            </a>
+          </td>
+          <td>
+            <span style="font-size:12px; color:#334155; line-height:1.4; display:block;">
+              <i class="fas fa-hand-holding-heart text-danger me-1"></i>${b.focus}
+            </span>
+          </td>
+          <td>
+            <span style="font-weight:700; color:#0f172a; font-size:13px;">
+              <i class="fas fa-users-viewfinder text-primary me-1"></i>${b.personnel}
+            </span>
+          </td>
+          <td>
+            <div style="font-size:11px; font-weight:700; margin-bottom:3px; display:flex; justify-content:space-between; color:#334155;">
+              <span>Tersalurkan</span>
+              <span>${b.progress}%</span>
+            </div>
+            <div style="background:#e2e8f0; border-radius:10px; height:8px; overflow:hidden;">
+              <div style="background:${b.progressColor}; width:${b.progress}%; height:100%;"></div>
+            </div>
+          </td>
+          <td>
+            <a href="https://wa.me/62${b.phone.substring(1)}?text=Halo%20${encodeURIComponent(b.coordinator)},%20saya%20Admin%20JiwaPeduli%20ingin%20pantau%20progres%20${encodeURIComponent(b.name)}" target="_blank" class="btn-action btn-accept" style="text-decoration:none; display:inline-flex; align-items:center; gap:4px; font-size:11px; padding:5px 9px; white-space:nowrap;" title="Hubungi WhatsApp Koordinator">
+              <i class="fab fa-whatsapp"></i> Hubungi WA
+            </a>
+          </td>
+        `;
+        tableBody.appendChild(row);
       });
-      document.getElementById("reports-link").addEventListener("click", (e) => {
+    }
+
+    // Modal Posko Event Listeners
+    const poskoModal = document.getElementById("posko-modal");
+    const poskoCard = document.getElementById("posko-card");
+    const poskoLink = document.getElementById("posko-link");
+    const closePosko = document.getElementById("close-posko");
+
+    if (poskoCard) {
+      poskoCard.addEventListener("click", () => {
+        populatePoskoTable();
+        poskoModal.style.display = "flex";
+      });
+    }
+
+    if (poskoLink) {
+      poskoLink.addEventListener("click", (e) => {
         e.preventDefault();
-        populateReportsTable();
-        reportsModal.style.display = "flex";
+        populatePoskoTable();
+        poskoModal.style.display = "flex";
       });
+    }
 
-      document.getElementById("donation-card").addEventListener("click", () => {
-        populateDonationTable();
-        donationModal.style.display = "flex";
-      });
-      document.getElementById("donation-link").addEventListener("click", (e) => {
-        e.preventDefault();
-        populateDonationTable();
-        donationModal.style.display = "flex";
-      });
+    if (closePosko) {
+      closePosko.addEventListener("click", () => (poskoModal.style.display = "none"));
+    }
 
-      document.getElementById("users-card").addEventListener("click", () => {
-        populateUsersTable();
-        usersModal.style.display = "flex";
-      });
-      document.getElementById("users-link").addEventListener("click", (e) => {
-        e.preventDefault();
-        populateUsersTable();
-        usersModal.style.display = "flex";
-      });
+    document.getElementById("close-reports").addEventListener("click", () => (reportsModal.style.display = "none"));
+    document.getElementById("close-donation").addEventListener("click", () => (donationModal.style.display = "none"));
+    document.getElementById("close-users").addEventListener("click", () => (usersModal.style.display = "none"));
 
-      document.getElementById("close-reports").addEventListener("click", () => (reportsModal.style.display = "none"));
-      document.getElementById("close-donation").addEventListener("click", () => (donationModal.style.display = "none"));
-      document.getElementById("close-users").addEventListener("click", () => (usersModal.style.display = "none"));
+    window.addEventListener("click", (e) => {
+      if (e.target.classList.contains("modal")) e.target.style.display = "none";
+    });
 
-      window.addEventListener("click", (e) => {
-        if (e.target.classList.contains("modal")) e.target.style.display = "none";
-      });
+    // Init on Load
+    loadDashboardStats();
+  </script>
+</body>
 
-      // Init on Load
-      loadDashboardStats();
-    </script>
-  </body>
 </html>

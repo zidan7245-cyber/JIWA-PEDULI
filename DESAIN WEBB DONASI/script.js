@@ -15,6 +15,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   // 0. Inisialisasi Sistem Tema Terang / Gelap
   initThemeSystem();
+  enforceDarkModeHighContrast();
 
   // 1. Inisialisasi Database Lokal (localStorage) jika belum ada
   initLocalStorage();
@@ -42,28 +43,46 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // 9. Live Donation Toast Popup
   initLiveDonationToast();
+
+  // 10. Mobile Navbar Auto-close on link click
+  initMobileNavbarAutoClose();
 });
 
 /* ==========================================
-   LOCAL STORAGE & DATA DUMMY PERSISTENCE
+   LOCAL STORAGE & DATA REALISTIS UNTUK LOMBA
 ========================================== */
-function initLocalStorage() {
-  if (!localStorage.getItem("jp_donations")) {
-    const dummyDonations = [
-      { id: "DON-001", name: "Rizky Pratama", program: "Tanggap Bencana Banjir Lampung", amount: 250000, date: "2026-10-28", status: "Berhasil" },
-      { id: "DON-002", name: "Siti Nurhaliza", program: "Dapur Umum Gempa Sumbar", amount: 500000, date: "2026-10-28", status: "Berhasil" },
-      { id: "DON-003", name: "Hamba Allah", program: "Logistik Darurat Jawa Barat", amount: 1000000, date: "2026-10-27", status: "Berhasil" },
-      { id: "DON-004", name: "Budi Santoso", program: "Indonesia Sehat & Medis", amount: 150000, date: "2026-10-27", status: "Berhasil" },
-      { id: "DON-005", name: "Dewi Lestari", program: "Pendidikan Anak Pengungsian", amount: 300000, date: "2026-10-26", status: "Berhasil" },
-    ];
-    localStorage.setItem("jp_donations", JSON.stringify(dummyDonations));
+function initLocalStorage(forceReset) {
+  const defaultDonations = [
+    { id: "JP-2026-842", name: "dr. Hendra Wijaya (Bandar Lampung)", program: "Bantuan Banjir Bandar Lampung", amount: 500000, date: "Hari ini, 13:42 WIB", status: "Berhasil" },
+    { id: "JP-2026-841", name: "Siti Rahmawati (Padang)", program: "Dapur Umum Gempa Sumbar", amount: 250000, date: "Hari ini, 11:20 WIB", status: "Berhasil" },
+    { id: "JP-2026-840", name: "Komunitas Sepeda Palembang", program: "Logistik Darurat Jawa Barat", amount: 1250000, date: "Hari ini, 09:15 WIB", status: "Berhasil" },
+    { id: "JP-2026-839", name: "Hamba Allah (Banda Aceh)", program: "Bantuan Banjir Bandar Lampung", amount: 100000, date: "Kemarin, 21:05 WIB", status: "Berhasil" },
+    { id: "JP-2026-838", name: "Ahmad Fauzi (Medan)", program: "Indonesia Sehat & Medis", amount: 300000, date: "Kemarin, 18:30 WIB", status: "Berhasil" },
+    { id: "JP-2026-837", name: "PT Sinar Peduli Sesama (Jakarta)", program: "Dapur Umum Gempa Sumbar", amount: 2500000, date: "Kemarin, 14:10 WIB", status: "Berhasil" },
+    { id: "JP-2026-836", name: "Rizky Pratama (Bandar Lampung)", program: "Pendidikan Anak Pengungsian", amount: 200000, date: "30 Okt 2026, 16:45 WIB", status: "Berhasil" },
+    { id: "JP-2026-835", name: "Keluarga Halim (Pekanbaru)", program: "Bantuan Banjir Bandar Lampung", amount: 750000, date: "30 Okt 2026, 10:20 WIB", status: "Berhasil" },
+    { id: "JP-2026-834", name: "Dewi Lestari (Bandung)", program: "Pembangunan Sumur Bor & Sanitasi Bersih", amount: 350000, date: "29 Okt 2026, 19:15 WIB", status: "Berhasil" },
+    { id: "JP-2026-833", name: "Budi Santoso (Lampung Selatan)", program: "Bantuan Banjir Bandar Lampung", amount: 150000, date: "29 Okt 2026, 13:50 WIB", status: "Berhasil" },
+    { id: "JP-2026-832", name: "dr. Ratna Juwita (Jakarta)", program: "Indonesia Sehat & Medis", amount: 1000000, date: "28 Okt 2026, 20:40 WIB", status: "Berhasil" },
+    { id: "JP-2026-831", name: "Hamba Allah (Jambi)", program: "Dapur Umum Gempa Sumbar", amount: 100000, date: "28 Okt 2026, 15:25 WIB", status: "Berhasil" }
+  ];
+
+  const current = JSON.parse(localStorage.getItem("jp_donations") || "[]");
+  // Bersihkan cache lama jika ada "Mega Safitri" berulang atau nama kembar berturut-turut
+  const hasMegaSafitri = current.some(d => d.name && d.name.includes("Mega Safitri"));
+  const hasDuplicates = current.length >= 2 && current[0].name === current[1].name;
+  if (forceReset || !localStorage.getItem("jp_donations") || current.length < 6 || hasDuplicates || hasMegaSafitri) {
+    localStorage.setItem("jp_donations", JSON.stringify(defaultDonations));
   }
 
   if (!localStorage.getItem("jp_volunteers")) {
     const dummyVolunteers = [
-      { name: "Aditya Pratama", role: "Relawan Medis", city: "Bandar Lampung", status: "Aktif" },
-      { name: "Sarah Amanda", role: "Dapur Umum & Logistik", city: "Palembang", status: "Aktif" },
-      { name: "Rian Hidayat", role: "Tim Evakuasi", city: "Padang", status: "Aktif" },
+      { name: "Aditya Pratama", role: "Relawan Medis", city: "Bandar Lampung", scope: "Posko Induk Lampung (Bandar Lampung & Sekitarnya)", status: "Siaga Aktif" },
+      { name: "Sarah Amanda", role: "Dapur Umum & Logistik", city: "Palembang", scope: "Posko Cabang Sumatera Selatan (Palembang & Ogan Ilir)", status: "Siaga Aktif" },
+      { name: "Rian Hidayat", role: "Tim Evakuasi", city: "Padang", scope: "Posko Cabang Sumatera Barat (Padang & Bukittinggi)", status: "Siaga Aktif" },
+      { name: "Fajar Nugraha", role: "Distribusi Sembako", city: "Bandung", scope: "Posko Cabang Jawa Barat (Bandung & Cimahi)", status: "Siaga Aktif" },
+      { name: "dr. Maya Indah", role: "Dokter Posko Darurat", city: "Medan", scope: "Posko Cabang Sumatera Utara (Medan & Deli Serdang)", status: "Siaga Aktif" },
+      { name: "Bambang Sugianto", role: "Logistik Darurat", city: "Sukabumi", scope: "Posko Aju Darurat Gempa & Longsor Sukabumi - Cianjur", status: "Siaga Aktif" }
     ];
     localStorage.setItem("jp_volunteers", JSON.stringify(dummyVolunteers));
   }
@@ -201,13 +220,15 @@ function initDonationFeed() {
   const feedContainer = document.getElementById("donationFeed");
   if (!feedContainer) return;
 
-  const donations = JSON.parse(localStorage.getItem("jp_donations")) || [];
+  let donations = JSON.parse(localStorage.getItem("jp_donations")) || [];
 
   function renderFeed() {
     feedContainer.innerHTML = "";
-    donations.slice(0, 5).forEach((item, index) => {
-      const initials = item.name
+    donations.slice(0, 5).forEach((item) => {
+      const initials = (item.name || "JP")
+        .replace(/[^a-zA-Z ]/g, "")
         .split(" ")
+        .filter(Boolean)
         .map((n) => n[0])
         .join("")
         .substring(0, 2)
@@ -215,16 +236,16 @@ function initDonationFeed() {
       const card = document.createElement("div");
       card.className = "donation-feed-item d-flex align-items-center p-3 mb-3 bg-white rounded-3 shadow-sm border-start border-4 border-danger";
       card.innerHTML = `
-        <div class="feed-avatar me-3 rounded-circle d-flex align-items-center justify-content-center text-white fw-bold" style="width: 48px; height: 48px; background: linear-gradient(135deg, #e8491c, #ff6b3d);">
+        <div class="feed-avatar me-3 rounded-circle d-flex align-items-center justify-content-center text-white fw-bold" style="width: 48px; height: 48px; background: linear-gradient(135deg, #e8491c, #ff6b3d); box-shadow: 0 4px 12px rgba(232, 73, 28, 0.25); flex-shrink: 0;">
           ${initials || "JP"}
         </div>
         <div class="feed-info flex-grow-1">
           <div class="d-flex justify-content-between align-items-center mb-1">
-            <h6 class="mb-0 fw-bold text-dark">${item.name}</h6>
-            <span class="badge bg-danger-subtle text-danger fw-semibold">Rp ${Number(item.amount).toLocaleString("id-ID")}</span>
+            <h6 class="mb-0 fw-bold text-dark" style="font-size: 1rem; color: #0b1528 !important;">${item.name}</h6>
+            <span class="badge bg-danger-subtle text-danger fw-bold">Rp ${Number(item.amount).toLocaleString("id-ID")}</span>
           </div>
-          <small class="text-muted d-block"><i class="fas fa-hand-holding-heart text-danger me-1"></i> ${item.program}</small>
-          <small class="text-secondary" style="font-size: 0.75rem;"><i class="fas fa-clock me-1"></i> ${item.date || "Baru saja"}</small>
+          <small class="text-muted d-block fw-semibold"><i class="fas fa-hand-holding-heart text-danger me-1"></i> ${item.program}</small>
+          <small class="text-secondary" style="font-size: 0.75rem;"><i class="far fa-clock me-1"></i> ${item.date || "Baru saja"}</small>
         </div>
       `;
       feedContainer.appendChild(card);
@@ -233,29 +254,51 @@ function initDonationFeed() {
 
   renderFeed();
 
-  // Simulasi donasi masuk berkala agar terasa interaktif saat presentasi juri lomba
-  const donorNames = ["Agus Gunawan", "Mega Safitri", "Fahmi Idris", "Hamba Allah", "Putri Ayu", "Keluarga Halim"];
-  const programs = ["Bantuan Banjir Bandar Lampung", "Dapur Umum Siaga Bencana", "Distribusi Sembako Korban Gempa", "Obat-obatan Medis Darurat"];
-  const amounts = [50000, 100000, 250000, 500000, 1000000];
+  // Koleksi donor bervariasi dari berbagai daerah Sumatera & Nasional (Realistis untuk Lomba)
+  const donorPool = [
+    { name: "dr. Hendra Wijaya (Lampung)", prog: "Bantuan Banjir Bandar Lampung", amt: 250000 },
+    { name: "Siti Rahmawati (Padang)", prog: "Dapur Umum Gempa Sumbar", amt: 150000 },
+    { name: "Ahmad Fauzi (Medan)", prog: "Bantuan Banjir Bandar Lampung", amt: 100000 },
+    { name: "Komunitas Pemuda Palembang", prog: "Dapur Umum Gempa Sumbar", amt: 500000 },
+    { name: "Hamba Allah (Banda Aceh)", prog: "Indonesia Sehat & Medis", amt: 200000 },
+    { name: "Rian Pratama (Bandar Lampung)", prog: "Bantuan Banjir Bandar Lampung", amt: 100000 },
+    { name: "Nur Hasanah (Jambi)", prog: "Pendidikan Anak Pengungsian", amt: 300000 },
+    { name: "Keluarga dr. Hendarto", prog: "Indonesia Sehat & Medis", amt: 500000 },
+    { name: "Fahmi Idris (Bukittinggi)", prog: "Dapur Umum Gempa Sumbar", amt: 150000 },
+    { name: "Dewi Sartika (Bandung)", prog: "Logistik Darurat Jawa Barat", amt: 350000 },
+    { name: "Hamba Allah (Riau)", prog: "Bantuan Banjir Bandar Lampung", amt: 50000 },
+    { name: "dr. Ratna Juwita (Jakarta)", prog: "Indonesia Sehat & Medis", amt: 1000000 },
+    { name: "Budi Santoso (Lampung Selatan)", prog: "Bantuan Banjir Bandar Lampung", amt: 150000 }
+  ];
 
+  let poolIndex = 0;
+  let lastAddedName = donations[0]?.name || "";
+
+  // Simulasi penambahan transaksi yang rapi tanpa menduplikasi nama berulang
   setInterval(() => {
-    const randomName = donorNames[Math.floor(Math.random() * donorNames.length)];
-    const randomProg = programs[Math.floor(Math.random() * programs.length)];
-    const randomAmount = amounts[Math.floor(Math.random() * amounts.length)];
+    let candidate = donorPool[poolIndex % donorPool.length];
+    poolIndex++;
+    if (candidate.name === lastAddedName) {
+      candidate = donorPool[poolIndex % donorPool.length];
+      poolIndex++;
+    }
+
+    lastAddedName = candidate.name;
+    const nowTime = new Date().toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" }) + " WIB";
 
     donations.unshift({
-      id: "DON-" + Math.floor(100 + Math.random() * 900),
-      name: randomName,
-      program: randomProg,
-      amount: randomAmount,
-      date: "Baru saja",
+      id: "JP-2026-" + Math.floor(850 + Math.random() * 150),
+      name: candidate.name,
+      program: candidate.prog,
+      amount: candidate.amt,
+      date: `Hari ini, ${nowTime}`,
       status: "Berhasil",
     });
 
-    if (donations.length > 20) donations.pop();
+    if (donations.length > 25) donations.pop();
     localStorage.setItem("jp_donations", JSON.stringify(donations));
     renderFeed();
-  }, 14000);
+  }, 22000);
 }
 
 /* ==========================================
@@ -346,9 +389,9 @@ function initLiveDonationToast() {
     }, 4500);
   }
 
-  // Mulai pop-up toast
-  setTimeout(showToast, 4000);
-  setInterval(showToast, 22000);
+  // Mulai pop-up toast secara santai agar tidak mengganggu fokus pengguna di HP
+  setTimeout(showToast, 7000);
+  setInterval(showToast, 25000);
 }
 
 /* ==========================================
@@ -391,6 +434,7 @@ function applyTheme(theme) {
   }
 
   updateThemeToggleButtons(theme);
+  enforceDarkModeHighContrast();
 }
 
 function updateThemeToggleButtons(theme) {
@@ -402,7 +446,7 @@ function updateThemeToggleButtons(theme) {
 
     if (btn.classList.contains("floating-theme-btn")) {
       if (icon) {
-        icon.className = isDark ? "fas fa-sun text-warning" : "fas fa-moon";
+        icon.className = isDark ? "fas fa-sun text-warning" : "fas fa-moon text-warning";
       }
       btn.setAttribute("title", isDark ? "Ganti ke Mode Terang (Siang)" : "Ganti ke Mode Gelap (Malam)");
     } else {
@@ -410,9 +454,9 @@ function updateThemeToggleButtons(theme) {
         icon.className = isDark ? "fas fa-sun text-warning me-1 theme-icon" : "fas fa-moon me-1 theme-icon";
       }
       if (text) {
-        text.textContent = isDark ? "Terang" : "Gelap";
+        text.textContent = isDark ? "Mode Terang" : "Mode Gelap";
       }
-      btn.setAttribute("title", isDark ? "Ganti ke Mode Terang (Siang)" : "Ganti ke Mode Gelap (Malam)");
+      btn.setAttribute("title", isDark ? "Klik untuk ganti ke Mode Terang (Siang)" : "Klik untuk ganti ke Mode Gelap (Malam)");
     }
   });
 }
@@ -428,3 +472,103 @@ function ensureFloatingThemeButton() {
     document.body.appendChild(floatBtn);
   }
 }
+
+/* ==========================================
+   MOBILE NAVBAR AUTO-CLOSE ON LINK CLICK
+========================================== */
+function initMobileNavbarAutoClose() {
+  const navLinks = document.querySelectorAll(".navbar-nav .nav-link");
+  const navbarCollapse = document.querySelector(".navbar-collapse");
+  if (!navbarCollapse) return;
+
+  navLinks.forEach((link) => {
+    link.addEventListener("click", () => {
+      if (navbarCollapse.classList.contains("show") && typeof bootstrap !== "undefined") {
+        const bsCollapse = bootstrap.Collapse.getInstance(navbarCollapse) || new bootstrap.Collapse(navbarCollapse);
+        bsCollapse.hide();
+      }
+    });
+  });
+}
+
+
+/* ============================================================
+   DARK MODE HIGH CONTRAST ENFORCER (Auto Fix & Zero Glare)
+============================================================ */
+function enforceDarkModeHighContrast() {
+  const isDark = document.documentElement.getAttribute("data-theme") === "dark" || 
+                 (document.body && document.body.getAttribute("data-theme") === "dark");
+  
+  // 1. Regional Cards di Beranda (index.html)
+  document.querySelectorAll(".region-badge-card").forEach(card => {
+    if (isDark) {
+      card.style.setProperty("background-color", "#0e1628", "important");
+      card.style.setProperty("border-color", "rgba(255, 255, 255, 0.14)", "important");
+      card.style.setProperty("box-shadow", "0 10px 30px rgba(0, 0, 0, 0.45)", "important");
+      
+      const title = card.querySelector("h5, .region-name");
+      if (title) {
+        title.style.setProperty("color", "#ffffff", "important");
+        title.style.setProperty("font-weight", "700", "important");
+      }
+      
+      const cities = card.querySelector("p, .region-cities");
+      if (cities) {
+        cities.style.setProperty("color", "#e2e8f0", "important");
+        cities.style.setProperty("font-weight", "500", "important");
+      }
+      
+      const badge = card.querySelector(".badge");
+      if (badge) {
+        badge.style.setProperty("background-color", "#1a294c", "important");
+        badge.style.setProperty("color", "#f1f5f9", "important");
+        badge.style.setProperty("border-color", "rgba(255, 255, 255, 0.15)", "important");
+      }
+
+      const activeText = card.querySelector(".text-success");
+      if (activeText) {
+        activeText.style.setProperty("color", "#34d399", "important");
+      }
+    } else {
+      card.style.removeProperty("background-color");
+      card.style.removeProperty("border-color");
+      card.style.removeProperty("box-shadow");
+      
+      const title = card.querySelector("h5, .region-name");
+      if (title) title.style.setProperty("color", "#0f172a", "important");
+      
+      const cities = card.querySelector("p, .region-cities");
+      if (cities) cities.style.setProperty("color", "#334155", "important");
+      
+      const badge = card.querySelector(".badge");
+      if (badge) {
+        badge.style.removeProperty("background-color");
+        badge.style.removeProperty("color");
+        badge.style.removeProperty("border-color");
+      }
+
+      const activeText = card.querySelector(".text-success");
+      if (activeText) activeText.style.removeProperty("color");
+    }
+  });
+
+  // 2. Status Counter Cards (bencana.html)
+  document.querySelectorAll(".status-counter-card, section.bg-light .rounded-4").forEach(card => {
+    if (isDark) {
+      if (!card.style.border.includes("dc3545")) {
+        card.style.setProperty("background-color", "#0e1628", "important");
+        card.style.setProperty("border-color", "rgba(255, 255, 255, 0.12)", "important");
+      } else {
+        card.style.setProperty("background-color", "rgba(220, 53, 69, 0.1)", "important");
+      }
+      const muted = card.querySelector(".text-muted");
+      if (muted) muted.style.setProperty("color", "#cbd5e1", "important");
+    } else {
+      card.style.removeProperty("background-color");
+      card.style.removeProperty("border-color");
+      const muted = card.querySelector(".text-muted");
+      if (muted) muted.style.removeProperty("color");
+    }
+  });
+}
+

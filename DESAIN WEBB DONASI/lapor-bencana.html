@@ -1,901 +1,1028 @@
 <!doctype html>
 <html lang="id">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lapor Kejadian Bencana - JiwaPeduli Tanggap Darurat</title>
-    <!-- Bootstrap 5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <!-- Font Awesome 6 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
-    <script>
-      (function () {
-        var theme = localStorage.getItem("jp_theme");
-        if (theme === "dark") document.documentElement.setAttribute("data-theme", "dark");
-      })();
-    </script>
-    <link rel="stylesheet" href="style.css" />
-    <style>
-      .report-hero {
-        background:
-          linear-gradient(135deg, rgba(11, 21, 40, 0.94) 0%, rgba(22, 36, 61, 0.9) 50%, rgba(220, 38, 38, 0.85) 100%),
-          url("https://images.unsplash.com/photo-1547683905-f686c993aae5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80") center/cover;
-        padding: 130px 0 60px;
-        color: white;
-        text-align: center;
-      }
-      .report-card {
-        background: #ffffff;
-        border-radius: 20px;
-        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
-        border: 1px solid #edf2f7;
-        overflow: hidden;
-      }
-      .report-header {
-        background: linear-gradient(135deg, #ff4742 0%, #ff6b3d 50%, #ffa133 100%);
-        color: white;
-        padding: 24px 30px;
-      }
-      .form-section-title {
-        font-size: 1.1rem;
-        font-weight: 700;
-        color: #1e293b;
-        margin-bottom: 16px;
-        padding-bottom: 8px;
-        border-bottom: 2px solid #f1f5f9;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-      }
-      .urgency-radio-card {
-        border: 2px solid #e2e8f0;
-        border-radius: 12px;
-        padding: 14px;
-        cursor: pointer;
-        transition: all 0.25s ease;
-      }
-      .urgency-radio-card:hover {
-        transform: translateY(-2px);
-      }
-      .urgency-input:checked + .urgency-card-red {
-        border-color: #dc3545;
-        background-color: #fff5f5;
-      }
-      .urgency-input:checked + .urgency-card-orange {
-        border-color: #fd7e14;
-        background-color: #fff9f2;
-      }
-      .urgency-input:checked + .urgency-card-green {
-        border-color: #198754;
-        background-color: #f2fcf6;
-      }
-      .preview-image-box {
-        width: 100%;
-        max-height: 240px;
-        object-fit: cover;
-        border-radius: 12px;
-        border: 2px dashed #cbd5e1;
-        display: none;
-      }
-      .hotline-item {
-        transition: all 0.25s ease;
-      }
-      .hotline-item:hover {
-        transform: translateX(4px);
-      }
-      .status-pill {
-        font-size: 0.75rem;
-        padding: 4px 10px;
-        border-radius: 20px;
-        font-weight: 600;
-      }
 
-      /* Dark mode support inside lapor-bencana */
-      [data-theme="dark"] .form-section-title {
-        color: #f8fafc;
-        border-bottom-color: #1e293b;
-      }
-      [data-theme="dark"] .urgency-radio-card {
-        border-color: #243658;
-        background-color: #121c33;
-        color: #f1f5f9;
-      }
-      [data-theme="dark"] .urgency-input:checked + .urgency-card-red {
-        border-color: #ff5252;
-        background-color: rgba(255, 82, 82, 0.22);
-      }
-      [data-theme="dark"] .urgency-input:checked + .urgency-card-orange {
-        border-color: #ffa117;
-        background-color: rgba(255, 161, 23, 0.22);
-      }
-      [data-theme="dark"] .urgency-input:checked + .urgency-card-green {
-        border-color: #00e676;
-        background-color: rgba(0, 230, 118, 0.22);
-      }
-      [data-theme="dark"] .report-card {
-        background-color: #0e1628;
-      }
-      [data-theme="dark"] .form-label {
-        color: #f8fafc !important;
-        font-weight: 600 !important;
-      }
-      [data-theme="dark"] .form-control,
-      [data-theme="dark"] .form-select {
-        background-color: #131f38 !important;
-        border-color: #233558 !important;
-        color: #ffffff !important;
-      }
-      [data-theme="dark"] .form-control::placeholder {
-        color: #64748b !important;
-      }
-      [data-theme="dark"] .form-text {
-        color: #94a3b8 !important;
-      }
-      [data-theme="dark"] .need-pill {
-        background: #131f38 !important;
-        border-color: #233558 !important;
-        color: #cbd5e1 !important;
-      }
-    </style>
-  </head>
-  <body>
-    <!-- Urgency Ticker -->
-    <div class="urgency-ticker" style="margin-top: -76px; position: relative; z-index: 1030">
-      <div class="ticker-content" id="tickerContent">
-        <div class="ticker-item"><i class="fas fa-bullhorn text-warning"></i> 🔥 KANAL DARURAT: Setiap laporan diverifikasi tim reaksi cepat JiwaPeduli dalam &lt; 30 menit!</div>
-        <div class="ticker-item"><i class="fas fa-truck-medical text-info"></i> 🚑 Siaga Hotline 24 Jam Bencana Lampung & Sumatera: 0823-8226-2838</div>
-        <div class="ticker-item"><i class="fas fa-satellite-dish text-danger"></i> 📍 Gunakan fitur GPS otomatis agar relawan menemukan titik posko dengan akurat!</div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lapor Kejadian Bencana - JiwaPeduli Tanggap Darurat</title>
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <!-- Google Fonts -->
+    <!-- Google Fonts: Editorial Serif (Playfair Display) & Clean Sans (Plus Jakarta Sans) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,500;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <script>
+    (function () {
+      var theme = localStorage.getItem("jp_theme");
+      if (theme === "dark") document.documentElement.setAttribute("data-theme", "dark");
+    })();
+  </script>
+  <link rel="stylesheet" href="style.css?v=3.0" />
+  <style>
+    .report-hero {
+      background:
+        linear-gradient(135deg, rgba(11, 21, 40, 0.94) 0%, rgba(22, 36, 61, 0.9) 50%, rgba(220, 38, 38, 0.85) 100%),
+        url("https://images.unsplash.com/photo-1547683905-f686c993aae5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80") center/cover;
+      padding: 130px 0 60px;
+      color: white;
+      text-align: center;
+    }
+
+    .report-card {
+      background: #ffffff;
+      border-radius: 20px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+      border: 1px solid #edf2f7;
+      overflow: hidden;
+    }
+
+    .report-header {
+      background: linear-gradient(135deg, #ff4742 0%, #ff6b3d 50%, #ffa133 100%);
+      color: white;
+      padding: 24px 30px;
+    }
+
+    .form-section-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #f1f5f9;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .urgency-radio-card {
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 14px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .urgency-radio-card:hover {
+      transform: translateY(-2px);
+    }
+
+    .urgency-input:checked+.urgency-card-red {
+      border-color: #dc3545;
+      background-color: #fff5f5;
+    }
+
+    .urgency-input:checked+.urgency-card-orange {
+      border-color: #fd7e14;
+      background-color: #fff9f2;
+    }
+
+    .urgency-input:checked+.urgency-card-green {
+      border-color: #198754;
+      background-color: #f2fcf6;
+    }
+
+    .preview-image-box {
+      width: 100%;
+      max-height: 240px;
+      object-fit: cover;
+      border-radius: 12px;
+      border: 2px dashed #cbd5e1;
+      display: none;
+    }
+
+    .hotline-item {
+      transition: all 0.25s ease;
+    }
+
+    .hotline-item:hover {
+      transform: translateX(4px);
+    }
+
+    .status-pill {
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-weight: 600;
+    }
+
+    /* Dark mode support inside lapor-bencana */
+    [data-theme="dark"] .form-section-title {
+      color: #f8fafc;
+      border-bottom-color: #1e293b;
+    }
+
+    [data-theme="dark"] .urgency-radio-card {
+      border-color: #243658;
+      background-color: #121c33;
+      color: #f1f5f9;
+    }
+
+    [data-theme="dark"] .urgency-input:checked+.urgency-card-red {
+      border-color: #ff5252;
+      background-color: rgba(255, 82, 82, 0.22);
+    }
+
+    [data-theme="dark"] .urgency-input:checked+.urgency-card-orange {
+      border-color: #ffa117;
+      background-color: rgba(255, 161, 23, 0.22);
+    }
+
+    [data-theme="dark"] .urgency-input:checked+.urgency-card-green {
+      border-color: #00e676;
+      background-color: rgba(0, 230, 118, 0.22);
+    }
+
+    [data-theme="dark"] .report-card {
+      background-color: #0e1628;
+    }
+
+    [data-theme="dark"] .form-label {
+      color: #f8fafc !important;
+      font-weight: 600 !important;
+    }
+
+    [data-theme="dark"] .form-control,
+    [data-theme="dark"] .form-select {
+      background-color: #131f38 !important;
+      border-color: #233558 !important;
+      color: #ffffff !important;
+    }
+
+    [data-theme="dark"] .form-control::placeholder {
+      color: #64748b !important;
+    }
+
+    [data-theme="dark"] .form-text {
+      color: #94a3b8 !important;
+    }
+
+    [data-theme="dark"] .need-pill {
+      background: #131f38 !important;
+      border-color: #233558 !important;
+      color: #cbd5e1 !important;
+    }
+  </style>
+  <!-- AOS Animation Framework -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+</head>
+
+<body>
+  <!-- Urgency Ticker -->
+  <div class="urgency-ticker" style="margin-top: -76px; position: relative; z-index: 1030">
+    <div class="ticker-content" id="tickerContent">
+      <div class="ticker-item"><i class="fas fa-bullhorn text-warning"></i> 🔥 KANAL DARURAT: Setiap laporan
+        diverifikasi tim reaksi cepat JiwaPeduli dalam &lt; 30 menit!</div>
+      <div class="ticker-item"><i class="fas fa-truck-medical text-info"></i> 🚑 Siaga Hotline 24 Jam Bencana Lampung &
+        Sumatera: 0823-8226-2838</div>
+      <div class="ticker-item"><i class="fas fa-satellite-dish text-danger"></i> 📍 Gunakan fitur GPS otomatis agar
+        relawan menemukan titik posko dengan akurat!</div>
+    </div>
+  </div>
+
+  <!-- Navbar -->
+    <!-- Editorial Navbar -->
+    <!-- Editorial Navbar (Clean & Spacious - No Cramped Phone Number) -->
+  <nav class="navbar navbar-expand-lg editorial-navbar fixed-top">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+        <div class="d-flex align-items-center justify-content-center" style="width: 38px; height: 38px; background: #fffbeb; border: 1px solid #fef3c7; border-radius: 10px;">
+          <i class="fas fa-hand-holding-heart text-danger fs-5"></i>
+        </div>
+        <div>
+          <span class="brand-text">JIWAPEDULI</span>
+          <small class="d-block brand-tagline">Satu Jiwa Sejuta Harapan</small>
+        </div>
+      </a>
+
+      <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mx-auto align-items-lg-center">
+          <li class="nav-item">
+            <a class="nav-link " href="index.html">Beranda</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="bencana.html">Tanggap Bencana</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="donasi.html">Salurkan Donasi</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="relawan.html">Gabung Relawan</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="riwayat.html">Transparansi Dana</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="jadwal.html">Agenda Aksi</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="lapor-bencana.html"><i class="fas fa-bullhorn me-1 text-danger"></i> Lapor Bencana</a>
+          </li>
+        </ul>
+
+        <div class="d-flex align-items-center gap-3 mt-3 mt-lg-0">
+          <!-- Dark / Light Mode Toggle Button -->
+          <button class="btn btn-sm theme-toggle-btn rounded-pill px-3 py-1 border" type="button" title="Ganti Mode Gelap / Terang">
+            <i class="fas fa-moon me-1 theme-icon"></i>
+            <span class="theme-text">Mode Gelap</span>
+          </button>
+
+          <a href="donasi.html" class="btn btn-editorial-dark py-2 px-4 fs-6 rounded-pill">
+            <i class="fas fa-heart text-danger me-1"></i> Donasi Sekarang
+          </a>
+        </div>
       </div>
     </div>
+  </nav>
 
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-      <div class="container">
-        <a class="navbar-brand d-flex align-items-center gap-2" href="index.HTML">
-          <i class="fas fa-hand-holding-heart fa-lg text-danger"></i>
-          <div>
-            <span class="fw-bold fs-4">JIWA</span><span class="brand-highlight fs-4">PEDULI</span>
-            <small class="d-block text-white-50" style="font-size: 0.65rem; letter-spacing: 1px; margin-top: -4px">SATU JIWA SEJUTA HARAPAN</small>
+  <!-- Header Section -->
+  <section class="report-hero">
+    <div class="container">
+      <span class="badge bg-danger px-3 py-2 rounded-pill mb-3 fw-bold text-uppercase"> <i
+          class="fas fa-tower-broadcast me-1"></i> Pusat Pelaporan Cepat Bencana Warga </span>
+      <h1 class="display-5 fw-bold mb-3">Laporkan Kejadian & Kebutuhan Darurat</h1>
+      <p class="lead max-w-700 mx-auto text-light opacity-90">
+        Apakah daerah Anda terkena bencana alam atau membutuhkan bantuan logistik dan evakuasi segera? Isi formulir di
+        bawah ini agar tim siaga JiwaPeduli langsung memvalidasi dan menggerakkan posko terdekat.
+      </p>
+    </div>
+  </section>
+
+  <!-- Main Content Form -->
+  <section class="py-5 bg-light">
+    <div class="container">
+      <div class="row g-4">
+        <!-- Kolom Formulir (Kiri) -->
+        <div class="col-lg-8">
+          <div class="report-card">
+            <div class="report-header d-flex justify-content-between align-items-center">
+              <div>
+                <h4 class="mb-1 fw-bold"><i class="fas fa-file-shield me-2"></i>Formulir Tanggap Bencana Cepat</h4>
+                <p class="mb-0 small text-white-50">Laporan Anda langsung masuk ke radar pantau tim evakuasi & logistik
+                </p>
+              </div>
+              <span class="badge bg-white text-danger fw-bold px-3 py-2 rounded-pill"> <i class="fas fa-bolt me-1"></i>
+                Respon &lt; 30 Menit </span>
+            </div>
+
+            <div class="p-4 p-md-5">
+              <!-- Banner Status Deteksi GPS Otomatis Mobile/Desktop -->
+              <div id="gpsAutoBanner" class="p-3 mb-4 rounded-4 d-flex align-items-center gap-3"
+                style="background: rgba(13, 110, 253, 0.08); border: 1.5px solid rgba(13, 110, 253, 0.25)">
+                <div
+                  class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center shadow-sm"
+                  style="width: 44px; height: 44px; flex-shrink: 0" id="gpsIconWrap">
+                  <i class="fas fa-location-crosshairs fa-spin" id="gpsPulseIcon"></i>
+                </div>
+                <div class="flex-grow-1">
+                  <div class="fw-bold text-primary mb-1" id="gpsBannerTitle"><i class="fas fa-satellite-dish me-1"></i>
+                    Mendeteksi Titik Koordinat GPS Anda Otomatis...</div>
+                  <div class="small text-muted" id="gpsBannerDesc">Tekan <strong>"Izinkan" (Allow)</strong> jika muncul
+                    notifikasi lokasi di ponsel Anda agar relawan evakuasi menemukan titik posko dengan cepat.</div>
+                </div>
+                <button type="button"
+                  class="btn btn-sm btn-primary rounded-pill px-3 py-1 fw-semibold text-nowrap d-none"
+                  id="btnRetryGPS"><i class="fas fa-rotate-right me-1"></i> Deteksi Ulang</button>
+              </div>
+
+              <form id="disasterReportForm">
+                <!-- Section 1: Identitas Pelapor -->
+                <div class="form-section-title"><i class="fas fa-user-shield text-danger"></i> 1. Identitas Pelapor
+                  (Warga / Relawan)</div>
+                <div class="row g-3 mb-4">
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold">Nama Lengkap Pelapor <span
+                        class="text-danger">*</span></label>
+                    <input type="text" class="form-control rounded-3" id="reporterName"
+                      placeholder="Contoh: Hendra Kurniawan" required />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold">Nomor WhatsApp / HP Aktif <span
+                        class="text-danger">*</span></label>
+                    <input type="tel" class="form-control rounded-3" id="reporterPhone"
+                      placeholder="Contoh: 0812xxxxxxxx" required />
+                    <div class="form-text small">Diperlukan untuk konfirmasi video call / koordinasi posko relawan.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Section 2: Data Kejadian Bencana -->
+                <div class="form-section-title"><i class="fas fa-triangle-exclamation text-warning"></i> 2. Kondisi &
+                  Tingkat Darurat</div>
+
+                <div class="mb-3">
+                  <label class="form-label fw-semibold">Tingkat Urgensi Kejadian <span
+                      class="text-danger">*</span></label>
+                  <div class="row g-2">
+                    <div class="col-md-4">
+                      <input type="radio" class="btn-check urgency-input" name="urgencyLevel" id="urgencyRed"
+                        value="Darurat Kritis" checked />
+                      <label class="urgency-radio-card urgency-card-red d-block h-100" for="urgencyRed">
+                        <div class="fw-bold text-danger mb-1"><i class="fas fa-circle-exclamation me-1"></i> Darurat
+                          Kritis</div>
+                        <small class="text-muted d-block" style="font-size: 0.8rem">Ada warga terisolir, butuh evakuasi
+                          perahu karet/medis segera.</small>
+                      </label>
+                    </div>
+                    <div class="col-md-4">
+                      <input type="radio" class="btn-check urgency-input" name="urgencyLevel" id="urgencyOrange"
+                        value="Siaga Logistik" />
+                      <label class="urgency-radio-card urgency-card-orange d-block h-100" for="urgencyOrange">
+                        <div class="fw-bold text-warning mb-1"><i class="fas fa-truck-ramp-box me-1"></i> Siaga Logistik
+                        </div>
+                        <small class="text-muted d-block" style="font-size: 0.8rem">Warga sudah dievakuasi, stok
+                          sembako/dapur umum menipis.</small>
+                      </label>
+                    </div>
+                    <div class="col-md-4">
+                      <input type="radio" class="btn-check urgency-input" name="urgencyLevel" id="urgencyGreen"
+                        value="Waspada / Pasca Bencana" />
+                      <label class="urgency-radio-card urgency-card-green d-block h-100" for="urgencyGreen">
+                        <div class="fw-bold text-success mb-1"><i class="fas fa-shield me-1"></i> Pasca Bencana</div>
+                        <small class="text-muted d-block" style="font-size: 0.8rem">Tahap pembersihan lumpur, kebutuhan
+                          alas tidur & sanitasi.</small>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row g-3 mb-4">
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold">Jenis Bencana <span class="text-danger">*</span></label>
+                    <select class="form-select rounded-3" id="disasterType" required>
+                      <option value="">Pilih Jenis Bencana</option>
+                      <option value="Banjir Bandang">Banjir Bandang / Luapan Sungai</option>
+                      <option value="Gempa Bumi">Gempa Bumi</option>
+                      <option value="Tanah Longsor">Tanah Longsor</option>
+                      <option value="Angin Puting Beliung">Angin Puting Beliung / Badai</option>
+                      <option value="Erupsi Gunung Berapi">Erupsi Gunung Berapi</option>
+                      <option value="Kebakaran Pemukiman">Kebakaran Pemukiman / Lahan</option>
+                      <option value="Kekeringan Ekstrem">Kekeringan & Krisis Air Bersih</option>
+                      <option value="Lainnya">Bencana Lainnya</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold">Estimasi Warga Terdampak <span
+                        class="text-danger">*</span></label>
+                    <input type="number" class="form-control rounded-3" id="affectedCount"
+                      placeholder="Contoh: 150 (jiwa/KK)" min="1" required />
+                  </div>
+                </div>
+
+                <!-- Section 3: Titik Lokasi & GPS -->
+                <div class="form-section-title"><i class="fas fa-map-location-dot text-danger"></i> 3. Lokasi Bencana &
+                  Koordinat</div>
+
+                <div class="mb-3">
+                  <button type="button"
+                    class="btn btn-outline-danger rounded-pill px-4 py-2 mb-2 fw-bold d-inline-flex align-items-center gap-2"
+                    id="btnGetLocation">
+                    <i class="fas fa-crosshairs"></i> <span>Ambil / Kunci Titik Koordinat GPS Saya</span>
+                  </button>
+                  <div id="gpsStatus" class="small mt-1"></div>
+                </div>
+
+                <div class="row g-3 mb-3">
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold">Provinsi <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control rounded-3" id="disasterProvince" list="provinceDataList"
+                      placeholder="Ketik / pilih provinsi (contoh: Lampung, Sumbar)" required />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold">Kota / Kabupaten <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control rounded-3" id="disasterCity" list="cityDataList"
+                      placeholder="Ketik / pilih kota (contoh: Kota Bandar Lampung, Padang)" required />
+                    <div class="form-text small">Tersedia seluruh kota & kabupaten se-Sumatera dan nasional.</div>
+                  </div>
+                  <div class="col-12">
+                    <label class="form-label fw-semibold">Alamat Lengkap / Patokan Titik Posko <span
+                        class="text-danger">*</span></label>
+                    <textarea class="form-control rounded-3" id="disasterAddress" rows="2"
+                      placeholder="Contoh: Jl. Ikan Hiu No. 12, Kel. Pesawahan, Teluk Betung Selatan (Dekat Jembatan Gantung)"
+                      required></textarea>
+                  </div>
+                </div>
+
+                <!-- Section 4: Kebutuhan Logistik Mendesak -->
+                <div class="form-section-title"><i class="fas fa-boxes-stacked text-warning"></i> 4. Kebutuhan Logistik
+                  & Bantuan Mendesak</div>
+                <p class="small text-muted mb-2">Pilih kebutuhan yang paling mendesak dibutuhkan pengungsi di titik ini:
+                </p>
+
+                <div class="row g-2 mb-4">
+                  <div class="col-md-6">
+                    <div class="form-check p-2 bg-light rounded-3">
+                      <input class="form-check-input ms-1 me-2 need-checkbox" type="checkbox"
+                        value="Dapur Umum & Makanan Siap Santap" id="need1" checked />
+                      <label class="form-check-label fw-semibold" for="need1">🍱 Dapur Umum & Makanan Siap
+                        Santap</label>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-check p-2 bg-light rounded-3">
+                      <input class="form-check-input ms-1 me-2 need-checkbox" type="checkbox"
+                        value="Air Mineral & Air Bersih Higienis" id="need2" checked />
+                      <label class="form-check-label fw-semibold" for="need2">💧 Air Mineral & Air Bersih
+                        Higienis</label>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-check p-2 bg-light rounded-3">
+                      <input class="form-check-input ms-1 me-2 need-checkbox" type="checkbox"
+                        value="Perahu Karet & Rompi Pelampung" id="need3" />
+                      <label class="form-check-label fw-semibold" for="need3">🛶 Perahu Karet & Rompi Pelampung</label>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-check p-2 bg-light rounded-3">
+                      <input class="form-check-input ms-1 me-2 need-checkbox" type="checkbox"
+                        value="Obat-obatan & Tenaga Medis Siaga" id="need4" checked />
+                      <label class="form-check-label fw-semibold" for="need4">🚑 Obat-obatan & Tenaga Medis
+                        Siaga</label>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-check p-2 bg-light rounded-3">
+                      <input class="form-check-input ms-1 me-2 need-checkbox" type="checkbox"
+                        value="Popok Bayi, Susu & Pembalut" id="need5" />
+                      <label class="form-check-label fw-semibold" for="need5">🍼 Popok Bayi, Susu & Pembalut</label>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-check p-2 bg-light rounded-3">
+                      <input class="form-check-input ms-1 me-2 need-checkbox" type="checkbox"
+                        value="Tenda Pengungsian & Selimut Hangat" id="need6" />
+                      <label class="form-check-label fw-semibold" for="need6">⛺ Tenda Pengungsian & Selimut
+                        Hangat</label>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Section 5: Foto & Deskripsi -->
+                <div class="form-section-title"><i class="fas fa-camera text-danger"></i> 5. Bukti Foto & Keterangan
+                  Situasi</div>
+
+                <div class="mb-3">
+                  <label class="form-label fw-semibold">Deskripsi Kronologi Kejadian & Akses Jalan</label>
+                  <textarea class="form-control rounded-3" id="disasterNotes" rows="3"
+                    placeholder="Jelaskan kondisi ketinggian air, apakah jalan bisa dilalui kendaraan roda 4, atau ada kendala listrik padam..."></textarea>
+                </div>
+
+                <div class="mb-4">
+                  <label class="form-label fw-semibold">Upload Foto Kondisi Lapangan (Opsional)</label>
+                  <input type="file" class="form-control rounded-3" id="photoInput" accept="image/*" />
+                  <div class="mt-2">
+                    <img id="imagePreview" class="preview-image-box" alt="Preview Foto Kejadian" />
+                  </div>
+                </div>
+
+                <div class="form-check mb-4">
+                  <input class="form-check-input" type="checkbox" id="verifyCheck" required />
+                  <label class="form-check-label small" for="verifyCheck">
+                    Saya menyatakan bahwa informasi kejadian yang saya laporkan adalah benar sesuai kondisi lapangan dan
+                    dapat dipertanggungjawabkan untuk percepatan aksi kemanusiaan.
+                  </label>
+                </div>
+
+                <button type="submit" class="btn btn-danger btn-lg w-100 rounded-pill fw-bold shadow py-3"><i
+                    class="fas fa-paper-plane me-2"></i> Kirim Laporan Darurat Sekarang</button>
+              </form>
+            </div>
           </div>
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-target="#navbarNav" data-bs-toggle="collapse">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto align-items-lg-center">
-            <li class="nav-item">
-              <a class="nav-link" href="index.HTML">Beranda</a>
+        </div>
+
+        <!-- Kolom Informasi & Kontak Hotline (Kanan) -->
+        <div class="col-lg-4">
+          <!-- Box Hotline Darurat -->
+          <div class="bg-dark text-white p-4 rounded-4 shadow-sm mb-4">
+            <span class="badge bg-danger mb-2 px-3 py-1 rounded-pill fw-bold"><i class="fas fa-phone-volume me-1"></i>
+              HOTLINE 24 JAM</span>
+            <h5 class="fw-bold mb-3">Butuh Bantuan Detik Ini Juga?</h5>
+            <p class="small text-white-50 mb-3">Jika kondisi mengancam keselamatan nyawa, hubungi instansi darurat
+              nasional & posko JiwaPeduli:</p>
+
+            <div class="d-flex flex-column gap-2 mb-4">
+              <a href="tel:082382262838"
+                class="hotline-item d-flex align-items-center justify-content-between p-3 rounded-3 text-white text-decoration-none"
+                style="background: rgba(255, 255, 255, 0.08); border-left: 4px solid #e8491c">
+                <div class="d-flex align-items-center gap-2">
+                  <i class="fas fa-headset text-warning fa-lg"></i>
+                  <div>
+                    <div class="fw-bold">Posko JiwaPeduli 24 Jam</div>
+                    <small class="text-white-50">0823-8226-2838</small>
+                  </div>
+                </div>
+                <i class="fas fa-arrow-right text-white-50"></i>
+              </a>
+
+              <a href="https://wa.me/6282382262838?text=DARURAT%20Saya%20butuh%20evakuasi%20bencana" target="_blank"
+                class="hotline-item d-flex align-items-center justify-content-between p-3 rounded-3 text-white text-decoration-none"
+                style="background: rgba(37, 211, 102, 0.15); border-left: 4px solid #25d366">
+                <div class="d-flex align-items-center gap-2">
+                  <i class="fab fa-whatsapp text-success fa-lg"></i>
+                  <div>
+                    <div class="fw-bold">WhatsApp Tim Reaksi Cepat</div>
+                    <small class="text-white-50">Respon Pesan Langsung (0823-8226-2838)</small>
+                  </div>
+                </div>
+                <i class="fas fa-arrow-right text-white-50"></i>
+              </a>
+
+              <div class="p-3 rounded-3" style="background: rgba(255, 255, 255, 0.05)">
+                <div class="d-flex justify-content-between small text-white-50 mb-1">
+                  <span>Basarnas (SAR):</span>
+                  <strong class="text-white">115</strong>
+                </div>
+                <div class="d-flex justify-content-between small text-white-50 mb-1">
+                  <span>Ambulans Darurat:</span>
+                  <strong class="text-white">118 / 119</strong>
+                </div>
+                <div class="d-flex justify-content-between small text-white-50">
+                  <span>BNPB Call Center:</span>
+                  <strong class="text-white">117</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Prosedur Penanganan Laporan -->
+          <div class="bg-white p-4 rounded-4 shadow-sm border mb-4">
+            <h5 class="fw-bold mb-3"><i class="fas fa-list-check text-danger me-2"></i>Alur Penanganan Laporan</h5>
+            <div class="timeline-procedure small">
+              <div class="d-flex gap-3 mb-3">
+                <div
+                  class="rounded-circle bg-danger-subtle text-danger fw-bold d-flex align-items-center justify-content-center"
+                  style="width: 32px; height: 32px; flex-shrink: 0">1</div>
+                <div>
+                  <strong>Verifikasi & Validasi</strong>
+                  <div class="text-muted">Operator posko memverifikasi koordinat lokasi dan nomor pelapor via
+                    telepon/WhatsApp (&lt; 15 menit).</div>
+                </div>
+              </div>
+              <div class="d-flex gap-3 mb-3">
+                <div
+                  class="rounded-circle bg-warning-subtle text-warning fw-bold d-flex align-items-center justify-content-center"
+                  style="width: 32px; height: 32px; flex-shrink: 0">2</div>
+                <div>
+                  <strong>Pemberangkatan Relawan</strong>
+                  <div class="text-muted">Tim terdekat (SAR/Dapur Umum) diberangkatkan membawa armada logistik dan
+                    peralatan evakuasi.</div>
+                </div>
+              </div>
+              <div class="d-flex gap-3">
+                <div
+                  class="rounded-circle bg-success-subtle text-success fw-bold d-flex align-items-center justify-content-center"
+                  style="width: 32px; height: 32px; flex-shrink: 0">3</div>
+                <div>
+                  <strong>Penyaluran Donasi Warga</strong>
+                  <div class="text-muted">Dana dari para donatur dicairkan untuk kebutuhan mendesak posko secara
+                    transparan.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Laporan Bencana Terbaru (Real-time localStorage) -->
+          <div class="bg-white p-4 rounded-4 shadow-sm border">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h5 class="fw-bold mb-0"><i class="fas fa-tower-broadcast text-danger me-2"></i>Laporan Masuk</h5>
+              <span class="badge bg-danger rounded-pill" id="reportCountBadge">0 Laporan</span>
+            </div>
+            <div id="recentReportsList" class="d-flex flex-column gap-3">
+              <!-- Diisi otomatis oleh JavaScript -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal Konfirmasi Sukses -->
+  <div class="modal fade" id="successReportModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content rounded-4 border-0 shadow">
+        <div class="modal-body p-4 text-center">
+          <div
+            class="rounded-circle bg-success-subtle text-success d-inline-flex align-items-center justify-content-center mb-3"
+            style="width: 70px; height: 70px">
+            <i class="fas fa-check-double fa-2x"></i>
+          </div>
+          <h4 class="fw-bold mb-2">Laporan Kejadian Terkirim!</h4>
+          <p class="text-muted small mb-3">
+            Nomor Registrasi Laporan Anda: <br />
+            <span class="badge bg-secondary fs-6 mt-1" id="modalReportId">LAP-2026-0001</span>
+          </p>
+          <div class="alert alert-info text-start small mb-4">
+            <i class="fas fa-info-circle me-1"></i> Tim Operator Tanggap Darurat JiwaPeduli akan segera menghubungi Anda
+            melalui nomor WhatsApp yang terdaftar untuk verifikasi dan pembukaan posko bantuan.
+          </div>
+          <div class="d-grid gap-2">
+            <a href="#" id="modalWaShareBtn" target="_blank" class="btn btn-success rounded-pill fw-bold py-2"> <i
+                class="fab fa-whatsapp me-2"></i> Konfirmasi Cepat ke WhatsApp Call Center </a>
+            <button type="button" class="btn btn-outline-secondary rounded-pill" data-bs-dismiss="modal">Tutup</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer bg-dark text-white pt-5 pb-3">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="footer-logo mb-3 d-flex align-items-center gap-2">
+            <i class="fas fa-hand-holding-heart fa-2x text-danger"></i>
+            <div>
+              <span class="fw-bold fs-4 text-white">JIWA</span><span class="brand-highlight fs-4">PEDULI</span>
+              <small class="d-block text-white-50"
+                style="font-size: 0.65rem; letter-spacing: 1px; margin-top: -4px">SATU JIWA SEJUTA HARAPAN</small>
+            </div>
+          </div>
+          <p class="text-light opacity-75">Platform respons cepat bencana, penghubung relawan, dan penyalur donasi
+            kemanusiaan terbuka dan terpercaya di Indonesia.</p>
+          <div class="social-links mt-3">
+            <a href="#" class="me-2 text-white"><i class="fab fa-instagram fa-lg"></i></a>
+            <a href="#" class="me-2 text-white"><i class="fab fa-facebook fa-lg"></i></a>
+            <a href="#" class="me-2 text-white"><i class="fab fa-youtube fa-lg"></i></a>
+            <a href="#" class="text-white"><i class="fab fa-tiktok fa-lg"></i></a>
+          </div>
+        </div>
+
+        <div class="col-lg-2 col-md-6 mb-4">
+          <h5 class="fw-bold mb-3">Tautan Cepat</h5>
+          <ul class="list-unstyled">
+            <li class="mb-2"><a href="index.html" class="text-white-50 text-decoration-none">Beranda</a></li>
+            <li class="mb-2"><a href="bencana.html" class="text-white-50 text-decoration-none">Tanggap Bencana</a></li>
+            <li class="mb-2"><a href="donasi.html" class="text-white-50 text-decoration-none">Salurkan Donasi</a></li>
+            <li class="mb-2"><a href="relawan.html" class="text-white-50 text-decoration-none">Gabung Relawan</a></li>
+            <li class="mb-2"><a href="lapor-bencana.html" class="text-warning text-decoration-none fw-bold">Lapor
+                Bencana</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3 col-md-6 mb-4">
+          <h5 class="fw-bold mb-3">Program Prioritas</h5>
+          <ul class="list-unstyled">
+            <li class="mb-2"><a href="bencana.html" class="text-white-50 text-decoration-none">Siaga Banjir Bandar
+                Lampung</a></li>
+            <li class="mb-2"><a href="bencana.html" class="text-white-50 text-decoration-none">Tanggap Darurat Gempa
+                Sumbar</a></li>
+            <li class="mb-2"><a href="donasi.html" class="text-white-50 text-decoration-none">Dapur Umum & Sembako</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="bencana.HTML">Tanggap Bencana</a>
+            <li class="mb-2"><a href="donasi.html" class="text-white-50 text-decoration-none">Posko Medis & Tenaga
+                Kesehatan</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3 col-md-6 mb-4">
+          <h5 class="fw-bold mb-3">Posko Siaga</h5>
+          <ul class="list-unstyled text-white-50 small">
+            <li class="mb-2"><i class="fas fa-location-dot me-2 text-danger"></i> Bandar Lampung, Lampung, Indonesia
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="donasi.HTML">Salurkan Donasi</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="relawan.HTML">Gabung Relawan</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="riwayat.HTML">Transparansi Dana</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active fw-bold text-warning" href="lapor-bencana.HTML"><i class="fas fa-bullhorn me-1"></i> Lapor Bencana</a>
-            </li>
-            <li class="nav-item ms-lg-2">
-              <button class="btn btn-sm theme-toggle-btn rounded-pill px-3 py-1" type="button" title="Ganti Mode Gelap / Terang"><i class="fas fa-moon me-1 theme-icon"></i> <span class="theme-text">Gelap</span></button>
-            </li>
-            <li class="nav-item ms-lg-2">
-              <a class="btn btn-sm btn-outline-light px-3 py-1 rounded-pill" href="loginadmin.HTML"><i class="fas fa-shield-halved me-1"></i> Admin</a>
-            </li>
+            <li class="mb-2"><i class="fas fa-phone me-2 text-danger"></i> <a href="tel:07217890123" class="text-white-50 text-decoration-none">(0721) 7890-123</a> / <a href="tel:082382262838" class="text-white-50 text-decoration-none">0823-8226-2838</a></li>
+            <li class="mb-2"><i class="fas fa-envelope me-2 text-danger"></i> tanggap@jiwapeduli.id</li>
+            <li class="mb-2"><i class="fas fa-clock me-2 text-danger"></i> Siaga Darurat 24 Jam Nonstop</li>
           </ul>
         </div>
       </div>
-    </nav>
 
-    <!-- Header Section -->
-    <section class="report-hero">
-      <div class="container">
-        <span class="badge bg-danger px-3 py-2 rounded-pill mb-3 fw-bold text-uppercase"> <i class="fas fa-tower-broadcast me-1"></i> Pusat Pelaporan Cepat Bencana Warga </span>
-        <h1 class="display-5 fw-bold mb-3">Laporkan Kejadian & Kebutuhan Darurat</h1>
-        <p class="lead max-w-700 mx-auto text-light opacity-90">
-          Apakah daerah Anda terkena bencana alam atau membutuhkan bantuan logistik dan evakuasi segera? Isi formulir di bawah ini agar tim siaga JiwaPeduli langsung memvalidasi dan menggerakkan posko terdekat.
-        </p>
-      </div>
-    </section>
-
-    <!-- Main Content Form -->
-    <section class="py-5 bg-light">
-      <div class="container">
-        <div class="row g-4">
-          <!-- Kolom Formulir (Kiri) -->
-          <div class="col-lg-8">
-            <div class="report-card">
-              <div class="report-header d-flex justify-content-between align-items-center">
-                <div>
-                  <h4 class="mb-1 fw-bold"><i class="fas fa-file-shield me-2"></i>Formulir Tanggap Bencana Cepat</h4>
-                  <p class="mb-0 small text-white-50">Laporan Anda langsung masuk ke radar pantau tim evakuasi & logistik</p>
-                </div>
-                <span class="badge bg-white text-danger fw-bold px-3 py-2 rounded-pill"> <i class="fas fa-bolt me-1"></i> Respon &lt; 30 Menit </span>
-              </div>
-
-              <div class="p-4 p-md-5">
-                <!-- Banner Status Deteksi GPS Otomatis Mobile/Desktop -->
-                <div id="gpsAutoBanner" class="p-3 mb-4 rounded-4 d-flex align-items-center gap-3" style="background: rgba(13, 110, 253, 0.08); border: 1.5px solid rgba(13, 110, 253, 0.25)">
-                  <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center shadow-sm" style="width: 44px; height: 44px; flex-shrink: 0" id="gpsIconWrap">
-                    <i class="fas fa-location-crosshairs fa-spin" id="gpsPulseIcon"></i>
-                  </div>
-                  <div class="flex-grow-1">
-                    <div class="fw-bold text-primary mb-1" id="gpsBannerTitle"><i class="fas fa-satellite-dish me-1"></i> Mendeteksi Titik Koordinat GPS Anda Otomatis...</div>
-                    <div class="small text-muted" id="gpsBannerDesc">Tekan <strong>"Izinkan" (Allow)</strong> jika muncul notifikasi lokasi di ponsel Anda agar relawan evakuasi menemukan titik posko dengan cepat.</div>
-                  </div>
-                  <button type="button" class="btn btn-sm btn-primary rounded-pill px-3 py-1 fw-semibold text-nowrap d-none" id="btnRetryGPS"><i class="fas fa-rotate-right me-1"></i> Deteksi Ulang</button>
-                </div>
-
-                <form id="disasterReportForm">
-                  <!-- Section 1: Identitas Pelapor -->
-                  <div class="form-section-title"><i class="fas fa-user-shield text-danger"></i> 1. Identitas Pelapor (Warga / Relawan)</div>
-                  <div class="row g-3 mb-4">
-                    <div class="col-md-6">
-                      <label class="form-label fw-semibold">Nama Lengkap Pelapor <span class="text-danger">*</span></label>
-                      <input type="text" class="form-control rounded-3" id="reporterName" placeholder="Contoh: Hendra Kurniawan" required />
-                    </div>
-                    <div class="col-md-6">
-                      <label class="form-label fw-semibold">Nomor WhatsApp / HP Aktif <span class="text-danger">*</span></label>
-                      <input type="tel" class="form-control rounded-3" id="reporterPhone" placeholder="Contoh: 0812xxxxxxxx" required />
-                      <div class="form-text small">Diperlukan untuk konfirmasi video call / koordinasi posko relawan.</div>
-                    </div>
-                  </div>
-
-                  <!-- Section 2: Data Kejadian Bencana -->
-                  <div class="form-section-title"><i class="fas fa-triangle-exclamation text-warning"></i> 2. Kondisi & Tingkat Darurat</div>
-
-                  <div class="mb-3">
-                    <label class="form-label fw-semibold">Tingkat Urgensi Kejadian <span class="text-danger">*</span></label>
-                    <div class="row g-2">
-                      <div class="col-md-4">
-                        <input type="radio" class="btn-check urgency-input" name="urgencyLevel" id="urgencyRed" value="Darurat Kritis" checked />
-                        <label class="urgency-radio-card urgency-card-red d-block h-100" for="urgencyRed">
-                          <div class="fw-bold text-danger mb-1"><i class="fas fa-circle-exclamation me-1"></i> Darurat Kritis</div>
-                          <small class="text-muted d-block" style="font-size: 0.8rem">Ada warga terisolir, butuh evakuasi perahu karet/medis segera.</small>
-                        </label>
-                      </div>
-                      <div class="col-md-4">
-                        <input type="radio" class="btn-check urgency-input" name="urgencyLevel" id="urgencyOrange" value="Siaga Logistik" />
-                        <label class="urgency-radio-card urgency-card-orange d-block h-100" for="urgencyOrange">
-                          <div class="fw-bold text-warning mb-1"><i class="fas fa-truck-ramp-box me-1"></i> Siaga Logistik</div>
-                          <small class="text-muted d-block" style="font-size: 0.8rem">Warga sudah dievakuasi, stok sembako/dapur umum menipis.</small>
-                        </label>
-                      </div>
-                      <div class="col-md-4">
-                        <input type="radio" class="btn-check urgency-input" name="urgencyLevel" id="urgencyGreen" value="Waspada / Pasca Bencana" />
-                        <label class="urgency-radio-card urgency-card-green d-block h-100" for="urgencyGreen">
-                          <div class="fw-bold text-success mb-1"><i class="fas fa-shield me-1"></i> Pasca Bencana</div>
-                          <small class="text-muted d-block" style="font-size: 0.8rem">Tahap pembersihan lumpur, kebutuhan alas tidur & sanitasi.</small>
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="row g-3 mb-4">
-                    <div class="col-md-6">
-                      <label class="form-label fw-semibold">Jenis Bencana <span class="text-danger">*</span></label>
-                      <select class="form-select rounded-3" id="disasterType" required>
-                        <option value="">Pilih Jenis Bencana</option>
-                        <option value="Banjir Bandang">Banjir Bandang / Luapan Sungai</option>
-                        <option value="Gempa Bumi">Gempa Bumi</option>
-                        <option value="Tanah Longsor">Tanah Longsor</option>
-                        <option value="Angin Puting Beliung">Angin Puting Beliung / Badai</option>
-                        <option value="Erupsi Gunung Berapi">Erupsi Gunung Berapi</option>
-                        <option value="Kebakaran Pemukiman">Kebakaran Pemukiman / Lahan</option>
-                        <option value="Kekeringan Ekstrem">Kekeringan & Krisis Air Bersih</option>
-                        <option value="Lainnya">Bencana Lainnya</option>
-                      </select>
-                    </div>
-                    <div class="col-md-6">
-                      <label class="form-label fw-semibold">Estimasi Warga Terdampak <span class="text-danger">*</span></label>
-                      <input type="number" class="form-control rounded-3" id="affectedCount" placeholder="Contoh: 150 (jiwa/KK)" min="1" required />
-                    </div>
-                  </div>
-
-                  <!-- Section 3: Titik Lokasi & GPS -->
-                  <div class="form-section-title"><i class="fas fa-map-location-dot text-danger"></i> 3. Lokasi Bencana & Koordinat</div>
-
-                  <div class="mb-3">
-                    <button type="button" class="btn btn-outline-danger rounded-pill px-4 py-2 mb-2 fw-bold d-inline-flex align-items-center gap-2" id="btnGetLocation">
-                      <i class="fas fa-crosshairs"></i> <span>Ambil / Kunci Titik Koordinat GPS Saya</span>
-                    </button>
-                    <div id="gpsStatus" class="small mt-1"></div>
-                  </div>
-
-                  <div class="row g-3 mb-3">
-                    <div class="col-md-6">
-                      <label class="form-label fw-semibold">Provinsi <span class="text-danger">*</span></label>
-                      <input type="text" class="form-control rounded-3" id="disasterProvince" placeholder="Contoh: Lampung" required />
-                    </div>
-                    <div class="col-md-6">
-                      <label class="form-label fw-semibold">Kota / Kabupaten <span class="text-danger">*</span></label>
-                      <input type="text" class="form-control rounded-3" id="disasterCity" placeholder="Contoh: Kota Bandar Lampung" required />
-                    </div>
-                    <div class="col-12">
-                      <label class="form-label fw-semibold">Alamat Lengkap / Patokan Titik Posko <span class="text-danger">*</span></label>
-                      <textarea class="form-control rounded-3" id="disasterAddress" rows="2" placeholder="Contoh: Jl. Ikan Hiu No. 12, Kel. Pesawahan, Teluk Betung Selatan (Dekat Jembatan Gantung)" required></textarea>
-                    </div>
-                  </div>
-
-                  <!-- Section 4: Kebutuhan Logistik Mendesak -->
-                  <div class="form-section-title"><i class="fas fa-boxes-stacked text-warning"></i> 4. Kebutuhan Logistik & Bantuan Mendesak</div>
-                  <p class="small text-muted mb-2">Pilih kebutuhan yang paling mendesak dibutuhkan pengungsi di titik ini:</p>
-
-                  <div class="row g-2 mb-4">
-                    <div class="col-md-6">
-                      <div class="form-check p-2 bg-light rounded-3">
-                        <input class="form-check-input ms-1 me-2 need-checkbox" type="checkbox" value="Dapur Umum & Makanan Siap Santap" id="need1" checked />
-                        <label class="form-check-label fw-semibold" for="need1">🍱 Dapur Umum & Makanan Siap Santap</label>
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="form-check p-2 bg-light rounded-3">
-                        <input class="form-check-input ms-1 me-2 need-checkbox" type="checkbox" value="Air Mineral & Air Bersih Higienis" id="need2" checked />
-                        <label class="form-check-label fw-semibold" for="need2">💧 Air Mineral & Air Bersih Higienis</label>
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="form-check p-2 bg-light rounded-3">
-                        <input class="form-check-input ms-1 me-2 need-checkbox" type="checkbox" value="Perahu Karet & Rompi Pelampung" id="need3" />
-                        <label class="form-check-label fw-semibold" for="need3">🛶 Perahu Karet & Rompi Pelampung</label>
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="form-check p-2 bg-light rounded-3">
-                        <input class="form-check-input ms-1 me-2 need-checkbox" type="checkbox" value="Obat-obatan & Tenaga Medis Siaga" id="need4" checked />
-                        <label class="form-check-label fw-semibold" for="need4">🚑 Obat-obatan & Tenaga Medis Siaga</label>
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="form-check p-2 bg-light rounded-3">
-                        <input class="form-check-input ms-1 me-2 need-checkbox" type="checkbox" value="Popok Bayi, Susu & Pembalut" id="need5" />
-                        <label class="form-check-label fw-semibold" for="need5">🍼 Popok Bayi, Susu & Pembalut</label>
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="form-check p-2 bg-light rounded-3">
-                        <input class="form-check-input ms-1 me-2 need-checkbox" type="checkbox" value="Tenda Pengungsian & Selimut Hangat" id="need6" />
-                        <label class="form-check-label fw-semibold" for="need6">⛺ Tenda Pengungsian & Selimut Hangat</label>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Section 5: Foto & Deskripsi -->
-                  <div class="form-section-title"><i class="fas fa-camera text-danger"></i> 5. Bukti Foto & Keterangan Situasi</div>
-
-                  <div class="mb-3">
-                    <label class="form-label fw-semibold">Deskripsi Kronologi Kejadian & Akses Jalan</label>
-                    <textarea class="form-control rounded-3" id="disasterNotes" rows="3" placeholder="Jelaskan kondisi ketinggian air, apakah jalan bisa dilalui kendaraan roda 4, atau ada kendala listrik padam..."></textarea>
-                  </div>
-
-                  <div class="mb-4">
-                    <label class="form-label fw-semibold">Upload Foto Kondisi Lapangan (Opsional)</label>
-                    <input type="file" class="form-control rounded-3" id="photoInput" accept="image/*" />
-                    <div class="mt-2">
-                      <img id="imagePreview" class="preview-image-box" alt="Preview Foto Kejadian" />
-                    </div>
-                  </div>
-
-                  <div class="form-check mb-4">
-                    <input class="form-check-input" type="checkbox" id="verifyCheck" required />
-                    <label class="form-check-label small" for="verifyCheck">
-                      Saya menyatakan bahwa informasi kejadian yang saya laporkan adalah benar sesuai kondisi lapangan dan dapat dipertanggungjawabkan untuk percepatan aksi kemanusiaan.
-                    </label>
-                  </div>
-
-                  <button type="submit" class="btn btn-danger btn-lg w-100 rounded-pill fw-bold shadow py-3"><i class="fas fa-paper-plane me-2"></i> Kirim Laporan Darurat Sekarang</button>
-                </form>
-              </div>
-            </div>
-          </div>
-
-          <!-- Kolom Informasi & Kontak Hotline (Kanan) -->
-          <div class="col-lg-4">
-            <!-- Box Hotline Darurat -->
-            <div class="bg-dark text-white p-4 rounded-4 shadow-sm mb-4">
-              <span class="badge bg-danger mb-2 px-3 py-1 rounded-pill fw-bold"><i class="fas fa-phone-volume me-1"></i> HOTLINE 24 JAM</span>
-              <h5 class="fw-bold mb-3">Butuh Bantuan Detik Ini Juga?</h5>
-              <p class="small text-white-50 mb-3">Jika kondisi mengancam keselamatan nyawa, hubungi instansi darurat nasional & posko JiwaPeduli:</p>
-
-              <div class="d-flex flex-column gap-2 mb-4">
-                <a href="tel:082382262838" class="hotline-item d-flex align-items-center justify-content-between p-3 rounded-3 text-white text-decoration-none" style="background: rgba(255, 255, 255, 0.08); border-left: 4px solid #e8491c">
-                  <div class="d-flex align-items-center gap-2">
-                    <i class="fas fa-headset text-warning fa-lg"></i>
-                    <div>
-                      <div class="fw-bold">Posko JiwaPeduli 24 Jam</div>
-                      <small class="text-white-50">0823-8226-2838</small>
-                    </div>
-                  </div>
-                  <i class="fas fa-arrow-right text-white-50"></i>
-                </a>
-
-                <a
-                  href="https://wa.me/6282382262838?text=DARURAT%20Saya%20butuh%20evakuasi%20bencana"
-                  target="_blank"
-                  class="hotline-item d-flex align-items-center justify-content-between p-3 rounded-3 text-white text-decoration-none"
-                  style="background: rgba(37, 211, 102, 0.15); border-left: 4px solid #25d366"
-                >
-                  <div class="d-flex align-items-center gap-2">
-                    <i class="fab fa-whatsapp text-success fa-lg"></i>
-                    <div>
-                      <div class="fw-bold">WhatsApp Tim Reaksi Cepat</div>
-                      <small class="text-white-50">Respon Pesan Langsung (0823-8226-2838)</small>
-                    </div>
-                  </div>
-                  <i class="fas fa-arrow-right text-white-50"></i>
-                </a>
-
-                <div class="p-3 rounded-3" style="background: rgba(255, 255, 255, 0.05)">
-                  <div class="d-flex justify-content-between small text-white-50 mb-1">
-                    <span>Basarnas (SAR):</span>
-                    <strong class="text-white">115</strong>
-                  </div>
-                  <div class="d-flex justify-content-between small text-white-50 mb-1">
-                    <span>Ambulans Darurat:</span>
-                    <strong class="text-white">118 / 119</strong>
-                  </div>
-                  <div class="d-flex justify-content-between small text-white-50">
-                    <span>BNPB Call Center:</span>
-                    <strong class="text-white">117</strong>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Prosedur Penanganan Laporan -->
-            <div class="bg-white p-4 rounded-4 shadow-sm border mb-4">
-              <h5 class="fw-bold mb-3"><i class="fas fa-list-check text-danger me-2"></i>Alur Penanganan Laporan</h5>
-              <div class="timeline-procedure small">
-                <div class="d-flex gap-3 mb-3">
-                  <div class="rounded-circle bg-danger-subtle text-danger fw-bold d-flex align-items-center justify-content-center" style="width: 32px; height: 32px; flex-shrink: 0">1</div>
-                  <div>
-                    <strong>Verifikasi & Validasi</strong>
-                    <div class="text-muted">Operator posko memverifikasi koordinat lokasi dan nomor pelapor via telepon/WhatsApp (&lt; 15 menit).</div>
-                  </div>
-                </div>
-                <div class="d-flex gap-3 mb-3">
-                  <div class="rounded-circle bg-warning-subtle text-warning fw-bold d-flex align-items-center justify-content-center" style="width: 32px; height: 32px; flex-shrink: 0">2</div>
-                  <div>
-                    <strong>Pemberangkatan Relawan</strong>
-                    <div class="text-muted">Tim terdekat (SAR/Dapur Umum) diberangkatkan membawa armada logistik dan peralatan evakuasi.</div>
-                  </div>
-                </div>
-                <div class="d-flex gap-3">
-                  <div class="rounded-circle bg-success-subtle text-success fw-bold d-flex align-items-center justify-content-center" style="width: 32px; height: 32px; flex-shrink: 0">3</div>
-                  <div>
-                    <strong>Penyaluran Donasi Warga</strong>
-                    <div class="text-muted">Dana dari para donatur dicairkan untuk kebutuhan mendesak posko secara transparan.</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Laporan Bencana Terbaru (Real-time localStorage) -->
-            <div class="bg-white p-4 rounded-4 shadow-sm border">
-              <div class="d-flex justify-content-between align-items-center mb-3">
-                <h5 class="fw-bold mb-0"><i class="fas fa-tower-broadcast text-danger me-2"></i>Laporan Masuk</h5>
-                <span class="badge bg-danger rounded-pill" id="reportCountBadge">0 Laporan</span>
-              </div>
-              <div id="recentReportsList" class="d-flex flex-column gap-3">
-                <!-- Diisi otomatis oleh JavaScript -->
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Modal Konfirmasi Sukses -->
-    <div class="modal fade" id="successReportModal" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content rounded-4 border-0 shadow">
-          <div class="modal-body p-4 text-center">
-            <div class="rounded-circle bg-success-subtle text-success d-inline-flex align-items-center justify-content-center mb-3" style="width: 70px; height: 70px">
-              <i class="fas fa-check-double fa-2x"></i>
-            </div>
-            <h4 class="fw-bold mb-2">Laporan Kejadian Terkirim!</h4>
-            <p class="text-muted small mb-3">
-              Nomor Registrasi Laporan Anda: <br />
-              <span class="badge bg-secondary fs-6 mt-1" id="modalReportId">LAP-2026-0001</span>
-            </p>
-            <div class="alert alert-info text-start small mb-4">
-              <i class="fas fa-info-circle me-1"></i> Tim Operator Tanggap Darurat JiwaPeduli akan segera menghubungi Anda melalui nomor WhatsApp yang terdaftar untuk verifikasi dan pembukaan posko bantuan.
-            </div>
-            <div class="d-grid gap-2">
-              <a href="#" id="modalWaShareBtn" target="_blank" class="btn btn-success rounded-pill fw-bold py-2"> <i class="fab fa-whatsapp me-2"></i> Konfirmasi Cepat ke WhatsApp Call Center </a>
-              <button type="button" class="btn btn-outline-secondary rounded-pill" data-bs-dismiss="modal">Tutup</button>
-            </div>
-          </div>
-        </div>
-      </div>
+      <div class="footer-bottom pt-4 mt-4 border-top border-secondary text-center text-white-50 small">&copy; 2026
+        JiwaPeduli Indonesia. Bersama untuk Kemanusiaan.</div>
     </div>
+  </footer>
 
-    <!-- Footer -->
-    <footer class="footer bg-dark text-white pt-5 pb-3">
-      <div class="container">
-        <div class="row g-4">
-          <div class="col-lg-4 col-md-6 mb-4">
-            <div class="footer-logo mb-3 d-flex align-items-center gap-2">
-              <i class="fas fa-hand-holding-heart fa-2x text-danger"></i>
-              <div>
-                <span class="fw-bold fs-4 text-white">JIWA</span><span class="brand-highlight fs-4">PEDULI</span>
-                <small class="d-block text-white-50" style="font-size: 0.65rem; letter-spacing: 1px; margin-top: -4px">SATU JIWA SEJUTA HARAPAN</small>
-              </div>
-            </div>
-            <p class="text-light opacity-75">Platform respons cepat bencana, penghubung relawan, dan penyalur donasi kemanusiaan terbuka dan terpercaya di Indonesia.</p>
-            <div class="social-links mt-3">
-              <a href="#" class="me-2 text-white"><i class="fab fa-instagram fa-lg"></i></a>
-              <a href="#" class="me-2 text-white"><i class="fab fa-facebook fa-lg"></i></a>
-              <a href="#" class="me-2 text-white"><i class="fab fa-youtube fa-lg"></i></a>
-              <a href="#" class="text-white"><i class="fab fa-tiktok fa-lg"></i></a>
-            </div>
-          </div>
+  <!-- Back to Top -->
+  <a href="#" class="back-to-top" id="backToTop" title="Kembali ke atas">
+    <i class="fas fa-chevron-up"></i>
+  </a>
 
-          <div class="col-lg-2 col-md-6 mb-4">
-            <h5 class="fw-bold mb-3">Tautan Cepat</h5>
-            <ul class="list-unstyled">
-              <li class="mb-2"><a href="index.HTML" class="text-white-50 text-decoration-none">Beranda</a></li>
-              <li class="mb-2"><a href="bencana.HTML" class="text-white-50 text-decoration-none">Tanggap Bencana</a></li>
-              <li class="mb-2"><a href="donasi.HTML" class="text-white-50 text-decoration-none">Salurkan Donasi</a></li>
-              <li class="mb-2"><a href="relawan.HTML" class="text-white-50 text-decoration-none">Gabung Relawan</a></li>
-              <li class="mb-2"><a href="lapor-bencana.HTML" class="text-warning text-decoration-none fw-bold">Lapor Bencana</a></li>
-            </ul>
-          </div>
+  <!-- Bootstrap 5 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="cities-data.js?v=2.2"></script>
+  <script src="script.js?v=3.0"></script>
 
-          <div class="col-lg-3 col-md-6 mb-4">
-            <h5 class="fw-bold mb-3">Program Prioritas</h5>
-            <ul class="list-unstyled">
-              <li class="mb-2"><a href="bencana.HTML" class="text-white-50 text-decoration-none">Siaga Banjir Bandar Lampung</a></li>
-              <li class="mb-2"><a href="bencana.HTML" class="text-white-50 text-decoration-none">Tanggap Darurat Gempa Sumbar</a></li>
-              <li class="mb-2"><a href="donasi.HTML" class="text-white-50 text-decoration-none">Dapur Umum & Sembako</a></li>
-              <li class="mb-2"><a href="donasi.HTML" class="text-white-50 text-decoration-none">Posko Medis & Tenaga Kesehatan</a></li>
-            </ul>
-          </div>
+  <!-- Script Khusus Lapor Bencana -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      initReportsData();
+      renderRecentReports();
 
-          <div class="col-lg-3 col-md-6 mb-4">
-            <h5 class="fw-bold mb-3">Posko Siaga</h5>
-            <ul class="list-unstyled text-white-50 small">
-              <li class="mb-2"><i class="fas fa-location-dot me-2 text-danger"></i> Bandar Lampung, Lampung, Indonesia</li>
-              <li class="mb-2"><i class="fas fa-phone me-2 text-danger"></i> (0721) 7890-123 / 0823-8226-2838</li>
-              <li class="mb-2"><i class="fas fa-envelope me-2 text-danger"></i> tanggap@jiwapeduli.id</li>
-              <li class="mb-2"><i class="fas fa-clock me-2 text-danger"></i> Siaga Darurat 24 Jam Nonstop</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="footer-bottom pt-4 mt-4 border-top border-secondary text-center text-white-50 small">&copy; 2026 JiwaPeduli Indonesia. Bersama untuk Kemanusiaan.</div>
-      </div>
-    </footer>
-
-    <!-- Back to Top -->
-    <a href="#" class="back-to-top" id="backToTop" title="Kembali ke atas">
-      <i class="fas fa-chevron-up"></i>
-    </a>
-
-    <!-- Bootstrap 5 JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="script.js"></script>
-
-    <!-- Script Khusus Lapor Bencana -->
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        initReportsData();
-        renderRecentReports();
-
-        // 1. Image Preview
-        const photoInput = document.getElementById("photoInput");
-        const imagePreview = document.getElementById("imagePreview");
-        if (photoInput && imagePreview) {
-          photoInput.addEventListener("change", function () {
-            const file = this.files[0];
-            if (file) {
-              const reader = new FileReader();
-              reader.onload = function (e) {
-                imagePreview.src = e.target.result;
-                imagePreview.style.display = "block";
-              };
-              reader.readAsDataURL(file);
-            } else {
-              imagePreview.style.display = "none";
-            }
-          });
-        }
-
-        // 2. Geolocation Engine (Auto-detect di Ponsel + Manual Trigger)
-        const btnGetLocation = document.getElementById("btnGetLocation");
-        const gpsStatus = document.getElementById("gpsStatus");
-        const gpsAutoBanner = document.getElementById("gpsAutoBanner");
-        const gpsIconWrap = document.getElementById("gpsIconWrap");
-        const gpsPulseIcon = document.getElementById("gpsPulseIcon");
-        const gpsBannerTitle = document.getElementById("gpsBannerTitle");
-        const gpsBannerDesc = document.getElementById("gpsBannerDesc");
-        const btnRetryGPS = document.getElementById("btnRetryGPS");
-        let currentCoordinates = null;
-
-        function executeGPS(isAuto = false) {
-          if (!navigator.geolocation) {
-            updateGPSUIError("Browser ini tidak mendukung sensor Geolocation.");
-            return;
-          }
-
-          if (isAuto) {
-            if (gpsBannerTitle) gpsBannerTitle.innerHTML = '<i class="fas fa-satellite-dish fa-spin me-1"></i> Mendeteksi Lokasi GPS Ponsel Anda...';
-            if (gpsBannerDesc) gpsBannerDesc.innerHTML = 'Tekan <strong>"Izinkan" (Allow)</strong> jika muncul permintaan lokasi di layar HP agar koordinat terkunci secara presisi.';
+      // 1. Image Preview
+      const photoInput = document.getElementById("photoInput");
+      const imagePreview = document.getElementById("imagePreview");
+      if (photoInput && imagePreview) {
+        photoInput.addEventListener("change", function () {
+          const file = this.files[0];
+          if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+              imagePreview.src = e.target.result;
+              imagePreview.style.display = "block";
+            };
+            reader.readAsDataURL(file);
           } else {
-            if (gpsStatus) {
-              gpsStatus.innerHTML = '<span class="text-primary"><i class="fas fa-spinner fa-spin me-1"></i> Mengakses satelit GPS ponsel...</span>';
-            }
+            imagePreview.style.display = "none";
           }
+        });
+      }
 
-          navigator.geolocation.getCurrentPosition(
-            function (position) {
-              const lat = position.coords.latitude.toFixed(6);
-              const lng = position.coords.longitude.toFixed(6);
-              const accuracy = Math.round(position.coords.accuracy || 10);
-              currentCoordinates = `${lat}, ${lng}`;
+      // 2. Geolocation Engine (Auto-detect di Ponsel + Manual Trigger)
+      const btnGetLocation = document.getElementById("btnGetLocation");
+      const gpsStatus = document.getElementById("gpsStatus");
+      const gpsAutoBanner = document.getElementById("gpsAutoBanner");
+      const gpsIconWrap = document.getElementById("gpsIconWrap");
+      const gpsPulseIcon = document.getElementById("gpsPulseIcon");
+      const gpsBannerTitle = document.getElementById("gpsBannerTitle");
+      const gpsBannerDesc = document.getElementById("gpsBannerDesc");
+      const btnRetryGPS = document.getElementById("btnRetryGPS");
+      let currentCoordinates = null;
 
-              // Update Banner Menjadi Sukses Hijau
-              if (gpsAutoBanner) {
-                gpsAutoBanner.style.background = "rgba(25, 135, 84, 0.12)";
-                gpsAutoBanner.style.borderColor = "#198754";
-              }
-              if (gpsIconWrap) {
-                gpsIconWrap.className = "rounded-circle bg-success text-white d-flex align-items-center justify-content-center shadow-sm";
-              }
-              if (gpsPulseIcon) {
-                gpsPulseIcon.className = "fas fa-circle-check";
-              }
-              if (gpsBannerTitle) {
-                gpsBannerTitle.className = "fw-bold text-success mb-1";
-                gpsBannerTitle.innerHTML = `<i class="fas fa-map-pin me-1"></i> Titik Koordinat GPS Terkunci Akurat (${currentCoordinates})`;
-              }
-              if (gpsBannerDesc) {
-                gpsBannerDesc.innerHTML = `Akurasi hingga ±${accuracy} meter. Koordinat otomatis tersimpan ke formulir darurat dan tautan Google Maps.`;
-              }
-              if (btnRetryGPS) {
-                btnRetryGPS.classList.remove("d-none");
-                btnRetryGPS.className = "btn btn-sm btn-outline-success rounded-pill px-3 py-1 fw-semibold text-nowrap";
-              }
-
-              // Update Tombol Manual
-              if (btnGetLocation) {
-                btnGetLocation.className = "btn btn-success rounded-pill px-4 py-2 mb-2 fw-bold d-inline-flex align-items-center gap-2";
-                btnGetLocation.innerHTML = `<i class="fas fa-circle-check"></i> <span>GPS Terkunci: ${currentCoordinates}</span>`;
-              }
-              if (gpsStatus) {
-                gpsStatus.innerHTML = `<span class="text-success fw-bold"><i class="fas fa-check-double me-1"></i> Koordinat tersimpan (Akurasi: ±${accuracy}m)</span>`;
-              }
-
-              // Tambahkan info koordinat ke alamat
-              const addr = document.getElementById("disasterAddress");
-              if (addr && !addr.value.includes("Titik GPS")) {
-                addr.value += (addr.value ? " | " : "") + `[Titik GPS: https://maps.google.com/?q=${lat},${lng}]`;
-              }
-
-              // Reverse Geocoding via OpenStreetMap Nominatim
-              fetchReverseGeocode(lat, lng);
-            },
-            function (err) {
-              console.warn("GPS notice:", err.message);
-              updateGPSUIError(
-                err.code === 1
-                  ? "Izin akses lokasi belum diaktifkan. Anda dapat mengizinkannya di setelan browser HP atau memasukkan alamat manual."
-                  : "Gagal mengunci satelit GPS otomatis. Silakan isi alamat & patokan lokasi secara manual.",
-              );
-            },
-            { enableHighAccuracy: true, timeout: 12000, maximumAge: 0 },
-          );
+      function executeGPS(isAuto = false) {
+        if (!navigator.geolocation) {
+          updateGPSUIError("Browser ini tidak mendukung sensor Geolocation.");
+          return;
         }
 
-        function updateGPSUIError(msg) {
-          if (gpsAutoBanner) {
-            gpsAutoBanner.style.background = "rgba(255, 193, 7, 0.12)";
-            gpsAutoBanner.style.borderColor = "#ffc107";
-          }
-          if (gpsIconWrap) {
-            gpsIconWrap.className = "rounded-circle bg-warning text-dark d-flex align-items-center justify-content-center shadow-sm";
-          }
-          if (gpsPulseIcon) {
-            gpsPulseIcon.className = "fas fa-location-arrow";
-          }
-          if (gpsBannerTitle) {
-            gpsBannerTitle.className = "fw-bold text-dark mb-1";
-            gpsBannerTitle.innerHTML = '<i class="fas fa-circle-info me-1"></i> Gunakan Deteksi Manual atau Tulis Alamat';
-          }
-          if (gpsBannerDesc) {
-            gpsBannerDesc.innerHTML = `${msg}`;
-          }
-          if (btnRetryGPS) {
-            btnRetryGPS.classList.remove("d-none");
-            btnRetryGPS.className = "btn btn-sm btn-warning rounded-pill px-3 py-1 fw-bold text-dark text-nowrap";
-          }
+        if (isAuto) {
+          if (gpsBannerTitle) gpsBannerTitle.innerHTML = '<i class="fas fa-satellite-dish fa-spin me-1"></i> Mendeteksi Lokasi GPS Ponsel Anda...';
+          if (gpsBannerDesc) gpsBannerDesc.innerHTML = 'Tekan <strong>"Izinkan" (Allow)</strong> jika muncul permintaan lokasi di layar HP agar koordinat terkunci secara presisi.';
+        } else {
           if (gpsStatus) {
-            gpsStatus.innerHTML = `<span class="text-warning"><i class="fas fa-circle-exclamation me-1"></i> ${msg}</span>`;
+            gpsStatus.innerHTML = '<span class="text-primary"><i class="fas fa-spinner fa-spin me-1"></i> Mengakses satelit GPS ponsel...</span>';
           }
         }
 
-        function fetchReverseGeocode(lat, lng) {
-          const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=14`;
-          fetch(url, { headers: { "Accept-Language": "id" } })
-            .then((res) => res.json())
-            .then((data) => {
-              if (data && data.address) {
-                const cityInput = document.getElementById("disasterCity");
-                const provInput = document.getElementById("disasterProvince");
-                const cityName = data.address.city || data.address.town || data.address.county || data.address.state_district || data.address.regency || "";
-                const provName = data.address.state || "";
+        navigator.geolocation.getCurrentPosition(
+          function (position) {
+            const lat = position.coords.latitude.toFixed(6);
+            const lng = position.coords.longitude.toFixed(6);
+            const accuracy = Math.round(position.coords.accuracy || 10);
+            currentCoordinates = `${lat}, ${lng}`;
 
-                if (cityInput && !cityInput.value && cityName) {
-                  cityInput.value = cityName;
-                }
-                if (provInput && !provInput.value && provName) {
-                  provInput.value = provName;
-                }
+            // Update Banner Menjadi Sukses Hijau
+            if (gpsAutoBanner) {
+              gpsAutoBanner.style.background = "rgba(25, 135, 84, 0.12)";
+              gpsAutoBanner.style.borderColor = "#198754";
+            }
+            if (gpsIconWrap) {
+              gpsIconWrap.className = "rounded-circle bg-success text-white d-flex align-items-center justify-content-center shadow-sm";
+            }
+            if (gpsPulseIcon) {
+              gpsPulseIcon.className = "fas fa-circle-check";
+            }
+            if (gpsBannerTitle) {
+              gpsBannerTitle.className = "fw-bold text-success mb-1";
+              gpsBannerTitle.innerHTML = `<i class="fas fa-map-pin me-1"></i> Titik Koordinat GPS Terkunci Akurat (${currentCoordinates})`;
+            }
+            if (gpsBannerDesc) {
+              gpsBannerDesc.innerHTML = `Akurasi hingga ±${accuracy} meter. Koordinat otomatis tersimpan ke formulir darurat dan tautan Google Maps.`;
+            }
+            if (btnRetryGPS) {
+              btnRetryGPS.classList.remove("d-none");
+              btnRetryGPS.className = "btn btn-sm btn-outline-success rounded-pill px-3 py-1 fw-semibold text-nowrap";
+            }
 
-                if (gpsBannerDesc && (cityName || provName)) {
-                  gpsBannerDesc.innerHTML += ` <br><strong class="text-success"><i class="fas fa-location-dot me-1"></i> Wilayah Terdeteksi: ${cityName ? cityName + ", " : ""}${provName}</strong>`;
-                }
-              }
-            })
-            .catch(() => {});
+            // Update Tombol Manual
+            if (btnGetLocation) {
+              btnGetLocation.className = "btn btn-success rounded-pill px-4 py-2 mb-2 fw-bold d-inline-flex align-items-center gap-2";
+              btnGetLocation.innerHTML = `<i class="fas fa-circle-check"></i> <span>GPS Terkunci: ${currentCoordinates}</span>`;
+            }
+            if (gpsStatus) {
+              gpsStatus.innerHTML = `<span class="text-success fw-bold"><i class="fas fa-check-double me-1"></i> Koordinat tersimpan (Akurasi: ±${accuracy}m)</span>`;
+            }
+
+            // Tambahkan info koordinat ke alamat
+            const addr = document.getElementById("disasterAddress");
+            if (addr && !addr.value.includes("Titik GPS")) {
+              addr.value += (addr.value ? " | " : "") + `[Titik GPS: https://maps.google.com/?q=${lat},${lng}]`;
+            }
+
+            // Reverse Geocoding via OpenStreetMap Nominatim
+            fetchReverseGeocode(lat, lng);
+          },
+          function (err) {
+            console.warn("GPS notice:", err.message);
+            updateGPSUIError(
+              err.code === 1
+                ? "Izin akses lokasi belum diaktifkan. Anda dapat mengizinkannya di setelan browser HP atau memasukkan alamat manual."
+                : "Gagal mengunci satelit GPS otomatis. Silakan isi alamat & patokan lokasi secara manual.",
+            );
+          },
+          { enableHighAccuracy: true, timeout: 12000, maximumAge: 0 },
+        );
+      }
+
+      function updateGPSUIError(msg) {
+        if (gpsAutoBanner) {
+          gpsAutoBanner.style.background = "rgba(255, 193, 7, 0.12)";
+          gpsAutoBanner.style.borderColor = "#ffc107";
         }
-
-        // Event Listeners GPS
-        if (btnGetLocation) {
-          btnGetLocation.addEventListener("click", function () {
-            executeGPS(false);
-          });
+        if (gpsIconWrap) {
+          gpsIconWrap.className = "rounded-circle bg-warning text-dark d-flex align-items-center justify-content-center shadow-sm";
+        }
+        if (gpsPulseIcon) {
+          gpsPulseIcon.className = "fas fa-location-arrow";
+        }
+        if (gpsBannerTitle) {
+          gpsBannerTitle.className = "fw-bold text-dark mb-1";
+          gpsBannerTitle.innerHTML = '<i class="fas fa-circle-info me-1"></i> Gunakan Deteksi Manual atau Tulis Alamat';
+        }
+        if (gpsBannerDesc) {
+          gpsBannerDesc.innerHTML = `${msg}`;
         }
         if (btnRetryGPS) {
-          btnRetryGPS.addEventListener("click", function () {
-            executeGPS(false);
-          });
+          btnRetryGPS.classList.remove("d-none");
+          btnRetryGPS.className = "btn btn-sm btn-warning rounded-pill px-3 py-1 fw-bold text-dark text-nowrap";
         }
-
-        // Auto Trigger Geolocation Saat Halaman Dibuka di HP / Desktop
-        setTimeout(() => {
-          executeGPS(true);
-        }, 800);
-
-        // 3. Form Submit
-        const form = document.getElementById("disasterReportForm");
-        if (form) {
-          form.addEventListener("submit", function (e) {
-            e.preventDefault();
-
-            const reporterName = document.getElementById("reporterName").value;
-            const reporterPhone = document.getElementById("reporterPhone").value;
-            const urgency = document.querySelector('input[name="urgencyLevel"]:checked')?.value || "Darurat Kritis";
-            const disasterType = document.getElementById("disasterType").value;
-            const affectedCount = document.getElementById("affectedCount").value;
-            const province = document.getElementById("disasterProvince").value;
-            const city = document.getElementById("disasterCity").value;
-            const address = document.getElementById("disasterAddress").value;
-            const notes = document.getElementById("disasterNotes").value;
-
-            // Kebutuhan
-            const selectedNeeds = [];
-            document.querySelectorAll(".need-checkbox:checked").forEach((cb) => selectedNeeds.push(cb.value));
-
-            const reportId = "LAP-" + new Date().getFullYear() + "-" + Math.floor(1000 + Math.random() * 9000);
-
-            const newReport = {
-              id: reportId,
-              reporter: reporterName,
-              phone: reporterPhone,
-              urgency: urgency,
-              type: disasterType,
-              affected: affectedCount,
-              location: `${city}, ${province}`,
-              address: address,
-              needs: selectedNeeds,
-              notes: notes,
-              coordinates: currentCoordinates || "Manual",
-              date: "Baru saja",
-              status: "Verifikasi Tim",
-            };
-
-            // Simpan ke localStorage
-            const reports = JSON.parse(localStorage.getItem("jp_reports")) || [];
-            reports.unshift(newReport);
-            localStorage.setItem("jp_reports", JSON.stringify(reports));
-
-            // Setup Modal Konfirmasi
-            document.getElementById("modalReportId").innerText = reportId;
-            const waText = encodeURIComponent(
-              `Halo Tim Reaksi Cepat JiwaPeduli, saya telah mengirim laporan bencana darurat:\n\n*ID Laporan:* ${reportId}\n*Jenis:* ${disasterType} (${urgency})\n*Lokasi:* ${city}, ${province}\n*Pelapor:* ${reporterName} (${reporterPhone})\n\nMohon segera ditindaklanjuti. Terima kasih.`,
-            );
-            document.getElementById("modalWaShareBtn").href = `https://wa.me/6282382262838?text=${waText}`;
-
-            const modal = new bootstrap.Modal(document.getElementById("successReportModal"));
-            modal.show();
-
-            // Reset form
-            form.reset();
-            if (imagePreview) imagePreview.style.display = "none";
-            if (gpsStatus) gpsStatus.innerHTML = "";
-            currentCoordinates = null;
-
-            // Update UI list
-            renderRecentReports();
-          });
-        }
-      });
-
-      function initReportsData() {
-        if (!localStorage.getItem("jp_reports")) {
-          const defaultReports = [
-            {
-              id: "LAP-2026-4412",
-              reporter: "Bambang Supriyanto",
-              phone: "0813-7762-9901",
-              urgency: "Darurat Kritis",
-              type: "Banjir Bandang",
-              affected: "3.200",
-              location: "Bandar Lampung, Lampung",
-              address: "Kecamatan Teluk Betung Selatan & Garuntang",
-              needs: ["Dapur Umum", "Perahu Karet", "Air Bersih"],
-              notes: "Air setinggi 1,5 meter menggenangi pemukiman warga sejak sore.",
-              date: "10 menit lalu",
-              status: "Posko Dibuka",
-            },
-            {
-              id: "LAP-2026-4398",
-              reporter: "Ibu Ratna",
-              phone: "0852-8812-3344",
-              urgency: "Siaga Logistik",
-              type: "Tanah Longsor",
-              affected: "450",
-              location: "Pasaman, Sumatera Barat",
-              address: "Jalan Lintas Nagari Simpang Tonang",
-              needs: ["Alat Berat", "Tenda", "Sembako"],
-              notes: "Akses jalan utama tertutup material tanah dan pohon tumbang.",
-              date: "2 jam lalu",
-              status: "Tim Menuju Lokasi",
-            },
-            {
-              id: "LAP-2026-4350",
-              reporter: "Ahmad Syukri",
-              phone: "0878-9901-2244",
-              urgency: "Waspada / Pasca Bencana",
-              type: "Angin Puting Beliung",
-              affected: "180",
-              location: "Way Kanan, Lampung",
-              address: "Desa Baradatu RT 03",
-              needs: ["Terpal", "Bantuan Atap Rumah", "Sembako"],
-              notes: "Sebanyak 35 atap rumah warga rusak diterpa angin kencang.",
-              date: "Kemarin",
-              status: "Penyaluran Sembako",
-            },
-          ];
-          localStorage.setItem("jp_reports", JSON.stringify(defaultReports));
+        if (gpsStatus) {
+          gpsStatus.innerHTML = `<span class="text-warning"><i class="fas fa-circle-exclamation me-1"></i> ${msg}</span>`;
         }
       }
 
-      function renderRecentReports() {
-        const listEl = document.getElementById("recentReportsList");
-        const badgeEl = document.getElementById("reportCountBadge");
-        if (!listEl) return;
+      function fetchReverseGeocode(lat, lng) {
+        const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=14`;
+        fetch(url, { headers: { "Accept-Language": "id" } })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data && data.address) {
+              const cityInput = document.getElementById("disasterCity");
+              const provInput = document.getElementById("disasterProvince");
+              const cityName = data.address.city || data.address.town || data.address.county || data.address.state_district || data.address.regency || "";
+              const provName = data.address.state || "";
 
-        const reports = JSON.parse(localStorage.getItem("jp_reports")) || [];
-        if (badgeEl) badgeEl.innerText = `${reports.length} Laporan`;
+              if (cityInput && !cityInput.value && cityName) {
+                cityInput.value = cityName;
+              }
+              if (provInput && !provInput.value && provName) {
+                provInput.value = provName;
+              }
 
-        listEl.innerHTML = "";
-        reports.slice(0, 4).forEach((rep) => {
-          let badgeColor = "bg-danger";
-          if (rep.urgency.includes("Siaga")) badgeColor = "bg-warning text-dark";
-          if (rep.urgency.includes("Waspada") || rep.urgency.includes("Pasca")) badgeColor = "bg-success";
+              if (gpsBannerDesc && (cityName || provName)) {
+                gpsBannerDesc.innerHTML += ` <br><strong class="text-success"><i class="fas fa-location-dot me-1"></i> Wilayah Terdeteksi: ${cityName ? cityName + ", " : ""}${provName}</strong>`;
+              }
+            }
+          })
+          .catch(() => { });
+      }
 
-          const card = document.createElement("div");
-          card.className = "p-3 rounded-3 border bg-light";
-          card.innerHTML = `
+      // Event Listeners GPS
+      if (btnGetLocation) {
+        btnGetLocation.addEventListener("click", function () {
+          executeGPS(false);
+        });
+      }
+      if (btnRetryGPS) {
+        btnRetryGPS.addEventListener("click", function () {
+          executeGPS(false);
+        });
+      }
+
+      // Auto Trigger Geolocation Saat Halaman Dibuka di HP / Desktop
+      setTimeout(() => {
+        executeGPS(true);
+      }, 800);
+
+      // 3. Form Submit
+      const form = document.getElementById("disasterReportForm");
+      if (form) {
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const reporterName = document.getElementById("reporterName").value;
+          const reporterPhone = document.getElementById("reporterPhone").value;
+          const urgency = document.querySelector('input[name="urgencyLevel"]:checked')?.value || "Darurat Kritis";
+          const disasterType = document.getElementById("disasterType").value;
+          const affectedCount = document.getElementById("affectedCount").value;
+          const province = document.getElementById("disasterProvince").value;
+          const city = document.getElementById("disasterCity").value;
+          const address = document.getElementById("disasterAddress").value;
+          const notes = document.getElementById("disasterNotes").value;
+
+          // Kebutuhan
+          const selectedNeeds = [];
+          document.querySelectorAll(".need-checkbox:checked").forEach((cb) => selectedNeeds.push(cb.value));
+
+          const reportId = "LAP-" + new Date().getFullYear() + "-" + Math.floor(1000 + Math.random() * 9000);
+
+          const newReport = {
+            id: reportId,
+            reporter: reporterName,
+            phone: reporterPhone,
+            urgency: urgency,
+            type: disasterType,
+            affected: affectedCount,
+            location: `${city}, ${province}`,
+            address: address,
+            needs: selectedNeeds,
+            notes: notes,
+            coordinates: currentCoordinates || "Manual",
+            date: "Baru saja",
+            status: "Verifikasi Tim",
+          };
+
+          // Simpan ke localStorage
+          const reports = JSON.parse(localStorage.getItem("jp_reports")) || [];
+          reports.unshift(newReport);
+          localStorage.setItem("jp_reports", JSON.stringify(reports));
+
+          // Setup Modal Konfirmasi
+          document.getElementById("modalReportId").innerText = reportId;
+          const waText = encodeURIComponent(
+            `Halo Tim Reaksi Cepat JiwaPeduli, saya telah mengirim laporan bencana darurat:\n\n*ID Laporan:* ${reportId}\n*Jenis:* ${disasterType} (${urgency})\n*Lokasi:* ${city}, ${province}\n*Pelapor:* ${reporterName} (${reporterPhone})\n\nMohon segera ditindaklanjuti. Terima kasih.`,
+          );
+          document.getElementById("modalWaShareBtn").href = `https://wa.me/6282382262838?text=${waText}`;
+
+          const modal = new bootstrap.Modal(document.getElementById("successReportModal"));
+          modal.show();
+
+          // Reset form
+          form.reset();
+          if (imagePreview) imagePreview.style.display = "none";
+          if (gpsStatus) gpsStatus.innerHTML = "";
+          currentCoordinates = null;
+
+          // Update UI list
+          renderRecentReports();
+        });
+      }
+    });
+
+    function initReportsData() {
+      if (!localStorage.getItem("jp_reports")) {
+        const defaultReports = [
+          {
+            id: "LAP-2026-4412",
+            reporter: "Bambang Supriyanto",
+            phone: "0813-7762-9901",
+            urgency: "Darurat Kritis",
+            type: "Banjir Bandang",
+            affected: "3.200",
+            location: "Bandar Lampung, Lampung",
+            address: "Kecamatan Teluk Betung Selatan & Garuntang",
+            needs: ["Dapur Umum", "Perahu Karet", "Air Bersih"],
+            notes: "Air setinggi 1,5 meter menggenangi pemukiman warga sejak sore.",
+            date: "10 menit lalu",
+            status: "Posko Dibuka",
+          },
+          {
+            id: "LAP-2026-4398",
+            reporter: "Ibu Ratna",
+            phone: "0852-8812-3344",
+            urgency: "Siaga Logistik",
+            type: "Tanah Longsor",
+            affected: "450",
+            location: "Pasaman, Sumatera Barat",
+            address: "Jalan Lintas Nagari Simpang Tonang",
+            needs: ["Alat Berat", "Tenda", "Sembako"],
+            notes: "Akses jalan utama tertutup material tanah dan pohon tumbang.",
+            date: "2 jam lalu",
+            status: "Tim Menuju Lokasi",
+          },
+          {
+            id: "LAP-2026-4350",
+            reporter: "Ahmad Syukri",
+            phone: "0878-9901-2244",
+            urgency: "Waspada / Pasca Bencana",
+            type: "Angin Puting Beliung",
+            affected: "180",
+            location: "Way Kanan, Lampung",
+            address: "Desa Baradatu RT 03",
+            needs: ["Terpal", "Bantuan Atap Rumah", "Sembako"],
+            notes: "Sebanyak 35 atap rumah warga rusak diterpa angin kencang.",
+            date: "Kemarin",
+            status: "Penyaluran Sembako",
+          },
+        ];
+        localStorage.setItem("jp_reports", JSON.stringify(defaultReports));
+      }
+    }
+
+    function renderRecentReports() {
+      const listEl = document.getElementById("recentReportsList");
+      const badgeEl = document.getElementById("reportCountBadge");
+      if (!listEl) return;
+
+      const reports = JSON.parse(localStorage.getItem("jp_reports")) || [];
+      if (badgeEl) badgeEl.innerText = `${reports.length} Laporan`;
+
+      listEl.innerHTML = "";
+      reports.slice(0, 4).forEach((rep) => {
+        let badgeColor = "bg-danger";
+        if (rep.urgency.includes("Siaga")) badgeColor = "bg-warning text-dark";
+        if (rep.urgency.includes("Waspada") || rep.urgency.includes("Pasca")) badgeColor = "bg-success";
+
+        const card = document.createElement("div");
+        card.className = "p-3 rounded-3 border bg-light";
+        card.innerHTML = `
             <div class="d-flex justify-content-between align-items-center mb-1">
               <span class="status-pill ${badgeColor}">${rep.urgency}</span>
               <small class="text-muted" style="font-size:0.75rem;"><i class="fas fa-clock me-1"></i>${rep.date}</small>
@@ -907,9 +1034,13 @@
               <span class="badge bg-secondary-subtle text-secondary" style="font-size:0.7rem;">Status: ${rep.status}</span>
             </div>
           `;
-          listEl.appendChild(card);
-        });
-      }
-    </script>
-  </body>
+        listEl.appendChild(card);
+      });
+    }
+  </script>
+  <!-- AOS Animation Framework JS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>AOS.init({ duration: 750, once: true, offset: 60 });</script>
+</body>
+
 </html>

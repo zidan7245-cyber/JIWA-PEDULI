@@ -1,457 +1,609 @@
 <!DOCTYPE html>
 <html lang="id">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Transparansi & Riwayat Donasi - JiwaPeduli</title>
-    <!-- Bootstrap 5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <!-- Font Awesome 6 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
-    <script>
-      (function () {
-        var theme = localStorage.getItem("jp_theme");
-        if (theme === "dark") document.documentElement.setAttribute("data-theme", "dark");
-      })();
-    </script>
-    <link rel="stylesheet" href="style.css" />
-    <style>
-      .transparency-hero {
-        background:
-          linear-gradient(135deg, rgba(11, 21, 40, 0.94) 0%, rgba(22, 36, 61, 0.9) 50%, rgba(220, 38, 38, 0.85) 100%),
-          url("https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80") center/cover;
-        padding: 130px 0 65px;
-        color: white;
-        text-align: center;
-      }
-      .summary-card {
-        background: #ffffff;
-        border-radius: 16px;
-        padding: 24px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-        border: 1px solid #edf2f7;
-        transition: all 0.3s ease;
-      }
-      .summary-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-      }
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Transparansi & Riwayat Donasi - JiwaPeduli</title>
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <!-- Google Fonts -->
+    <!-- Google Fonts: Editorial Serif (Playfair Display) & Clean Sans (Plus Jakarta Sans) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,500;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <script>
+    (function () {
+      var theme = localStorage.getItem("jp_theme");
+      if (theme === "dark") document.documentElement.setAttribute("data-theme", "dark");
+    })();
+  </script>
+  <link rel="stylesheet" href="style.css?v=3.0" />
+  <style>
+    .transparency-hero {
+      background:
+        linear-gradient(135deg, rgba(11, 21, 40, 0.94) 0%, rgba(22, 36, 61, 0.9) 50%, rgba(220, 38, 38, 0.85) 100%),
+        url("https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80") center/cover;
+      padding: 130px 0 65px;
+      color: white;
+      text-align: center;
+    }
+
+    .summary-card {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+      border: 1.5px solid #cbd5e1;
+      transition: all 0.3s ease;
+    }
+
+    .summary-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      border-color: #ff4742;
+    }
+
+    /* Card Riwayat di Tampilan Putih - Kontras Tinggi & Tegas */
+    .donation-row-card {
+      background: #ffffff !important;
+      border-radius: 16px !important;
+      border: 1.5px solid #cbd5e1 !important;
+      padding: 18px 22px !important;
+      margin-bottom: 14px !important;
+      box-shadow: 0 4px 18px rgba(15, 23, 42, 0.06) !important;
+      transition: all 0.25s ease;
+    }
+
+    .donation-row-card:hover {
+      border-color: #ff4742 !important;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(255, 71, 66, 0.15) !important;
+    }
+
+    /* Nama Donatur Jelas, Hitam Pekat, dan Sangat Menonjol di Background Putih */
+    .don-name {
+      color: #0b1528 !important;
+      font-size: 1.15rem !important;
+      font-weight: 800 !important;
+      letter-spacing: -0.2px;
+      margin-bottom: 2px !important;
+    }
+
+    .don-amount {
+      color: #0b1528 !important;
+      font-weight: 800 !important;
+      font-size: 1.25rem !important;
+    }
+
+    .don-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ff4742 0%, #ff6b3d 100%) !important;
+      color: #ffffff !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(255, 71, 66, 0.25);
+    }
+
+    .status-badge {
+      background: #ecfdf5 !important;
+      color: #059669 !important;
+      border: 1px solid #86efac !important;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.78rem;
+    }
+
+    .receipt-modal-box {
+      background: #fff;
+      border: 2px dashed #cbd5e1;
+      border-radius: 16px;
+      padding: 28px;
+    }
+
+    /* Responsif Khusus HP agar Rapi & Tidak Terpotong di Layar Kecil */
+    @media (max-width: 576px) {
       .donation-row-card {
-        background: #ffffff;
-        border-radius: 14px;
-        border: 1px solid #e2e8f0;
-        padding: 20px;
-        margin-bottom: 16px;
-        transition: all 0.25s ease;
-      }
-      .donation-row-card:hover {
-        border-color: #e8491c;
-        transform: translateX(4px);
-        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
-      }
-      .receipt-modal-box {
-        background: #fff;
-        border: 2px dashed #cbd5e1;
-        border-radius: 16px;
-        padding: 28px;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        padding: 14px 16px !important;
+        gap: 12px !important;
       }
 
-      /* Dark mode overrides for riwayat page */
-      [data-theme="dark"] .summary-card {
-        background: #0e1628 !important;
-        border-color: rgba(255, 255, 255, 0.08) !important;
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.45) !important;
+      .donation-action-block {
+        width: 100% !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        border-top: 1px dashed #cbd5e1;
+        padding-top: 10px !important;
+        margin-top: 4px !important;
       }
-      [data-theme="dark"] .summary-card h3,
-      [data-theme="dark"] .summary-value {
-        color: #ffffff !important;
+
+      .don-name {
+        font-size: 1.05rem !important;
       }
-      [data-theme="dark"] .donation-row-card {
-        background: #0e1628 !important;
-        border-color: rgba(255, 255, 255, 0.08) !important;
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4) !important;
+
+      .don-amount {
+        font-size: 1.15rem !important;
       }
-      [data-theme="dark"] .donation-row-card:hover {
-        border-color: #ff4742 !important;
-        box-shadow: 0 10px 28px rgba(255, 71, 66, 0.25) !important;
-      }
-      [data-theme="dark"] .don-name {
-        color: #ffffff !important;
-      }
-      [data-theme="dark"] .don-amount {
-        color: #ff5252 !important;
-        text-shadow: 0 0 14px rgba(255, 82, 82, 0.35);
-      }
-      [data-theme="dark"] .receipt-modal-box {
-        background: #111c33 !important;
-        border-color: #2b3d64 !important;
-        color: #f8fafc !important;
-      }
-    </style>
-  </head>
-  <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
-      <div class="container">
-        <a class="navbar-brand d-flex align-items-center gap-2" href="index.HTML">
-          <i class="fas fa-hand-holding-heart fa-lg text-danger"></i>
-          <div>
-            <span class="fw-bold fs-4">JIWA</span><span class="brand-highlight fs-4">PEDULI</span>
-            <small class="d-block text-white-50" style="font-size: 0.65rem; letter-spacing: 1px; margin-top: -4px">SATU JIWA SEJUTA HARAPAN</small>
-          </div>
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-target="#navbarNav" data-bs-toggle="collapse">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto align-items-lg-center">
-            <li class="nav-item">
-              <a class="nav-link" href="index.HTML">Beranda</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="bencana.HTML">Tanggap Bencana</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="donasi.HTML">Salurkan Donasi</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="relawan.HTML">Gabung Relawan</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" href="riwayat.HTML">Transparansi Dana</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-warning fw-semibold" href="lapor-bencana.HTML"><i class="fas fa-bullhorn me-1"></i> Lapor Bencana</a>
-            </li>
-            <li class="nav-item ms-lg-2">
-              <button class="btn btn-sm theme-toggle-btn rounded-pill px-3 py-1" type="button" title="Ganti Mode Gelap / Terang"><i class="fas fa-moon me-1 theme-icon"></i> <span class="theme-text">Gelap</span></button>
-            </li>
-            <li class="nav-item ms-lg-2">
-              <a class="btn btn-sm btn-outline-light px-3 py-1 rounded-pill" href="loginadmin.HTML"><i class="fas fa-shield-halved me-1"></i> Admin</a>
-            </li>
-          </ul>
+    }
+
+    /* Dark mode overrides for riwayat page */
+    [data-theme="dark"] .summary-card {
+      background: #0e1628 !important;
+      border-color: rgba(255, 255, 255, 0.08) !important;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.45) !important;
+    }
+
+    [data-theme="dark"] .summary-card h3,
+    [data-theme="dark"] .summary-value {
+      color: #ffffff !important;
+    }
+
+    [data-theme="dark"] .donation-row-card {
+      background: #0e1628 !important;
+      border-color: rgba(255, 255, 255, 0.12) !important;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4) !important;
+    }
+
+    [data-theme="dark"] .donation-row-card:hover {
+      border-color: #ff4742 !important;
+      box-shadow: 0 10px 28px rgba(255, 71, 66, 0.25) !important;
+    }
+
+    [data-theme="dark"] .don-name {
+      color: #ffffff !important;
+    }
+
+    [data-theme="dark"] .don-amount {
+      color: #ff5252 !important;
+      text-shadow: 0 0 14px rgba(255, 82, 82, 0.35);
+    }
+
+    [data-theme="dark"] .donation-action-block {
+      border-top-color: rgba(255, 255, 255, 0.1) !important;
+    }
+
+    [data-theme="dark"] .receipt-modal-box {
+      background: #111c33 !important;
+      border-color: #2b3d64 !important;
+      color: #f8fafc !important;
+    }
+  </style>
+  <!-- AOS Animation Framework -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+</head>
+
+<body>
+  <!-- Navbar -->
+    <!-- Editorial Navbar -->
+    <!-- Editorial Navbar (Clean & Spacious - No Cramped Phone Number) -->
+  <nav class="navbar navbar-expand-lg editorial-navbar fixed-top">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+        <div class="d-flex align-items-center justify-content-center" style="width: 38px; height: 38px; background: #fffbeb; border: 1px solid #fef3c7; border-radius: 10px;">
+          <i class="fas fa-hand-holding-heart text-danger fs-5"></i>
+        </div>
+        <div>
+          <span class="brand-text">JIWAPEDULI</span>
+          <small class="d-block brand-tagline">Satu Jiwa Sejuta Harapan</small>
+        </div>
+      </a>
+
+      <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mx-auto align-items-lg-center">
+          <li class="nav-item">
+            <a class="nav-link " href="index.html">Beranda</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="bencana.html">Tanggap Bencana</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="donasi.html">Salurkan Donasi</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="relawan.html">Gabung Relawan</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="riwayat.html">Transparansi Dana</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="jadwal.html">Agenda Aksi</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="lapor-bencana.html"><i class="fas fa-bullhorn me-1 text-danger"></i> Lapor Bencana</a>
+          </li>
+        </ul>
+
+        <div class="d-flex align-items-center gap-3 mt-3 mt-lg-0">
+          <!-- Dark / Light Mode Toggle Button -->
+          <button class="btn btn-sm theme-toggle-btn rounded-pill px-3 py-1 border" type="button" title="Ganti Mode Gelap / Terang">
+            <i class="fas fa-moon me-1 theme-icon"></i>
+            <span class="theme-text">Mode Gelap</span>
+          </button>
+
+          <a href="donasi.html" class="btn btn-editorial-dark py-2 px-4 fs-6 rounded-pill">
+            <i class="fas fa-heart text-danger me-1"></i> Donasi Sekarang
+          </a>
         </div>
       </div>
-    </nav>
+    </div>
+  </nav>
 
-    <!-- Header Section -->
-    <section class="transparency-hero">
-      <div class="container">
-        <span class="badge bg-warning text-dark px-3 py-2 rounded-pill mb-3 fw-bold"> <i class="fas fa-certificate me-1"></i> Akuntabilitas & Transparansi 100% </span>
-        <h1 class="display-5 fw-bold mb-3">Laporan Transparansi Donasi Publik</h1>
-        <p class="lead max-w-700 mx-auto opacity-90 text-light">Setiap rupiah yang Anda percayakan dicatat secara terbuka dan disalurkan langsung untuk penanganan bencana kemanusiaan di seluruh Indonesia.</p>
-      </div>
-    </section>
+  <!-- Header Section -->
+  <section class="transparency-hero">
+    <div class="container">
+      <span class="badge bg-warning text-dark px-3 py-2 rounded-pill mb-3 fw-bold"> <i
+          class="fas fa-certificate me-1"></i> Akuntabilitas & Transparansi 100% </span>
+      <h1 class="display-5 fw-bold mb-3">Laporan Transparansi Donasi Publik</h1>
+      <p class="lead max-w-700 mx-auto opacity-90 text-light">Setiap rupiah yang Anda percayakan dicatat secara terbuka
+        dan disalurkan langsung untuk penanganan bencana kemanusiaan di seluruh Indonesia.</p>
+    </div>
+  </section>
 
-    <!-- Content Section -->
-    <section class="py-5 bg-light">
-      <div class="container">
-        <!-- Summary Cards -->
-        <div class="row g-3 mb-5">
-          <div class="col-md-3 col-6">
-            <div class="summary-card text-center">
-              <div class="text-muted small mb-1"><i class="fas fa-vault text-danger me-1"></i> Total Dana Terhimpun</div>
-              <h3 class="fw-bold summary-value mb-0" id="totalDonationSum">Rp 0</h3>
-              <small class="text-success fw-semibold"><i class="fas fa-arrow-up"></i> Real-time Database</small>
-            </div>
-          </div>
-          <div class="col-md-3 col-6">
-            <div class="summary-card text-center">
-              <div class="text-muted small mb-1"><i class="fas fa-users text-primary me-1"></i> Total Transaksi Donatur</div>
-              <h3 class="fw-bold summary-value mb-0" id="totalDonationCount">0</h3>
-              <small class="text-muted">Orang Baik Peduli</small>
-            </div>
-          </div>
-          <div class="col-md-3 col-6">
-            <div class="summary-card text-center">
-              <div class="text-muted small mb-1"><i class="fas fa-trophy text-warning me-1"></i> Donasi Terbesar</div>
-              <h3 class="fw-bold summary-value mb-0" id="maxDonation">Rp 0</h3>
-              <small class="text-muted">Apresiasi Donatur</small>
-            </div>
-          </div>
-          <div class="col-md-3 col-6">
-            <div class="summary-card text-center">
-              <div class="text-muted small mb-1"><i class="fas fa-shield-check text-success me-1"></i> Status Penyaluran</div>
-              <h3 class="fw-bold text-success mb-0">100% Tervalidasi</h3>
-              <small class="text-muted">Diaudit Terbuka</small>
-            </div>
+  <!-- Content Section -->
+  <section class="py-5 bg-light">
+    <div class="container">
+      <!-- Summary Cards -->
+      <div class="row g-3 mb-5">
+        <div class="col-md-3 col-6">
+          <div class="summary-card text-center">
+            <div class="text-muted small mb-1"><i class="fas fa-vault text-danger me-1"></i> Total Dana Terhimpun</div>
+            <h3 class="fw-bold summary-value mb-0" id="totalDonationSum">Rp 0</h3>
+            <small class="text-success fw-semibold"><i class="fas fa-arrow-up"></i> Real-time Database</small>
           </div>
         </div>
-
-        <!-- Filter & Search Bar -->
-        <div class="bg-white p-4 rounded-4 shadow-sm border mb-4">
-          <div class="row g-3 align-items-center">
-            <div class="col-lg-6">
-              <div class="input-group">
-                <span class="input-group-text bg-light border-end-0"><i class="fas fa-search text-muted"></i></span>
-                <input type="text" class="form-control bg-light border-start-0" id="searchDonationInput" placeholder="Cari nama donatur atau program..." />
-              </div>
+        <div class="col-md-3 col-6">
+          <div class="summary-card text-center">
+            <div class="text-muted small mb-1"><i class="fas fa-users text-primary me-1"></i> Total Transaksi Donatur
             </div>
-            <div class="col-lg-6 text-lg-end">
-              <button class="btn btn-outline-secondary rounded-pill btn-sm px-3 filter-hist-btn active" data-filter="all">Semua</button>
-              <button class="btn btn-outline-secondary rounded-pill btn-sm px-3 filter-hist-btn" data-filter="Lampung">Banjir Lampung</button>
-              <button class="btn btn-outline-secondary rounded-pill btn-sm px-3 filter-hist-btn" data-filter="Sumbar">Gempa Sumbar</button>
-              <button class="btn btn-outline-success rounded-pill btn-sm px-3 ms-2" id="btnExportCSV"><i class="fas fa-file-csv me-1"></i> Export Data CSV</button>
-            </div>
+            <h3 class="fw-bold summary-value mb-0" id="totalDonationCount">0</h3>
+            <small class="text-muted">Orang Baik Peduli</small>
           </div>
         </div>
-
-        <!-- List Donasi -->
-        <div class="d-flex justify-content-between align-items-center mb-3">
-          <h5 class="fw-bold mb-0"><i class="fas fa-clock-rotate-left text-danger me-2"></i>Daftar Riwayat Penyaluran Terakhir</h5>
-          <a href="donasi.HTML" class="btn btn-danger btn-sm rounded-pill px-3 fw-bold"> <i class="fas fa-plus me-1"></i> Salurkan Donasi Baru </a>
+        <div class="col-md-3 col-6">
+          <div class="summary-card text-center">
+            <div class="text-muted small mb-1"><i class="fas fa-trophy text-warning me-1"></i> Donasi Terbesar</div>
+            <h3 class="fw-bold summary-value mb-0" id="maxDonation">Rp 0</h3>
+            <small class="text-muted">Apresiasi Donatur</small>
+          </div>
         </div>
-
-        <div id="donationsListContainer">
-          <!-- Rendered dynamically -->
-        </div>
-
-        <!-- Empty State (hidden by default) -->
-        <div id="emptyDonationState" class="text-center py-5 d-none">
-          <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
-          <h5>Tidak ada riwayat donasi yang sesuai</h5>
-          <p class="text-muted small">Coba ubah kata kunci pencarian Anda.</p>
+        <div class="col-md-3 col-6">
+          <div class="summary-card text-center">
+            <div class="text-muted small mb-1"><i class="fas fa-shield-check text-success me-1"></i> Status Penyaluran
+            </div>
+            <h3 class="fw-bold text-success mb-0">100% Tervalidasi</h3>
+            <small class="text-muted">Diaudit Terbuka</small>
+          </div>
         </div>
       </div>
-    </section>
 
-    <!-- Modal E-Kwitansi / Tanda Terima -->
-    <div class="modal fade" id="receiptModal" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content rounded-4 border-0 shadow">
-          <div class="modal-body p-4">
-            <div class="receipt-modal-box text-center">
-              <div class="d-flex align-items-center justify-content-center gap-2 mb-2">
-                <i class="fas fa-hand-holding-heart fa-2x text-danger"></i>
-                <div class="text-start"><span class="fw-bold fs-5 text-dark">JIWA</span><span class="brand-highlight fs-5">PEDULI</span></div>
+      <!-- Filter & Search Bar -->
+      <div class="bg-white p-4 rounded-4 shadow-sm border mb-4">
+        <div class="row g-3 align-items-center">
+          <div class="col-lg-6">
+            <div class="input-group">
+              <span class="input-group-text bg-light border-end-0"><i class="fas fa-search text-muted"></i></span>
+              <input type="text" class="form-control bg-light border-start-0" id="searchDonationInput"
+                placeholder="Cari nama donatur atau program..." />
+            </div>
+          </div>
+          <div class="col-lg-6 text-lg-end">
+            <button class="btn btn-outline-secondary rounded-pill btn-sm px-3 filter-hist-btn active"
+              data-filter="all">Semua</button>
+            <button class="btn btn-outline-secondary rounded-pill btn-sm px-3 filter-hist-btn"
+              data-filter="Lampung">Banjir Lampung</button>
+            <button class="btn btn-outline-secondary rounded-pill btn-sm px-3 filter-hist-btn"
+              data-filter="Sumbar">Gempa Sumbar</button>
+            <button class="btn btn-outline-success rounded-pill btn-sm px-3 ms-2" id="btnExportCSV"><i
+                class="fas fa-file-csv me-1"></i> Export Data CSV</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- List Donasi -->
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5 class="fw-bold mb-0"><i class="fas fa-clock-rotate-left text-danger me-2"></i>Daftar Riwayat Penyaluran
+          Terakhir</h5>
+        <a href="donasi.html" class="btn btn-danger btn-sm rounded-pill px-3 fw-bold"> <i class="fas fa-plus me-1"></i>
+          Salurkan Donasi Baru </a>
+      </div>
+
+      <div id="donationsListContainer">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <!-- Empty State (hidden by default) -->
+      <div id="emptyDonationState" class="text-center py-5 d-none">
+        <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
+        <h5>Tidak ada riwayat donasi yang sesuai</h5>
+        <p class="text-muted small">Coba ubah kata kunci pencarian Anda.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal E-Kwitansi / Tanda Terima -->
+  <div class="modal fade" id="receiptModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content rounded-4 border-0 shadow">
+        <div class="modal-body p-4">
+          <div class="receipt-modal-box text-center">
+            <div class="d-flex align-items-center justify-content-center gap-2 mb-2">
+              <i class="fas fa-hand-holding-heart fa-2x text-danger"></i>
+              <div class="text-start"><span class="fw-bold fs-5 text-dark">JIWA</span><span
+                  class="brand-highlight fs-5">PEDULI</span></div>
+            </div>
+            <p class="small text-muted mb-3">Tanda Terima & Apresiasi Donasi Resmi</p>
+            <div class="badge bg-success-subtle text-success px-3 py-1 rounded-pill fw-bold mb-3">Status: Terverifikasi
+              Sah</div>
+
+            <div class="p-3 bg-light rounded-3 text-start small mb-3">
+              <div class="d-flex justify-content-between mb-1">
+                <span class="text-muted">No. Referensi:</span>
+                <strong id="receiptId">#JP-001</strong>
               </div>
-              <p class="small text-muted mb-3">Tanda Terima & Apresiasi Donasi Resmi</p>
-              <div class="badge bg-success-subtle text-success px-3 py-1 rounded-pill fw-bold mb-3">Status: Terverifikasi Sah</div>
-
-              <div class="p-3 bg-light rounded-3 text-start small mb-3">
-                <div class="d-flex justify-content-between mb-1">
-                  <span class="text-muted">No. Referensi:</span>
-                  <strong id="receiptId">#JP-001</strong>
-                </div>
-                <div class="d-flex justify-content-between mb-1">
-                  <span class="text-muted">Nama Donatur:</span>
-                  <strong id="receiptName">Rizky</strong>
-                </div>
-                <div class="d-flex justify-content-between mb-1">
-                  <span class="text-muted">Program Penyaluran:</span>
-                  <strong id="receiptProgram" class="text-end">Banjir Lampung</strong>
-                </div>
-                <div class="d-flex justify-content-between mb-1">
-                  <span class="text-muted">Tanggal:</span>
-                  <strong id="receiptDate">2026-10-28</strong>
-                </div>
-                <hr class="my-2" />
-                <div class="d-flex justify-content-between fs-6">
-                  <span class="fw-bold">Jumlah Donasi:</span>
-                  <strong class="text-danger fw-bold fs-5" id="receiptAmount">Rp 250.000</strong>
-                </div>
+              <div class="d-flex justify-content-between mb-1">
+                <span class="text-muted">Nama Donatur:</span>
+                <strong id="receiptName">Rizky</strong>
               </div>
-
-              <p class="small text-muted mb-3" style="font-size: 0.75rem">Terima kasih atas kepedulian Anda. Donasi ini langsung dibelanjakan untuk bahan logistik & medis bagi korban bencana.</p>
-
-              <div class="d-flex gap-2">
-                <button type="button" class="btn btn-outline-secondary w-50 rounded-pill" data-bs-dismiss="modal">Tutup</button>
-                <button type="button" class="btn btn-danger w-50 rounded-pill fw-bold" onclick="window.print()"><i class="fas fa-print me-1"></i> Cetak Bukti</button>
+              <div class="d-flex justify-content-between mb-1">
+                <span class="text-muted">Program Penyaluran:</span>
+                <strong id="receiptProgram" class="text-end">Banjir Lampung</strong>
               </div>
+              <div class="d-flex justify-content-between mb-1">
+                <span class="text-muted">Tanggal:</span>
+                <strong id="receiptDate">2026-10-28</strong>
+              </div>
+              <hr class="my-2" />
+              <div class="d-flex justify-content-between fs-6">
+                <span class="fw-bold">Jumlah Donasi:</span>
+                <strong class="text-danger fw-bold fs-5" id="receiptAmount">Rp 250.000</strong>
+              </div>
+            </div>
+
+            <p class="small text-muted mb-3" style="font-size: 0.75rem">Terima kasih atas kepedulian Anda. Donasi ini
+              langsung dibelanjakan untuk bahan logistik & medis bagi korban bencana.</p>
+
+            <div class="d-flex gap-2">
+              <button type="button" class="btn btn-outline-secondary w-50 rounded-pill"
+                data-bs-dismiss="modal">Tutup</button>
+              <button type="button" class="btn btn-danger w-50 rounded-pill fw-bold" onclick="window.print()"><i
+                  class="fas fa-print me-1"></i> Cetak Bukti</button>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- Footer -->
-    <footer class="footer bg-dark text-white pt-5 pb-3">
-      <div class="container">
-        <div class="row g-4">
-          <div class="col-lg-4 col-md-6 mb-4">
-            <div class="footer-logo mb-3 d-flex align-items-center gap-2">
-              <i class="fas fa-hand-holding-heart fa-2x text-danger"></i>
-              <div>
-                <span class="fw-bold fs-4 text-white">JIWA</span><span class="brand-highlight fs-4">PEDULI</span>
-                <small class="d-block text-white-50" style="font-size: 0.65rem; letter-spacing: 1px; margin-top: -4px">SATU JIWA SEJUTA HARAPAN</small>
-              </div>
+  <!-- Footer -->
+  <footer class="footer bg-dark text-white pt-5 pb-3">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="footer-logo mb-3 d-flex align-items-center gap-2">
+            <i class="fas fa-hand-holding-heart fa-2x text-danger"></i>
+            <div>
+              <span class="fw-bold fs-4 text-white">JIWA</span><span class="brand-highlight fs-4">PEDULI</span>
+              <small class="d-block text-white-50"
+                style="font-size: 0.65rem; letter-spacing: 1px; margin-top: -4px">SATU JIWA SEJUTA HARAPAN</small>
             </div>
-            <p class="text-light opacity-75">Platform respons cepat bencana, penghubung relawan, dan penyalur donasi kemanusiaan terbuka dan terpercaya di Indonesia.</p>
           </div>
-
-          <div class="col-lg-2 col-md-6 mb-4">
-            <h5 class="fw-bold mb-3">Tautan Cepat</h5>
-            <ul class="list-unstyled">
-              <li class="mb-2"><a href="index.HTML" class="text-white-50 text-decoration-none">Beranda</a></li>
-              <li class="mb-2"><a href="bencana.HTML" class="text-white-50 text-decoration-none">Tanggap Bencana</a></li>
-              <li class="mb-2"><a href="donasi.HTML" class="text-white-50 text-decoration-none">Salurkan Donasi</a></li>
-              <li class="mb-2"><a href="relawan.HTML" class="text-white-50 text-decoration-none">Gabung Relawan</a></li>
-            </ul>
-          </div>
-
-          <div class="col-lg-3 col-md-6 mb-4">
-            <h5 class="fw-bold mb-3">Program Prioritas</h5>
-            <ul class="list-unstyled">
-              <li class="mb-2"><a href="bencana.HTML" class="text-white-50 text-decoration-none">Siaga Banjir Bandar Lampung</a></li>
-              <li class="mb-2"><a href="bencana.HTML" class="text-white-50 text-decoration-none">Tanggap Darurat Gempa Sumbar</a></li>
-              <li class="mb-2"><a href="donasi.HTML" class="text-white-50 text-decoration-none">Dapur Umum & Sembako</a></li>
-            </ul>
-          </div>
-
-          <div class="col-lg-3 col-md-6 mb-4">
-            <h5 class="fw-bold mb-3">Posko Siaga</h5>
-            <ul class="list-unstyled text-white-50 small">
-              <li class="mb-2"><i class="fas fa-location-dot me-2 text-danger"></i> Bandar Lampung, Lampung, Indonesia</li>
-              <li class="mb-2"><i class="fas fa-phone me-2 text-danger"></i> (0721) 7890-123 / 0823-8226-2838</li>
-            </ul>
-          </div>
+          <p class="text-light opacity-75">Platform respons cepat bencana, penghubung relawan, dan penyalur donasi
+            kemanusiaan terbuka dan terpercaya di Indonesia.</p>
         </div>
 
-        <div class="footer-bottom pt-4 mt-4 border-top border-secondary text-center text-white-50 small">&copy; 2026 JiwaPeduli Indonesia. Mengabdi Untuk Kemanusiaan.</div>
+        <div class="col-lg-2 col-md-6 mb-4">
+          <h5 class="fw-bold mb-3">Tautan Cepat</h5>
+          <ul class="list-unstyled">
+            <li class="mb-2"><a href="index.html" class="text-white-50 text-decoration-none">Beranda</a></li>
+            <li class="mb-2"><a href="bencana.html" class="text-white-50 text-decoration-none">Tanggap Bencana</a></li>
+            <li class="mb-2"><a href="donasi.html" class="text-white-50 text-decoration-none">Salurkan Donasi</a></li>
+            <li class="mb-2"><a href="relawan.html" class="text-white-50 text-decoration-none">Gabung Relawan</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3 col-md-6 mb-4">
+          <h5 class="fw-bold mb-3">Program Prioritas</h5>
+          <ul class="list-unstyled">
+            <li class="mb-2"><a href="bencana.html" class="text-white-50 text-decoration-none">Siaga Banjir Bandar
+                Lampung</a></li>
+            <li class="mb-2"><a href="bencana.html" class="text-white-50 text-decoration-none">Tanggap Darurat Gempa
+                Sumbar</a></li>
+            <li class="mb-2"><a href="donasi.html" class="text-white-50 text-decoration-none">Dapur Umum & Sembako</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3 col-md-6 mb-4">
+          <h5 class="fw-bold mb-3">Posko Siaga</h5>
+          <ul class="list-unstyled text-white-50 small">
+            <li class="mb-2"><i class="fas fa-location-dot me-2 text-danger"></i> Bandar Lampung, Lampung, Indonesia
+            </li>
+            <li class="mb-2"><i class="fas fa-phone me-2 text-danger"></i> <a href="tel:07217890123" class="text-white-50 text-decoration-none">(0721) 7890-123</a> / <a href="tel:082382262838" class="text-white-50 text-decoration-none">0823-8226-2838</a></li>
+          </ul>
+        </div>
       </div>
-    </footer>
 
-    <!-- Back to Top -->
-    <a href="#" class="back-to-top" id="backToTop" title="Kembali ke atas">
-      <i class="fas fa-chevron-up"></i>
-    </a>
+      <div class="footer-bottom pt-4 mt-4 border-top border-secondary text-center text-white-50 small">&copy; 2026
+        JiwaPeduli Indonesia. Mengabdi Untuk Kemanusiaan.</div>
+    </div>
+  </footer>
 
-    <!-- Bootstrap 5 JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="script.js"></script>
+  <!-- Back to Top -->
+  <a href="#" class="back-to-top" id="backToTop" title="Kembali ke atas">
+    <i class="fas fa-chevron-up"></i>
+  </a>
 
-    <!-- Script Riwayat Dinamis -->
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const donations = JSON.parse(localStorage.getItem("jp_donations")) || [];
-        let currentFilter = "all";
-        let currentSearch = "";
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="cities-data.js?v=2.2"></script>
+  <script src="script.js?v=3.0"></script>
 
-        // Hitung Summary
-        function updateSummary() {
-          let totalSum = 0;
-          let maxVal = 0;
+  <!-- Script Riwayat Dinamis -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Ambil data donasi dan pastikan variasi donatur rapi tanpa duplikasi berturut-turut
+      let rawDonations = JSON.parse(localStorage.getItem("jp_donations")) || [];
+      // Jika terdeteksi data lama dengan nama berulang Mega Safitri atau data < 6
+      const hasOldDummy = rawDonations.some(d => d.name && d.name.includes("Mega Safitri"));
+      if (hasOldDummy || rawDonations.length < 6) {
+        if (typeof initLocalStorage === "function") initLocalStorage(true);
+        rawDonations = JSON.parse(localStorage.getItem("jp_donations")) || [];
+      }
 
-          donations.forEach((d) => {
-            const amt = Number(d.amount) || 0;
-            totalSum += amt;
-            if (amt > maxVal) maxVal = amt;
-          });
+      let donations = [];
+      let lastSeen = "";
+      for (let i = 0; i < rawDonations.length; i++) {
+        if (rawDonations[i].name === lastSeen) continue;
+        donations.push(rawDonations[i]);
+        lastSeen = rawDonations[i].name;
+      }
 
-          document.getElementById("totalDonationSum").innerText = "Rp " + totalSum.toLocaleString("id-ID");
-          document.getElementById("totalDonationCount").innerText = donations.length + " Donatur";
-          document.getElementById("maxDonation").innerText = "Rp " + maxVal.toLocaleString("id-ID");
-        }
+      let currentFilter = "all";
+      let currentSearch = "";
 
-        // Render List
-        function renderDonations() {
-          const container = document.getElementById("donationsListContainer");
-          const emptyState = document.getElementById("emptyDonationState");
-          if (!container) return;
+      // Hitung Summary
+      function updateSummary() {
+        let totalSum = 0;
+        let maxVal = 0;
 
-          container.innerHTML = "";
+        donations.forEach((d) => {
+          const amt = Number(d.amount) || 0;
+          totalSum += amt;
+          if (amt > maxVal) maxVal = amt;
+        });
 
-          const filtered = donations.filter((item) => {
-            const matchFilter = currentFilter === "all" || (item.program && item.program.toLowerCase().includes(currentFilter.toLowerCase()));
-            const matchSearch = currentSearch === "" || (item.name && item.name.toLowerCase().includes(currentSearch.toLowerCase())) || (item.program && item.program.toLowerCase().includes(currentSearch.toLowerCase()));
-            return matchFilter && matchSearch;
-          });
+        document.getElementById("totalDonationSum").innerText = "Rp " + totalSum.toLocaleString("id-ID");
+        document.getElementById("totalDonationCount").innerText = donations.length + " Donatur";
+        document.getElementById("maxDonation").innerText = "Rp " + maxVal.toLocaleString("id-ID");
+      }
 
-          if (filtered.length === 0) {
-            emptyState.classList.remove("d-none");
-          } else {
-            emptyState.classList.add("d-none");
-            filtered.forEach((don) => {
-              const card = document.createElement("div");
-              card.className = "donation-row-card d-flex flex-wrap align-items-center justify-content-between gap-3";
-              card.innerHTML = `
+      // Render List
+      function renderDonations() {
+        const container = document.getElementById("donationsListContainer");
+        const emptyState = document.getElementById("emptyDonationState");
+        if (!container) return;
+
+        container.innerHTML = "";
+
+        const filtered = donations.filter((item) => {
+          const matchFilter = currentFilter === "all" || (item.program && item.program.toLowerCase().includes(currentFilter.toLowerCase()));
+          const matchSearch = currentSearch === "" || (item.name && item.name.toLowerCase().includes(currentSearch.toLowerCase())) || (item.program && item.program.toLowerCase().includes(currentSearch.toLowerCase()));
+          return matchFilter && matchSearch;
+        });
+
+        if (filtered.length === 0) {
+          emptyState.classList.remove("d-none");
+        } else {
+          emptyState.classList.add("d-none");
+          filtered.forEach((don) => {
+            const card = document.createElement("div");
+            card.className = "donation-row-card d-flex flex-wrap align-items-center justify-content-between gap-3";
+            card.innerHTML = `
                 <div class="d-flex align-items-center gap-3">
-                  <div class="rounded-circle bg-danger-subtle text-danger d-flex align-items-center justify-content-center fw-bold" style="width: 48px; height: 48px; flex-shrink: 0;">
+                  <div class="don-avatar shadow-sm">
                     <i class="fas fa-hand-holding-heart fa-lg"></i>
                   </div>
                   <div>
-                    <h6 class="fw-bold mb-1 don-name">${don.name}</h6>
-                    <small class="text-muted d-block"><i class="fas fa-layer-group text-danger me-1"></i> ${don.program}</small>
-                    <small class="text-secondary" style="font-size:0.75rem;"><i class="fas fa-calendar me-1"></i> ${don.date || "Baru saja"}</small>
+                    <h5 class="fw-bold mb-1 don-name">${don.name}</h5>
+                    <div class="small fw-semibold text-secondary"><i class="fas fa-layer-group text-danger me-1"></i> ${don.program}</div>
+                    <div class="text-muted small mt-1" style="font-size: 0.8rem;"><i class="far fa-clock me-1"></i> ${don.date || "Hari ini"}</div>
                   </div>
                 </div>
 
-                <div class="d-flex align-items-center gap-3 text-md-end">
-                  <div>
-                    <div class="fw-bold fs-5 don-amount">Rp ${Number(don.amount).toLocaleString("id-ID")}</div>
-                    <span class="badge bg-success-subtle text-success">${don.status || "Berhasil"}</span>
+                <div class="donation-action-block d-flex align-items-center gap-3">
+                  <div class="text-md-end">
+                    <div class="fw-bold don-amount">Rp ${Number(don.amount).toLocaleString("id-ID")}</div>
+                    <span class="badge status-badge"><i class="fas fa-circle-check me-1"></i> ${don.status || "Berhasil"}</span>
                   </div>
-                  <button class="btn btn-outline-dark btn-sm rounded-pill px-3 btn-view-receipt" 
-                          data-id="${don.id || "#JP-001"}" 
+                  <button class="btn btn-outline-danger btn-sm rounded-pill px-3 py-1 fw-bold btn-view-receipt shadow-sm" 
+                          data-id="${don.id || "#JP-2026-001"}" 
                           data-name="${don.name}" 
                           data-program="${don.program}" 
                           data-amount="${Number(don.amount).toLocaleString("id-ID")}" 
-                          data-date="${don.date || "Baru saja"}">
-                    <i class="fas fa-receipt me-1"></i> Kwitansi
+                          data-date="${don.date || "Hari ini"}">
+                    <i class="fas fa-file-invoice me-1"></i> Kwitansi
                   </button>
                 </div>
               `;
-              container.appendChild(card);
-            });
-          }
-
-          // Listener tombol Kwitansi
-          document.querySelectorAll(".btn-view-receipt").forEach((btn) => {
-            btn.addEventListener("click", function () {
-              document.getElementById("receiptId").innerText = this.dataset.id;
-              document.getElementById("receiptName").innerText = this.dataset.name;
-              document.getElementById("receiptProgram").innerText = this.dataset.program;
-              document.getElementById("receiptAmount").innerText = "Rp " + this.dataset.amount;
-              document.getElementById("receiptDate").innerText = this.dataset.date;
-
-              const modal = new bootstrap.Modal(document.getElementById("receiptModal"));
-              modal.show();
-            });
+            container.appendChild(card);
           });
         }
 
-        // Search Listener
-        const searchInput = document.getElementById("searchDonationInput");
-        if (searchInput) {
-          searchInput.addEventListener("input", function () {
-            currentSearch = this.value.trim();
-            renderDonations();
-          });
-        }
-
-        // Filter Buttons
-        document.querySelectorAll(".filter-hist-btn").forEach((btn) => {
+        // Listener tombol Kwitansi
+        document.querySelectorAll(".btn-view-receipt").forEach((btn) => {
           btn.addEventListener("click", function () {
-            document.querySelectorAll(".filter-hist-btn").forEach((b) => b.classList.remove("active", "btn-dark"));
-            this.classList.add("active", "btn-dark");
-            currentFilter = this.dataset.filter;
-            renderDonations();
+            document.getElementById("receiptId").innerText = this.dataset.id;
+            document.getElementById("receiptName").innerText = this.dataset.name;
+            document.getElementById("receiptProgram").innerText = this.dataset.program;
+            document.getElementById("receiptAmount").innerText = "Rp " + this.dataset.amount;
+            document.getElementById("receiptDate").innerText = this.dataset.date;
+
+            const modal = new bootstrap.Modal(document.getElementById("receiptModal"));
+            modal.show();
           });
         });
+      }
 
-        // Export CSV
-        const exportBtn = document.getElementById("btnExportCSV");
-        if (exportBtn) {
-          exportBtn.addEventListener("click", function () {
-            let csvContent = "data:text/csv;charset=utf-8,ID,Nama Donatur,Program Donasi,Nominal,Tanggal,Status\n";
-            donations.forEach((d) => {
-              csvContent += `"${d.id || ""}","${d.name || ""}","${d.program || ""}","${d.amount || 0}","${d.date || ""}","${d.status || ""}"\n`;
-            });
-            const encodedUri = encodeURI(csvContent);
-            const link = document.createElement("a");
-            link.setAttribute("href", encodedUri);
-            link.setAttribute("download", "laporan_donasi_jiwapeduli.csv");
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-          });
-        }
+      // Search Listener
+      const searchInput = document.getElementById("searchDonationInput");
+      if (searchInput) {
+        searchInput.addEventListener("input", function () {
+          currentSearch = this.value.trim();
+          renderDonations();
+        });
+      }
 
-        updateSummary();
-        renderDonations();
+      // Filter Buttons
+      document.querySelectorAll(".filter-hist-btn").forEach((btn) => {
+        btn.addEventListener("click", function () {
+          document.querySelectorAll(".filter-hist-btn").forEach((b) => b.classList.remove("active", "btn-dark"));
+          this.classList.add("active", "btn-dark");
+          currentFilter = this.dataset.filter;
+          renderDonations();
+        });
       });
-    </script>
-  </body>
+
+      // Export CSV
+      const exportBtn = document.getElementById("btnExportCSV");
+      if (exportBtn) {
+        exportBtn.addEventListener("click", function () {
+          let csvContent = "data:text/csv;charset=utf-8,ID,Nama Donatur,Program Donasi,Nominal,Tanggal,Status\n";
+          donations.forEach((d) => {
+            csvContent += `"${d.id || ""}","${d.name || ""}","${d.program || ""}","${d.amount || 0}","${d.date || ""}","${d.status || ""}"\n`;
+          });
+          const encodedUri = encodeURI(csvContent);
+          const link = document.createElement("a");
+          link.setAttribute("href", encodedUri);
+          link.setAttribute("download", "laporan_donasi_jiwapeduli.csv");
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        });
+      }
+
+      updateSummary();
+      renderDonations();
+    });
+  </script>
+  <!-- AOS Animation Framework JS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>AOS.init({ duration: 750, once: true, offset: 60 });</script>
+</body>
+
 </html>
